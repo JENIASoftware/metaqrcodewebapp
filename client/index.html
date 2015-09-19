@@ -13,14 +13,13 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(client) app/vendor.css -->
       <!-- bower:css -->
+      <link rel="stylesheet" href="bower_components/animate.css/animate.css" />
       <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css({.tmp,client}) app/app.css -->
     <link rel="stylesheet" href="app/app.css">
       <!-- injector:css -->
       <link rel="stylesheet" href="components/rating/rating.css">
-      <link rel="stylesheet" href="ext-modules/psFramework/psFramework.css">
-      <link rel="stylesheet" href="ext-modules/psMenu/psMenu.css">
       <!-- endinjector -->
     <!-- endbuild -->
   </head>
@@ -33,7 +32,7 @@
     <div ng-include="'components/navbar/navbar.html'"></div>
     <!-- Navigation End-->
     
-    <div ui-view=""></div>
+    <div class="animated fadeIn" ui-view=""></div>
     
     <!-- Footer -->
     <footer class="footer">
@@ -84,18 +83,11 @@
           <script src="app/core/dataservice/dataservice.service.js"></script>
           <script src="app/main/main.controller.js"></script>
           <script src="app/main/main.js"></script>
+          <script src="app/upload/upload.controller.js"></script>
+          <script src="app/upload/upload.js"></script>
           <script src="components/modal/modal.service.js"></script>
           <script src="components/navbar/navbar.controller.js"></script>
           <script src="components/rating/rating.directive.js"></script>
-          <script src="ext-modules/psMenu/psMenuModule.js"></script>
-          <script src="ext-modules/psMenu/psMenuController.js"></script>
-          <script src="ext-modules/psMenu/psMenuDirective.js"></script>
-          <script src="ext-modules/psMenu/psMenuItemDirective.js"></script>
-          <script src="ext-modules/psMenu/psMenuGroupDirective.js"></script>
-          <script src="ext-modules/psDashboard/psDashboardModule.js"></script>
-          <script src="ext-modules/psFramework/psFrameworkModule.js"></script>
-          <script src="ext-modules/psFramework/psFrameworkController.js"></script>
-          <script src="ext-modules/psFramework/psFrameworkDirective.js"></script>
           <!-- endinjector -->
         <!-- endbuild -->
 </body>

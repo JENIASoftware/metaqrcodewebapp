@@ -6,6 +6,7 @@ angular.module('metaqrcodeApp')
       .state('catalogs', {
         url: '/catalogs',
         templateUrl: 'app/catalogs/catalogs.html',
-        controller: 'CatalogsCtrl'
+        controller: 'CatalogsCtrl',
+        controllerAs:'vm'
       });
   });

@@ -4,11 +4,18 @@ angular.module('metaqrcodeApp')
   .controller('NavbarCtrl', function ($scope, $location) {
     $scope.menu = [{
       'title': 'Home',
-      'link': '/'
+      'link': '/',
+      'icon':'home'
     },
     {
       'title': 'Catalogs',
-      'link': '/catalogs'
+      'link': '/catalogs',
+      'icon':'file-code-o'
+    },
+    {
+      'title': 'Upload',
+      'link': '/upload',
+      'icon':'upload'
     }];
 
     $scope.isCollapsed = true;

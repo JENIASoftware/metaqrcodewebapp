@@ -5,8 +5,7 @@ angular.module('metaqrcodeApp', [
   'ngResource',
   'ngSanitize',
   'ui.router',
-    'ui.bootstrap',
-  'psFramework'
+    'ui.bootstrap'
 ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
     $urlRouterProvider
