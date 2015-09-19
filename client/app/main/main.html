@@ -1,0 +1,23 @@
+
+
+<header class="hero-unit" id="banner">
+  <div class="container">
+    <h1>Welcome to Metaqrcode!</h1>
+    <p class="lead">Create qrcode from Metadata</p>
+    <img width="100px;" src="assets/images/logo.jpg" alt="www.metaqrcode.com">
+  </div>
+</header>
+
+<div class="container">
+    <h1 class="page-header">Popular Catalogs</h1>
+      <div ng-repeat="catalog in vm.catalogs">
+          <div class="row">
+            <div class="col-md-4 star-rating" star-rating rating-value="catalog.stars" max="5"></div>
+            <div class="col-md-4"><a href="#"> {{catalog.name}}</a></div>
+            <div class="col-md-4">{{catalog.description}}</div>
+          </div>
+          <hr ng-if="$index!=catalogs.length-1">
+      </div>
+</div>
+
+
