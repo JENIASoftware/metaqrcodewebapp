@@ -55,7 +55,12 @@ module.exports = function (grunt) {
     },
     watch: {
       injectJS: {
-        files: [
+          files: [
+              '<%= yeoman.client %>/blocks/logger/logger.module.js',
+              '<%= yeoman.client %>/blocks/logger/logger.js',
+              '<%= yeoman.client %>/blocks/exception/exception.module.js',
+              '<%= yeoman.client %>/blocks/exception/exception-handler.provider.js',
+             '<%= yeoman.client %>/blocks/exception/exception.js',
           '<%= yeoman.client %>/{app,components}/**/*.js',
           '!<%= yeoman.client %>/{app,components}/**/*.spec.js',
           '!<%= yeoman.client %>/{app,components}/**/*.mock.js',
@@ -224,7 +229,7 @@ module.exports = function (grunt) {
       target: {
         src: '<%= yeoman.client %>/index.html',
         ignorePath: '<%= yeoman.client %>/',
-        exclude: [/bootstrap-sass-official/, /bootstrap.js/, '/json3/', '/es5-shim/', /bootstrap.css/, /font-awesome.css/ ]
+        exclude: [/bootstrap-sass-official/, '/json3/', '/es5-shim/', /font-awesome.css/ ]
       }
     },
 
@@ -498,7 +503,11 @@ module.exports = function (grunt) {
         files: {
           '<%= yeoman.client %>/index.html': [
                [
-                 
+                 '<%= yeoman.client %>/blocks/logger/logger.module.js',
+              '<%= yeoman.client %>/blocks/logger/logger.js',
+              '<%= yeoman.client %>/blocks/exception/exception.module.js',
+              '<%= yeoman.client %>/blocks/exception/exception-handler.provider.js',
+             '<%= yeoman.client %>/blocks/exception/exception.js',
                  '{.tmp,<%= yeoman.client %>}/{app,components}/**/*.js',
                  '!{.tmp,<%= yeoman.client %>}/app/app.js',               
                  '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.spec.js',
