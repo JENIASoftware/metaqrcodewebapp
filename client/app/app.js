@@ -12,10 +12,15 @@
         'file-model'
 
     ])
+        /**
     .constant('app',{
         SERVER:'http://www.metaqrcode.com',
         PORT:'80'
-    })
+    })*/
+        .constant('app',{
+            SERVER:'http://localhost',
+            PORT:'9000'
+        })
     .config(config)
     .run(run);
 

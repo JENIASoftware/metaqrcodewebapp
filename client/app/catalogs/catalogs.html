@@ -1,16 +1,40 @@
 <div class="container-fluid">
 	<div class="row">
-		<div class="catalogs-sidebar col-lg-2">
-			<input ng-model="query" placeholder="Search..." class="form-control">
-            <button ng-click="vm.showModal()">New</button>
-			<ul>
-				<li class="" ng-click="vm.setActiveCatalog(catalog)" ng-repeat="catalog in vm.catalogs | filter:query">
-					<i class="fa fa-file-code-o"></i> {{catalog.name}}
-					<span class="badge">{{catalog.numberOfReferences || 0}}</span>
-				</li>
-			</ul>
+		<div class="catalogs-sidebar col-lg-3">
+            <div class="panel panel-info">
+                <div class="panel-heading clearfix">
+                    <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Catalogs</h4>
+                    <div class="btn-group pull-right">
+                        <button class="btn btn-default" ng-click="vm.showModal()" title="upload new catalog"><i class="fa fa-upload"></i> </button>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <input ng-model="query" placeholder="Search..." class="form-control">
+                </div>
+                <div class="list-group">
+                    <a href="#" class="list-group-item" ng-click="vm.setActiveCatalog(catalog)" ng-repeat="catalog in vm.catalogs | filter:query">
+                        <span class="badge">{{catalog.numberOfReferences || 0}}</span>
+                        {{catalog.name}}
+                    </a>
+                </div>
+                <div class="panel-footer clearfix">
+                    <nav style="padding-top: 7.5px;">
+                    <ul class="pagination">
+                        <li><a href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+                        <li class="active"><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+                    </ul>
+                </nav>
+                </div>
+            </div>
+
+
+
 		</div>
-		<div class="col-lg-10">
+		<div class="col-lg-9">
 			<div ng-if="vm.activeCatalog" >
 				<h1 class="page-header clearfix"> {{vm.activeCatalog.name}}
 					<div class="btn-group pull-right">
@@ -18,12 +42,9 @@
 							<button class="btn btn-primary"><span class="fa fa-download"></span></button>
 					</div>
 				</h1>
-				<div class="form-group">
-					<label class="label-form">Description:</label> {{vm.activeCatalog.description}}
-				</div>
-				<div class="form-group">
-						<div class="star-rating" star-rating rating-value="vm.activeCatalog.stars" max="5"></div>
-				</div>
+                <h4>{{vm.activeCatalog.description}} <div class="star-rating pull-right" star-rating rating-value="vm.activeCatalog.stars" max="5"></div>
+                    </h4>
+
 			</div>
 			
 		</div>
