@@ -12,7 +12,7 @@ angular.module('metaqrcodeApp')
         vm.user=null;
         vm.menu = null;
         vm.isActive = isActive;
-        vm.logOut=logout;
+        vm.logout=logout;
 
         activate();
 
@@ -24,18 +24,15 @@ angular.module('metaqrcodeApp')
 
         function logout(){
             AuthenticationService.ClearCredentials();
+            vm.user=null;
+            $location.path('/');
         };
         function isActive(route) {
             return route === $location.path();
         };
 
         function loadCurrentUser(){
-            if($rootScope.globals.currentUser) {
-                UserService.GetByUsername($rootScope.globals.currentUser.username)
-                    .then(function (user) {
-                        vm.user = user;
-                    });
-            }
+            vm.user =$rootScope.globals.currentUser;
         }
         function getMenuItems(){
             var menu = [

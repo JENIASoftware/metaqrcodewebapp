@@ -22,7 +22,7 @@
 												<span class="input-group-addon">
 													<i class="glyphicon glyphicon-user"></i>
 												</span>
-                                            <input class="form-control" placeholder="Username" name="loginname" type="text" autofocus>
+                                            <input class="form-control" placeholder="Username" name="username" id="username" ng-model="vm.username" type="text" autofocus>
                                             <span ng-show="form.username.$dirty && form.username.$error.required" class="help-block">Username is required</span>
                                         </div>
                                     </div>
@@ -31,7 +31,7 @@
 												<span class="input-group-addon">
 													<i class="glyphicon glyphicon-lock"></i>
 												</span>
-                                            <input class="form-control" placeholder="Password" name="password" type="password" value="">
+                                            <input class="form-control" placeholder="Password" name="password" type="password" ng-model="vm.password">
                                             <span ng-show="form.password.$dirty && form.password.$error.required" class="help-block">Password is required</span>
                                         </div>
                                     </div>

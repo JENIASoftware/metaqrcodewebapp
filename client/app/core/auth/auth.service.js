@@ -5,8 +5,8 @@
         .module('metaqrcodeApp')
         .factory('AuthenticationService', AuthenticationService);
 
-    AuthenticationService.$inject = ['$http', '$cookieStore', '$rootScope', '$timeout', 'UserService'];
-    function AuthenticationService($http, $cookieStore, $rootScope, $timeout, UserService) {
+    AuthenticationService.$inject = ['$http', '$cookieStore', '$rootScope', '$timeout', 'UserService','app'];
+    function AuthenticationService($http, $cookieStore, $rootScope, $timeout, UserService,app) {
         var service = {};
 
         service.Login = Login;
@@ -18,7 +18,7 @@
         function Login(username, password, callback) {
 
             /* Dummy authentication for testing, uses $timeout to simulate api call
-                          ----------------------------------------------*/
+                          
             $timeout(function () {
                 var response;
                 UserService.GetByUsername(username)
@@ -31,19 +31,17 @@
                         callback(response);
                     });
             }, 1000);
-
+             ----------------------------------------------*/
             /* Use this for real authentication
                           ----------------------------------------------*/
-            //$http.post('/api/authenticate', { username: username, password: password })
-            //    .success(function (response) {
-            //        callback(response);
-            //    });
+            $http.post(app.SERVER+':'+app.PORT+ '/api/rest/json/login/login', { email: username, password: password })
+                .success(function (response) {
+                    callback(response);
+                });
 
         }
 
         function SetCredentials(username, sessionToken) {
-            var authdata = Base64.encode(username + ':' + password);
-
             $rootScope.globals = {
                 currentUser: {
                     username: username,

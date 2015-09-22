@@ -5,32 +5,33 @@
     'use strict';
     angular.module('metaqrcodeApp')
         .controller('CatalogsModalCtrl',CatalogsModalCtrl);
-    CatalogsModalCtrl.$inject=['$scope','$element', 'title', 'close','FileUploader','dataservice','logger'];
+    CatalogsModalCtrl.$inject=['$cookieStore','$scope','$element', 'title', 'close','dataservice','logger'];
     /* @ngInject */
-    function CatalogsModalCtrl($scope,$element, title, close,FileUploader,dataservice,logger){
+    function CatalogsModalCtrl($cookieStore,$scope,$element, title, close,dataservice,logger){
         $scope.catalog={};
         $scope.catalog.name = null;
         $scope.catalog.description = null;
         $scope.title = title;
-        var uploader = $scope.uploader=new FileUploader({url:'api/rest/json/catalog/upload'});
+        $scope.file=null;
         $scope.upload=function(){
-            uploader.formData.push({'request':$scope.catalog});
-            uploader.uploadAll();
-            uploader.onCompleteItem=function(fileItem, response, status, headers){
-                if(status===200){
-
-                    close({
-                        catalog:$scope.catalog
-                    }, 1500);
-                    $element.modal('hide');
-                }
+            var fd = new FormData();
+            var request={
+                name:$scope.catalog.name,
+                description:$scope.catalog.description,
+                sessionToken:$cookieStore.get('globals').currentUser.sessionToken
             };
-            uploader.onSuccessItem = function(fileItem, response, status, headers) {
-                logger.info('onSuccessItem', fileItem, response, status, headers);
-            };
-            uploader.onErrorItem = function(fileItem, response, status, headers) {
-                logger.info('onErrorItem', fileItem, response, status, headers);
-            };
+            fd.append('xs', $scope.file);
+            fd.append('request', new Blob([JSON.stringify(request)]),{
+                type: "application/json"
+            });
+            dataservice.uploadCatalog(request, $scope.file)
+                .done(function(response){
+                    if (response.returnCode <= 0) {
+                        logger.error(response.reason);
+                    } else {
+                        logger.error(response.reason);
+                    }
+            })
         };
         //  This cancel function must use the bootstrap, 'modal' function because
         //  the doesn't have the 'data-dismiss' attribute.

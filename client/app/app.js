@@ -9,8 +9,13 @@
         'blocks.exception',
         'blocks.logger',
         'angularModalService',
-        'angularFileUpload'
+        'file-model'
+
     ])
+    .constant('app',{
+        SERVER:'http://www.metaqrcode.com',
+        PORT:'80'
+    })
     .config(config)
     .run(run);
 
