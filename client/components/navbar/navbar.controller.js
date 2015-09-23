@@ -47,6 +47,11 @@ angular.module('metaqrcodeApp')
                     'icon':'file-code-o'
                 },
                 {
+                    'title': 'Repositories',
+                    'link': '/repositories',
+                    'icon': ''
+                },
+                {
                     'title': 'Upload',
                     'link': '/upload',
                     'icon':'upload'
