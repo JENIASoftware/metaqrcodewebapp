@@ -1,42 +1,43 @@
 /**
- * Created by michele on 20/09/2015.
+ * Created by Michele on 24/09/2015.
  */
 (function(){
     'use strict';
     angular.module('metaqrcodeApp')
-        .controller('CatalogsModalCtrl',CatalogsModalCtrl);
-    CatalogsModalCtrl.$inject=['$cookieStore','$scope','$element', 'title', 'close','dataservice','logger'];
+        .controller('RepositoryModalCtrl',RepositoryModalCtrl);
+    RepositoryModalCtrl.$inject=['$cookieStore','$scope','$element', 'title', 'close','dataservice','logger'];
     /* @ngInject */
-    function CatalogsModalCtrl($cookieStore,$scope,$element, title, close,dataservice,logger){
-        $scope.catalog={};
-        $scope.catalog.name = null;
-        $scope.catalog.description = null;
+    function RepositoryModalCtrl($cookieStore,$scope,$element, title, close,dataservice,logger){
+        $scope.repository={};
+        $scope.repository.defaultCatalog = null;
+        $scope.repository.correlationId = null;
         $scope.title = title;
         $scope.file=null;
         $scope.upload=function(){
             var fd = new FormData();
             var request={
-                name:$scope.catalog.name,
-                description:$scope.catalog.description,
+                defaultCatalog:$scope.repository.defaultCatalog,
+                correlationId:$scope.repository.correlationId,
                 sessionToken:$cookieStore.get('globals').currentUser.sessionToken
             };
-            fd.append('xs', $scope.file);
+            fd.append('xml', $scope.file);
             fd.append('request', new Blob([JSON.stringify(request)]),{
                 type: "application/json"
             });
-            dataservice.uploadCatalog(request, $scope.file)
+            dataservice.uploadRepository(request, $scope.file)
                 .done(function(response){
-                    if (response.returnCode < 0) {
+                    if (response.returnCode <= 0) {
                         logger.error(response.reason);
-
-                    } else {
                         $element.modal('hide');
                         close({
-                            catalog:$scope.catalog
+                            repository:$scope.repository
                         }, 500);
-                        logger.success(response.reason);
+                    } else {
+                        logger.error(response.reason);
                     }
-            })
+                }).fail(function(error){
+                    logger.error(error);
+                })
         };
         //  This cancel function must use the bootstrap, 'modal' function because
         //  the doesn't have the 'data-dismiss' attribute.
@@ -47,7 +48,7 @@
 
             //  Now call close, returning control to the caller.
             close({
-                catalog:$scope.catalog
+                repository:$scope.repository
             }, 500); // close, but give 500ms for bootstrap to animate
         };
 

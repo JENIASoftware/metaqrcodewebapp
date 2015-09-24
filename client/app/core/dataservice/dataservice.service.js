@@ -6,9 +6,9 @@
         .module('metaqrcodeApp')
         .factory('dataservice', dataservice);
 
-    dataservice.$inject = ['$http', '$q','logger','app'];
+    dataservice.$inject = ['$http', '$q','logger','app','exception'];
     /* @ngInject */
-    function dataservice($http, $q,logger,app) {
+    function dataservice($http, $q,logger,app,exception) {
         var service = {
             getCatalog: getCatalog,
             download: download,
@@ -33,12 +33,12 @@
             }
 
             function fail(e) {
-                //return exception.catcher('XHR Failed for getCatalog')(e);
+                return exception.catcher('XHR Failed for getCatalog')(e);
             }
         }
-        function getRepositories() {
-            var searchUrl=app.SERVER+":"+app.PORT+"/api/rest/json/catalog/search";
-            return $http.post(searchUrl,{nameLike:'e',descriptionLike:''})
+        function getRepositories(correlationIdLike) {
+            var searchUrl=app.SERVER+":"+app.PORT+"/api/rest/json/repository/search";
+            return $http.post(searchUrl,{correlationIdLike:'e'})
                 .then(success)
                 .catch(fail);
 
@@ -50,7 +50,7 @@
             }
 
             function fail(e) {
-                //return exception.catcher('XHR Failed for getCatalog')(e);
+                return exception.catcher('XHR Failed for getCatalog')(e);
             }
         }
         function download(id) {

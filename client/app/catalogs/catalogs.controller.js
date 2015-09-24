@@ -6,13 +6,14 @@ angular.module('metaqrcodeApp')
     .controller('CatalogsCtrl', CatalogsCtrl);
     
     /* @ngInject */
-    function CatalogsCtrl(dataservice,logger,ModalService) {
+    function CatalogsCtrl(dataservice,logger,ModalService,$rootScope) {
         var vm = this;
         vm.catalogs = [];
         vm.setActiveCatalog = setActiveCatalog;
         vm.activeCatalog;
         vm.showModal=showModal;
         vm.newCatalog={};
+        vm.userLogged=false;
         activate();
         
         function activate() {
@@ -20,6 +21,7 @@ angular.module('metaqrcodeApp')
                 vm.catalogs=data;
                 logger.info('Activated CatalogsCtrl View');
             });
+            vm.userLogged=$rootScope.globals.currentUser;
         }
         function setActiveCatalog(catalog) {
             vm.activeCatalog = catalog;

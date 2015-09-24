@@ -2,9 +2,10 @@
     'use strict';
 
     angular.module('metaqrcodeApp')
-        .controller(RepositoriesCtrl);
+        .controller('RepositoriesCtrl',RepositoriesCtrl);
 
     RepositoriesCtrl.$inject=['dataservice','logger','ModalService'];
+
     function RepositoriesCtrl(dataservice,logger,ModalService){
         var vm=this;
         vm.repositories = [];
@@ -15,7 +16,7 @@
         activate();
 
         function activate() {
-            dataservice.getRepositories().then(function(data){
+            dataservice.getRepositories(8).then(function(data){
                 vm.repositories=data;
                 logger.info('Activated RepositoriesCtrl View');
             });
@@ -25,7 +26,7 @@
         }
         function showModal(){
             ModalService.showModal({
-                templateUrl: "app/repositories/repositoryForm.html",
+                templateUrl: "app/repositories/repositoryModalForm.html",
                 controller: "RepositoryModalCtrl",
                 inputs: {
                     title: "Add a new Repository"

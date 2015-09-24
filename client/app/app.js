@@ -23,12 +23,13 @@
             PORT:'9000'
         })
          */
+        .constant('toastr', toastr)
     .config(config)
     .run(run);
 
-    config.$inject=['$logProvider', '$urlRouterProvider', '$locationProvider'];
+    config.$inject=['$logProvider', '$urlRouterProvider', '$locationProvider','toastr'];
     /* @ngInject */
-    function config($logProvider, $urlRouterProvider, $locationProvider) {
+    function config($logProvider, $urlRouterProvider, $locationProvider,toastr) {
         if ($logProvider.debugEnabled) {
             $logProvider.debugEnabled(true);
         }
@@ -36,6 +37,8 @@
             .otherwise('/');
 
         $locationProvider.html5Mode(true);
+        toastr.options.timeOut = 4000;
+        toastr.options.positionClass = 'toast-bottom-right';
     }
 
     run.$inject = ['$rootScope', '$location', '$cookieStore'];

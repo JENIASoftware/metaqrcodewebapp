@@ -12,7 +12,7 @@
     <h1 class="page-header">Popular Catalogs</h1>
       <div ng-repeat="catalog in vm.catalogs">
           <div class="row">
-            <div class="col-md-4 star-rating" star-rating rating-value="catalog.stars" max="5"></div>
+            <div class="col-md-4 star-rating" star-rating rating-value="catalog.stars || 0" max="5"></div>
             <div class="col-md-4"><a href="#"> {{catalog.name}}</a></div>
             <div class="col-md-4">{{catalog.description}}</div>
           </div>
