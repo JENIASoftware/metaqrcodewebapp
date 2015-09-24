@@ -5,8 +5,8 @@
         .module('metaqrcodeApp')
         .factory('AuthenticationService', AuthenticationService);
 
-    AuthenticationService.$inject = ['$http', '$cookieStore', '$rootScope', '$timeout', 'UserService','app'];
-    function AuthenticationService($http, $cookieStore, $rootScope, $timeout, UserService,app) {
+    AuthenticationService.$inject = ['$http', '$cookieStore', '$rootScope', '$timeout', 'UserService','app','exception'];
+    function AuthenticationService($http, $cookieStore, $rootScope, $timeout, UserService,app,exception) {
         var service = {};
 
         service.Login = Login;
@@ -35,9 +35,11 @@
             /* Use this for real authentication
                           ----------------------------------------------*/
             $http.post(app.SERVER+':'+app.PORT+ '/api/rest/json/login/login', { email: username, password: password })
-                .success(function (response) {
+                .then(function (response) {
                     callback(response);
-                });
+                }).catch(function(e){
+                    return exception.catcher('XHR Failed for Login')(e);
+                });
 
         }
 
