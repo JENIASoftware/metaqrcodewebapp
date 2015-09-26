@@ -14,23 +14,18 @@
         $scope.title = title;
         $scope.file=null;
         $scope.upload=function(){
-            var fd = new FormData();
             var request={
                 defaultCatalog:$scope.repository.defaultCatalog,
                 correlationId:$scope.repository.correlationId,
                 sessionToken:$cookieStore.get('globals').currentUser.sessionToken
             };
-            fd.append('xml', $scope.file);
-            fd.append('request', new Blob([JSON.stringify(request)]),{
-                type: "application/json"
-            });
             dataservice.uploadRepository(request, $scope.file)
                 .done(function(response){
-                    if (response.returnCode <= 0) {
-                        logger.error(response.reason);
+                    if (response.returnCode >= 0) {
+                        logger.success(response.reason);
                         $element.modal('hide');
                         close({
-                            repository:$scope.repository
+                            repository:response
                         }, 500);
                     } else {
                         logger.error(response.reason);

@@ -34,7 +34,7 @@
             }).then(function(modal) {
                 modal.element.modal();
                 modal.close.then(function(result) {
-                    if(result.repository.name) {
+                    if(result.repository.qrcodeGet) {
                         vm.newRepository = result.repository;
                         vm.repositories.push(vm.newRepository);
                         vm.newRepository = {};

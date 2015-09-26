@@ -90,7 +90,7 @@
             data.append('request', new Blob([JSON.stringify(request)], {
                 type: "application/json"
             }));
-            data.append('xsd', file);
+            data.append('xml', file);
             return $.ajax({
                 type: "POST",
                 url: uploadUrl,

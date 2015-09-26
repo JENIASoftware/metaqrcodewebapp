@@ -20,8 +20,8 @@
         function login() {
             vm.dataLoading = true;
             AuthenticationService.Login(vm.username, vm.password, function (response) {
-                if (response.returnCode>=0) {
-                    AuthenticationService.SetCredentials(vm.username, response.sessionToken);
+                if (response.data.returnCode>=0) {
+                    AuthenticationService.SetCredentials(vm.username, response.data.sessionToken);
                     $window.location.href='/';
                 } else {
                     vm.dataLoading = false;
