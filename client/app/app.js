@@ -12,17 +12,17 @@
         'file-model'
 
     ])
-
+/**
     .constant('app',{
         SERVER:'http://www.metaqrcode.com',
         PORT:'80'
-    })
-        /**
+    })*/
+
         .constant('app',{
             SERVER:'http://localhost',
             PORT:'9000'
         })
-         */
+
         .constant('toastr', toastr)
     .config(config)
     .run(run);
@@ -49,7 +49,7 @@
 
         $rootScope.$on('$locationChangeStart', function (event, next, current) {
             // redirect to login page if not logged in and trying to access a restricted page
-            var restrictedPage = $.inArray($location.path(), ['/login', '/register','/catalogs','/']) === -1;
+            var restrictedPage = $.inArray($location.path(), ['/repositories', '/upload']) === 0;
             var loggedIn = $rootScope.globals.currentUser;
             if (restrictedPage && !loggedIn) {
                 $location.path('/login');

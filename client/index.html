@@ -32,19 +32,74 @@
     <!-- Navigation -->
     <div ng-include="'components/navbar/navbar.html'"></div>
     <!-- Navigation End-->
-    
+    <div class="page-wrap">
     <div class="animated fadeIn" ui-view=""></div>
     
+
+</div>
     <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <p>Angular Fullstack v2.1.1 |
-                <a href="https://twitter.com/tyhenkel">@tyhenkel</a> |
-                <a href="https://github.com/DaftMonk/generator-angular-fullstack/issues?state=open">Issues</a></p>
+    <footer class="footer-distributed">
+
+        <div class="footer-left">
+
+            <h3>META<span>QRCODE</span></h3>
+
+            <p class="footer-links">
+                <a href="/">Home</a>
+                ·
+                <a href="/hiw">How It Works</a>
+                ·
+                <a href="#">Pricing</a>
+                ·
+                <a href="#">About</a>
+                ·
+                <a href="#">Faq</a>
+                ·
+                <a href="#">Contact</a>
+            </p>
+
+            <p class="footer-company-name">METAQRCODE &copy; 2015</p>
         </div>
+
+        <div class="footer-center">
+
+            <div>
+                <i class="fa fa-map-marker"></i><p> 40033, Casalecchio di Reno(Bologna), Italy</p>
+            </div>
+
+            <div>
+                <i class="fa fa-phone"></i>
+                <p>+39 051 19984925</p>
+            </div>
+
+            <div>
+                <i class="fa fa-envelope"></i>
+                <p><a href="mailto:info@jenia.it">info@jenia.it</a></p>
+            </div>
+
+        </div>
+
+        <div class="footer-right">
+
+            <p class="footer-company-about">
+                <span>Welcome to revolution</span>
+                PUT METADATA IN THE REAL WORLD
+                FREE FOR USE - OPEN SOURCE API
+            </p>
+
+            <div class="footer-icons">
+
+                <a href="#"><i class="fa fa-facebook"></i></a>
+                <a href="#"><i class="fa fa-twitter"></i></a>
+                <a href="#"><i class="fa fa-linkedin"></i></a>
+                <a href="#"><i class="fa fa-github"></i></a>
+
+            </div>
+
+        </div>
+
     </footer>
     <!-- Footer End -->
-    
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -93,6 +148,8 @@
           <script src="app/core/auth/auth.service.js"></script>
           <script src="app/core/dataservice/dataservice.service.js"></script>
           <script src="app/core/user/user.service.js"></script>
+          <script src="app/hiw/hiw.controller.js"></script>
+          <script src="app/hiw/hiw.js"></script>
           <script src="app/login/login.controller.js"></script>
           <script src="app/login/login.js"></script>
           <script src="app/main/main.controller.js"></script>

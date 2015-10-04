@@ -3,18 +3,24 @@
 
 angular.module('metaqrcodeApp')
     .controller('MainCtrl', MainCtrl);
-    
-    function MainCtrl(dataservice) {
+
+    MainCtrl.$inject=['$location','$anchorScroll'];
+
+    function MainCtrl($location,$anchorScroll) {
         var vm = this;
         vm.catalogs = [];
-        
+        vm.navigate=navigate;
+
         activate();
         
         function activate() {
-            dataservice.getCatalog().then(function(data){
-                vm.catalogs=data;
-                //logger.info('Activated QRCode View');
+            $('.carousel').carousel({
+                interval: 5000 //changes the speed
             });
+        }
+
+        function navigate(url){
+            $location.path(url);
         }
     }
 })();

@@ -1,0 +1,17 @@
+<div class="container">
+
+    <div class="row hiw-item" ng-repeat="item in vm.model">
+        <div class="col-lg-6 col-sm-6">
+            <img ng-src="{{item.img}}" class="img-responsive"/>
+        </div>
+        <div class="col-lg-6 col-sm-6">
+            <h1 class="page-header">
+                {{item.title}}
+            </h1>
+            <p>
+                {{item.text}}
+            </p>
+        </div>
+    </div>
+
+</div>
