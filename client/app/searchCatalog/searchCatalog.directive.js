@@ -8,6 +8,7 @@
         var directive={
             templateUrl: 'app/searchCatalog/searchCatalog.html',
             restrict: 'E',
+            scope:{},
             link:link,
             controller:SearchCatalogCtrl,
             controllerAs:'vm',
