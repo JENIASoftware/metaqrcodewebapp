@@ -38,8 +38,8 @@
 
         function search(query){
             if(query) {
-                dataservice.getCatalog().then(function (data) {
-                    vm.catalogs = data;
+                dataservice.getCatalog(0,5,query).then(function (data) {
+                    vm.catalogs = data.result;
                 });
             }else{
                 vm.catalogs=null;

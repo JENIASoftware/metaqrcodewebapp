@@ -14,14 +14,42 @@ angular.module('metaqrcodeApp')
         vm.showModal=showModal;
         vm.newCatalog={};
         vm.userLogged=false;
+        vm.searchCriteria=null;
+        vm.search=search;
+        vm.totalPages=totalPages;
+
         activate();
-        
+
+        /////////////////////////////////////////////////////////////////////////////////////////////////
         function activate() {
-            dataservice.getCatalog().then(function(data){
-                vm.catalogs=data;
-                logger.info('Activated CatalogsCtrl View');
+            vm.searchCriteria={
+                rowPerPage:10,
+                currentPage:0,
+                totalPages:0,
+                query:''
+            };
+            dataservice.getCatalog(vm.searchCriteria.pageNumber,vm.searchCriteria.rowPerPage,vm.searchCriteria.query).then(function(data){
+                vm.catalogs=data.result;
+                vm.searchCriteria.currentPage=data.currentPageNumber;
+                vm.searchCriteria.totalPages=data.pageTotal;
             });
             vm.userLogged=$rootScope.globals.currentUser;
+        }
+        function totalPages(){
+            var ret=[];
+            if(!vm.searchCriteria.totalPages) return 0;
+            for(var i= 0;i<vm.searchCriteria.totalPages;i++){
+                ret.push(i);
+            }
+            return ret;
+        }
+        function search(page){
+            dataservice.getCatalog(page,vm.searchCriteria.rowPerPage,vm.searchCriteria.query).then(function(data){
+                vm.catalogs=data.result;
+                vm.searchCriteria.currentPage=data.currentPageNumber;
+                vm.searchCriteria.totalPages=data.pageTotal;
+                logger.info('Search result catalogs:query:['+vm.searchCriteria.query+'] totalrow['+data.rowTotal+ '] currentpage[' + data.currentPageNumber+ '] total[' +data.pageTotal+']',data.result);
+            });
         }
         function setActiveCatalog(catalog) {
             vm.activeCatalog = catalog;

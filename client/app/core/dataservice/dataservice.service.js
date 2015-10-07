@@ -19,15 +19,15 @@
 
         return service;
         
-        function getCatalog() {
+        function getCatalog(pageNumber,rowPerPage,query) {
             var searchUrl=app.SERVER+":"+app.PORT+"/api/rest/json/catalog/search";
-            return $http.post(searchUrl,{nameLike:'e',descriptionLike:''})
+            return $http.post(searchUrl,{nameLike:query,pageNumber:pageNumber,rowPerPage:rowPerPage,onlyMine:true})
                 .then(success)
                 .catch(fail);
 
             function success(response) {
                 if (response.data.returnCode >= 0) {
-                    return response.data.result;
+                    return response.data;
                 }
                else { logger.error('Failed load catalog with code: ' + response.data.returnCode);}
             }

@@ -9,10 +9,10 @@
                     </div>
                 </div>
                 <div class="panel-body">
-                    <input ng-model="query" placeholder="Search..." class="form-control">
+                    <input ng-model="vm.searchCriteria.query" ng-model-options="{ getterSetter: true }" ng-keyup="vm.search()" placeholder="Search..." class="form-control">
                 </div>
                 <div class="list-group">
-                    <a href="#" class="list-group-item" ng-click="vm.setActiveCatalog(catalog)" ng-repeat="catalog in vm.catalogs | filter:query">
+                    <a href="#" class="list-group-item" ng-click="vm.setActiveCatalog(catalog)" ng-repeat="catalog in vm.catalogs">
                         <span class="badge">{{catalog.numberOfReferences || 0}}</span>
                         {{catalog.id}} - {{catalog.name}}
                     </a>
@@ -20,11 +20,8 @@
                 <div class="panel-footer clearfix">
                     <nav style="padding-top: 7.5px;">
                     <ul class="pagination">
-                        <li><a href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
-                        <li class="active"><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
+                        <li><a href="#" aria-label="Previous" ng-class="{'disabled':vm.searchCriteria.currentPage>1}"><span aria-hidden="true">«</span></a></li>
+                        <li ng-click="vm.search(page)" ng-repeat="page in vm.totalPages()" ng-class="{'active':vm.searchCriteria.currentPage==page}"><a href="#">{{page + 1}}</a></li>
                         <li><a href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
                     </ul>
                 </nav>
