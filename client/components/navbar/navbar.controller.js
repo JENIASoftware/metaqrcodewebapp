@@ -4,15 +4,17 @@
 angular.module('metaqrcodeApp')
     .controller('NavbarCtrl', NavbarCtrl);
 
-    NavbarCtrl.$inject=['$rootScope', '$location','UserService','AuthenticationService'];
+    NavbarCtrl.$inject=['$rootScope', '$location','UserService','AuthenticationService','localize'];
 
-    function NavbarCtrl($rootScope, $location,UserService,AuthenticationService) {
+    function NavbarCtrl($rootScope, $location,UserService,AuthenticationService,localize) {
         var vm=this;
         vm.isCollapsed = true;
         vm.user=null;
         vm.menu = null;
         vm.isActive = isActive;
         vm.logout=logout;
+        vm.setLanguage=setLanguage;
+        vm.selectedLanguage=null;
 
         activate();
 
@@ -20,8 +22,13 @@ angular.module('metaqrcodeApp')
         function activate(){
             vm.menu=getMenuItems();
             loadCurrentUser();
+            vm.selectedLanguage='en';
         }
 
+        function setLanguage(lang){
+            localize.setLanguage(lang);
+            vm.selectedLanguage=lang;
+        }
         function logout(){
             AuthenticationService.ClearCredentials();
             vm.user=null;
@@ -44,12 +51,12 @@ angular.module('metaqrcodeApp')
                 {
                     'title': 'Catalogs',
                     'link': '/catalogs',
-                    'icon':'file-code-o'
+                    'icon':'list'
                 },
                 {
                     'title': 'Repositories',
                     'link': '/repositories',
-                    'icon': ''
+                    'icon': 'qrcode'
                 },
                 {
                     'title': 'Upload',

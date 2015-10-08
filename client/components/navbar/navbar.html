@@ -27,9 +27,11 @@
               </ul>
           </li>
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">English <span class="caret"></span></a>
+
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-language"></i> {{vm.selectedLanguage}} <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="#">Italiano</a></li>
+              <li><a href="#" ng-click="vm.setLanguage('it')">Italiano</a></li>
+              <li><a href="#" ng-click="vm.setLanguage('en')">English</a></li>
           </ul>
         </li>
       </ul>
