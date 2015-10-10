@@ -14,21 +14,16 @@
 
 /* Global Styles */
 
-html,
-body {
-  height: 100%;
-}
 
 body {
-  padding-top: 50px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+  margin-bottom: 250px;
 }
-
-.img-portfolio {
-  margin-bottom: 30px;
+html{
+  position: relative;
+  min-height: 100%;
 }
-
-.img-hover:hover {
-  opacity: 0.8;
+body {
+  padding-top: 60px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
 }
 
 
@@ -39,24 +34,6 @@ body {
   font-size: 100px;
 }
 
-/* Pricing Page Styles */
-
-.price {
-  display: block;
-  font-size: 50px;
-  line-height: 50px;
-}
-
-.price sup {
-  top: -20px;
-  left: 2px;
-  font-size: 20px;
-}
-
-.period {
-  display: block;
-  font-style: italic;
-}
 
 /* Footer Styles */
 
@@ -68,7 +45,10 @@ body {
   width: 100%;
   text-align: left;
   font: bold 16px sans-serif;
-
+  position: absolute;
+  bottom: 0;
+  /* Set the fixed height of the footer here */
+  height: 250px;
   padding: 55px 50px;
   margin-top: 80px;
 }
@@ -90,7 +70,7 @@ body {
 
 .footer-distributed h3{
   color:  #ffffff;
-  font: normal 36px 'Cookie', cursive;
+  font: normal 36px sans-serif;
   margin: 0;
 }
 
@@ -213,6 +193,7 @@ body {
 
   .footer-distributed{
     font: bold 14px sans-serif;
+    height: 600px;
   }
 
   .footer-distributed .footer-left,
@@ -230,25 +211,6 @@ body {
 
 }
 
-
-/* Responsive Styles */
-
-@media(max-width:991px) {
-  .customer-img,
-  .img-related {
-    margin-bottom: 30px;
-  }
-}
-
-@media(max-width:767px) {
-  .img-portfolio {
-    margin-bottom: 15px;
-  }
-
-  header.carousel .carousel {
-    height: 70%;
-  }
-}
 
 .browsehappy {
     margin: 0.2em 0;
@@ -272,5 +234,6 @@ section{
 @import 'upload/upload.less';
 @import 'fileInput/fileInput.less';
 @import 'modal/modal.less';
+@import 'navbar/navbar.less';
 @import 'rating/rating.less';
 // endinjector

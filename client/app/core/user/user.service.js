@@ -16,6 +16,7 @@
         service.Create = Create;
         service.Update = Update;
         service.Delete = Delete;
+        service.ValidateRegistrationCode=ValidateRegistrationCode;
 
         return service;
 
@@ -40,7 +41,18 @@
             deferred.resolve(user);
             return deferred.promise;
         }
-
+        function ValidateRegistrationCode(email,code) {
+            var deferred = $q.defer();
+            var filtered = $filter('filter')(getUsers(), { email: email });
+            var user = filtered.length ? filtered[0] : null;
+            if(user!==null && user.registrationCode==code){
+                deferred.resolve(user);
+            }
+            else{
+                deferred.resolve(null);
+            }
+            return deferred.promise;
+        }
         function Create(user) {
             var deferred = $q.defer();
 
@@ -49,7 +61,7 @@
                 GetByUsername(user.username)
                     .then(function (duplicateUser) {
                         if (duplicateUser !== null) {
-                            deferred.resolve({ success: false, message: 'Username "' + user.username + '" is already taken' });
+                            deferred.resolve({data:{ returnCode: -1, reason: 'Username "' + user.username + '" is already taken' }});
                         } else {
                             var users = getUsers();
 
@@ -57,11 +69,12 @@
                             var lastUser = users[users.length - 1] || { id: 0 };
                             user.id = lastUser.id + 1;
 
-                            // save to local storage
+                            //Genero il nuovo codice per la validazione
+                            user.registrationCode=user.id;
                             users.push(user);
                             setUsers(users);
 
-                            deferred.resolve({ success: true });
+                            deferred.resolve({data:{ returnCode: 0 }});
                         }
                     });
             }, 1000);

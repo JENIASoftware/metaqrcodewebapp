@@ -1,21 +1,21 @@
+
 (function () {
     'use strict';
 
     angular
         .module('metaqrcodeApp')
-        .controller('RegisterController', RegisterController);
+        .controller('ConfirmRegistrationCtrl', ConfirmRegistrationCtrl);
 
-    RegisterController.$inject = ['UserService', '$location', '$rootScope'];
-    function RegisterController(UserService, $location, $rootScope) {
+    ConfirmRegistrationCtrl.$inject = ['AuthenticationService', '$location'];
+    function ConfirmRegistrationCtrl(AuthenticationService, $location) {
         var vm = this;
-
-        vm.register = register;
+        vm.validateRegistrationCode=validateRegistrationCode;
         vm.error=null;
 
 
-        function register() {
+        function validateRegistrationCode() {
             vm.dataLoading = true;
-            UserService.Create(vm.user)
+            AuthenticationService.ValidateRegistrationCode(vm.email,vm.registrationConfirmationCode)
                 .then(function (response) {
                     if (response.data.returnCode>=0) {
                         $location.path('/login');
