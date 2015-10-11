@@ -23,6 +23,7 @@ angular.module('metaqrcodeApp')
             vm.menu=getMenuItems();
             loadCurrentUser();
             vm.selectedLanguage='en';
+
         }
 
         function setLanguage(lang){

@@ -11,10 +11,14 @@
 
         vm.login = login;
         vm.error=null;
-        (function initController() {
+        activate();
+        ////////////////////////////////////////////////////////////////////////////////////////////
+
+        function activate() {
             // reset login status
             AuthenticationService.ClearCredentials();
-        })();
+
+        };
 
         function login() {
             vm.dataLoading = true;

@@ -7,6 +7,7 @@ angular.module('metaqrcodeApp')
             url: '/login',
             templateUrl: 'app/login/login.html',
             controller: 'LoginController',
-            controllerAs:'vm'
+            controllerAs:'vm',
+            bindToController:true
       });
   });

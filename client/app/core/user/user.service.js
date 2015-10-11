@@ -17,6 +17,7 @@
         service.Update = Update;
         service.Delete = Delete;
         service.ValidateRegistrationCode=ValidateRegistrationCode;
+        service.GetByEmail=GetByEmail;
 
         return service;
 
@@ -37,6 +38,13 @@
         function GetByUsername(username) {
             var deferred = $q.defer();
             var filtered = $filter('filter')(getUsers(), { username: username });
+            var user = filtered.length ? filtered[0] : null;
+            deferred.resolve(user);
+            return deferred.promise;
+        }
+        function GetByEmail(email) {
+            var deferred = $q.defer();
+            var filtered = $filter('filter')(getUsers(), { email: email });
             var user = filtered.length ? filtered[0] : null;
             deferred.resolve(user);
             return deferred.promise;

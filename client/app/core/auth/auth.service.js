@@ -13,10 +13,18 @@
         service.SetCredentials = SetCredentials;
         service.ClearCredentials = ClearCredentials;
         service.ValidateRegistrationCode=ValidateRegistrationCode;
+        service.GetExternalUserProfile= GetExternalUserProfile;
 
         return service;
         ///////////////////////////////////////////////////////////////////////
 
+        function GetExternalUserProfile(){
+            var url="https://www.googleapis.com/plus/v1/people/me";
+            return $http.get(url).then(function(profile){
+                SetCredentials(profile.data.emails[0].value,null);
+                return profile;
+            })
+        }
         function ValidateRegistrationCode(email,code){
             return $http.post(app.SERVER+':'+app.PORT+ '/api/rest/json/registration/confirm', { email: email, registrationConfirmationCode: code })
                 .then(success)
