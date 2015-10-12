@@ -17,15 +17,6 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-12 col-md-10  col-md-offset-1 ">
-                                    <div class="form-group" ng-class="{ 'has-error': form.username.$dirty && form.username.$error.required }">
-                                        <div class="input-group">
-												<span class="input-group-addon">
-													<i class="fa fa-user"></i>
-												</span>
-                                            <input class="form-control" placeholder="Username" name="username" ng-model="vm.user.username" type="text" required>
-                                        </div>
-                                        <span ng-show="form.username.$dirty && form.username.$error.required" class="help-block">Username is required</span>
-                                    </div>
                                     <div class="form-group" ng-class="{ 'has-error': form.email.$dirty && form.email.$error.required && form.email.$error.email}">
                                         <div class="input-group">
 												<span class="input-group-addon">
@@ -63,7 +54,16 @@
                                         </div>
                                         <span ng-show="form.lastName.$dirty && form.lastName.$error.required" class="help-block">Last Name is required</span>
                                     </div>
-                                    <div class="form-group" ng-class="{ 'has-error': form.address.$dirty && form.address.$error.required }">
+                                    <div class="form-group" ng-class="{ 'has-error': form.preferredLanguage.$dirty && form.preferredLanguage.$error.required }">
+                                        <div class="input-group">
+												<span class="input-group-addon">
+													<i class="fa fa-language"></i>
+												</span>
+                                            <input class="form-control" placeholder="preferredLanguage" name="preferred language" ng-model="vm.user.preferredLanguage" type="text" required>
+                                        </div>
+                                        <span ng-show="form.preferredLanguage.$dirty && form.preferredLanguage.$error.required" class="help-block">preferred Language is required</span>
+                                    </div>
+                                    <div class="form-group" ng-class="{ 'has-error': form.pre.$dirty && form.address.$error.required }">
                                         <div class="input-group">
 												<span class="input-group-addon">
 													<i class="fa fa-thumb-tack"></i>

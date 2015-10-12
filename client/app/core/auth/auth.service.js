@@ -5,8 +5,8 @@
         .module('metaqrcodeApp')
         .factory('AuthenticationService', AuthenticationService);
 
-    AuthenticationService.$inject = ['$http', '$cookieStore', '$rootScope', '$timeout', 'UserService','app','exception','logger'];
-    function AuthenticationService($http, $cookieStore, $rootScope, $timeout, UserService,app,exception,logger) {
+    AuthenticationService.$inject = ['$http', '$cookieStore', '$rootScope', '$timeout', 'UserService','app','exception','logger','AccessToken'];
+    function AuthenticationService($http, $cookieStore, $rootScope, $timeout, UserService,app,exception,logger,AccessToken) {
         var service = {};
 
         service.Login = Login;
@@ -43,7 +43,7 @@
         function Login(username, password, callback) {
 
             /* Dummy authentication for testing, uses $timeout to simulate api call
-                          ----------------------------------------------*/
+                        
             $timeout(function () {
                 var response;
                 UserService.GetByUsername(username)
@@ -56,16 +56,16 @@
                         callback(response);
                     });
             }, 1000);
-
+               ----------------------------------------------*/
             /* Use this for real authentication
-                          
+                          ----------------------------------------------*/
              $http.post(app.SERVER+':'+app.PORT+ '/api/rest/json/login/login', { email: username, password: password })
                  .then(function (response) {
                      callback(response);
                  }).catch(function(e){
              return exception.catcher('XHR Failed for Login')(e);
              });
-             ----------------------------------------------*/
+
         }
 
         function SetCredentials(username, sessionToken) {
@@ -81,6 +81,7 @@
         function ClearCredentials() {
             $rootScope.globals = {};
             $cookieStore.remove('globals');
+            AccessToken.destroy();
         }
     }
 })();

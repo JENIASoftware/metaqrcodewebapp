@@ -18,10 +18,10 @@
         function activate(){
             AuthenticationService.GetExternalUserProfile().then(function(response){
                 vm.user.email=response.data.emails[0].value;
-                vm.user.username=response.data.emails[0].value;
                 vm.user.firstName=response.data.name.givenName;
                 vm.user.lastName=response.data.name.familyName;
                 vm.user.nickName=response.data.emails[0].value.split('@')[0];
+                vm.user.preferredLanguage=response.data.language;
             });
 
         }

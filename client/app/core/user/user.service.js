@@ -5,8 +5,8 @@
         .module('metaqrcodeApp')
         .factory('UserService', UserService);
 
-    UserService.$inject = ['$timeout', '$filter', '$q'];
-    function UserService($timeout, $filter, $q) {
+    UserService.$inject = ['$timeout', '$filter', '$q','exception','$http','app'];
+    function UserService($timeout, $filter, $q,exception,$http,app) {
 
         var service = {};
 
@@ -62,6 +62,10 @@
             return deferred.promise;
         }
         function Create(user) {
+            return $http.post(app.SERVER+':'+app.PORT+ '/api/rest/json/registration/prepare', user).then(handleSuccess, handleError('Error creating user'));
+        }
+        /*
+        function Create(user) {
             var deferred = $q.defer();
 
             // simulate api call with $timeout
@@ -88,7 +92,7 @@
             }, 1000);
 
             return deferred.promise;
-        }
+        }*/
 
         function Update(user) {
             var deferred = $q.defer();
@@ -135,6 +139,14 @@
 
         function setUsers(users) {
             localStorage.users = JSON.stringify(users);
+        }
+
+        function handleSuccess(data) {
+            return data;
+        }
+
+        function handleError(e) {
+            return exception.catcher('XHR Failed for validation code')(e);
         }
     }
 })();
