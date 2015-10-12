@@ -7,6 +7,7 @@ angular.module('metaqrcodeApp')
         url: '/catalogs',
         templateUrl: 'app/catalogs/catalogs.html',
         controller: 'CatalogsCtrl',
-        controllerAs:'vm'
+        controllerAs:'vm',
+            bindToController:true
       });
   });

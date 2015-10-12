@@ -11,7 +11,8 @@
         'angularModalService',
         'file-model',
         'afOAuth2',
-        'angular-jwt'
+        'angular-jwt',
+        'angular-loading-bar'
     ])
 
     .constant('app',{
@@ -28,9 +29,9 @@
     .config(config)
     .run(run);
 
-    config.$inject=['$logProvider', '$urlRouterProvider', '$locationProvider','toastr'];
+    config.$inject=['$logProvider', '$urlRouterProvider', '$locationProvider','toastr','cfpLoadingBarProvider'];
     /* @ngInject */
-    function config($logProvider, $urlRouterProvider, $locationProvider,toastr) {
+    function config($logProvider, $urlRouterProvider, $locationProvider,toastr,cfpLoadingBarProvider) {
         if ($logProvider.debugEnabled) {
             $logProvider.debugEnabled(true);
         }
@@ -40,11 +41,13 @@
         $locationProvider.html5Mode(true).hashPrefix('!');
         toastr.options.timeOut = 4000;
         toastr.options.positionClass = 'toast-bottom-right';
+        cfpLoadingBarProvider.includeSpinner = false;
     }
 
     run.$inject = ['$rootScope', '$location', '$cookieStore','UserService','jwtHelper','AccessToken','logger'];
     /* @ngInject */
     function run($rootScope, $location, $cookieStore,UserService,jwtHelper,AccessToken,logger) {
+
         // keep user logged in after page refresh
         $rootScope.globals = $cookieStore.get('globals') || {};
 

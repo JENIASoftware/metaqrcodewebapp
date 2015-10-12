@@ -6,17 +6,19 @@ angular.module('metaqrcodeApp')
     .controller('CatalogsCtrl', CatalogsCtrl);
     
     /* @ngInject */
-    function CatalogsCtrl(dataservice,logger,ModalService,$rootScope) {
+    function CatalogsCtrl(dataservice,logger,ModalService,$rootScope,$http) {
         var vm = this;
         vm.catalogs = [];
-        vm.setActiveCatalog = setActiveCatalog;
-        vm.activeCatalog;
-        vm.showModal=showModal;
+        vm.activeCatalog=null;
         vm.newCatalog={};
         vm.userLogged=false;
         vm.searchCriteria=null;
-        vm.search=search;
         vm.totalPages=totalPages;
+
+        vm.getCatalogText=getCatalogText;
+        vm.setActiveCatalog = setActiveCatalog;
+        vm.search=search;
+        vm.showModal=showModal;
 
         activate();
 
@@ -74,6 +76,14 @@ angular.module('metaqrcodeApp')
                     }
                 });
             });
+        }
+        function getCatalogText(url){
+            $http.get(url)
+                .then(function(response){
+                    return response.responseText;
+                }).catch(function(e){
+                    logger.error("Error get catalog text",e);
+                })
         }
     }
 })();
