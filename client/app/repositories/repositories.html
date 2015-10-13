@@ -1,12 +1,42 @@
 <div class="container">
     <h1 class="page-header">Repositories</h1>
     <button class="btn btn-default" ng-click="vm.showModal()" title="upload new repo"><i class="fa fa-upload"></i> </button>
-    <div ng-repeat="catalog in vm.repositories">
+    <div ng-repeat="repository in vm.repositories">
         <div class="row">
+        <div ng-repeat="catalog in repository.catalogEntries">
+            <div class="panel panel-info">
+                <div class="panel-heading clearfix">
+                    <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Catalog - {{catalog.description || catalog.name}}</h4>
+                    <div class="btn-group pull-right" ng-if="vm.userLogged">
+                        <button class="btn btn-default" ng-click="vm.showModal()" title="upload new catalog"><i class="fa fa-upload"></i> </button>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="col-md-2">
+                        <img class="img-qrcode" ng-src="{{repository.qrcodeGet}}" ng-click="vm.setActiveRepository(repository)" height="100px"/>
+                    </div>
+                    <div class="highlight col-md-10" ng-show="vm.activeRepository!=null">
+                        <pre>
+                            <code>
+                                {{vm.activeRepository.text}}
+                            </code>
+                        </pre>
+                    </div>
+                </div>
 
-            <div class="col-md-4"><a href="#"> {{catalog.id}}</a></div>
-            <div class="col-md-4"><img ng-src="{{catalog.qrcodeGet}}"/></div>
+                <div class="panel-footer clearfix">
+                    <nav style="padding-top: 7.5px;">
+                        <ul class="pagination">
+                            <li><a href="#" aria-label="Previous" ng-class="{'disabled':vm.searchCriteria.currentPage>1}"><span aria-hidden="true">«</span></a></li>
+                            <li ng-click="vm.search(page)" ng-repeat="page in vm.totalPages()" ng-class="{'active':vm.searchCriteria.currentPage==page}"><a href="#">{{page + 1}}</a></li>
+                            <li><a href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
         </div>
         <hr ng-if="$index!=vm.repositories.length-1">
     </div>
 </div>
+

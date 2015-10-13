@@ -31,7 +31,7 @@
                         logger.error(response.reason);
                     }
                 }).fail(function(error){
-                    logger.error(error);
+                    logger.error(error.responseText);
                 })
         };
         //  This cancel function must use the bootstrap, 'modal' function because

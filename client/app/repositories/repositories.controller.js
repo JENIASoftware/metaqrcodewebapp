@@ -9,20 +9,54 @@
     function RepositoriesCtrl(dataservice,logger,ModalService){
         var vm=this;
         vm.repositories = [];
-        vm.setActiveRepository = setActiveRepository;
         vm.activeRepository;
-        vm.showModal=showModal;
         vm.newRepository={};
-        activate();
+        vm.searchCriteria=null;
 
+        vm.totalPages=totalPages;
+        vm.showModal=showModal;
+        vm.setActiveRepository = setActiveRepository;
+        vm.search=search;
+
+        activate();
+        /////////////////////////////////////////////////////////////////////////////////
         function activate() {
-            dataservice.getRepositories(8).then(function(data){
-                vm.repositories=data;
-                logger.info('Activated RepositoriesCtrl View');
+            vm.searchCriteria={
+                rowPerPage:10,
+                currentPage:0,
+                totalPages:0,
+                query:''
+            };
+            dataservice.getRepositories(vm.searchCriteria.pageNumber,vm.searchCriteria.rowPerPage,vm.searchCriteria.query)
+                .then(function(data){
+                vm.repositories=data.result;
+                vm.searchCriteria.currentPage=data.currentPageNumber;
+                vm.searchCriteria.totalPages=data.pageTotal;
+            });
+        }
+        function totalPages(){
+            var ret=[];
+            if(!vm.searchCriteria.totalPages) return 0;
+            for(var i= 0;i<vm.searchCriteria.totalPages;i++){
+                ret.push(i);
+            }
+            return ret;
+        }
+        function search(page){
+            dataservice.getRepositories(page,vm.searchCriteria.rowPerPage,vm.searchCriteria.query).then(function(data){
+                vm.repositories=data.result;
+                vm.searchCriteria.currentPage=data.currentPageNumber;
+                vm.searchCriteria.totalPages=data.pageTotal;
+                logger.info('Search result repositories:query:['+vm.searchCriteria.query+'] totalrow['+data.rowTotal+ '] currentpage[' + data.currentPageNumber+ '] total[' +data.pageTotal+']',data.result);
             });
         }
         function setActiveRepository(repository) {
-            vm.activeRepository = repository;
+            dataservice.downloadRepository(repository.id)
+                .then(function(response){
+                    vm.activeRepository = repository;
+                    vm.activeRepository.text=response;
+                });
+
         }
         function showModal(){
             ModalService.showModal({

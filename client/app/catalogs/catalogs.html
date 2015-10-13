@@ -39,11 +39,16 @@
 							<button class="btn btn-primary"><span class="fa fa-download"></span></button>
 					</div>
 				</h1>
-                <h4>{{vm.activeCatalog.description}} <div class="star-rating pull-right" star-rating rating-value="vm.activeCatalog.stars" max="5"></div>
-                    </h4>
-                <p>
-                    <a href="{{vm.activeCatalog.catalogGet}}" class="btn btn-primary"><span class="fa fa-download"></span> Download</a>
-                </p>
+                <h4>
+                    {{vm.activeCatalog.description}} <div class="star-rating pull-right" star-rating rating-value="vm.activeCatalog.stars" max="5"></div>
+                </h4>
+                <div class="highlight" ng-show="vm.activeCatalog!=null">
+                        <pre>
+                            <code>
+                                {{vm.activeCatalog.text}}
+                            </code>
+                        </pre>
+                </div>
 			</div>
 			
 		</div>

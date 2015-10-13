@@ -54,7 +54,12 @@ angular.module('metaqrcodeApp')
             });
         }
         function setActiveCatalog(catalog) {
-            vm.activeCatalog = catalog;
+
+            dataservice.downloadCatalog(catalog.id)
+                .then(function(response){
+                    vm.activeCatalog = catalog;
+                    vm.activeCatalog.text=response;
+                });
         }
         function showModal(){
             ModalService.showModal({
