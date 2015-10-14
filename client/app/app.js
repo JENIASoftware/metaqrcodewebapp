@@ -62,8 +62,8 @@
         $rootScope.$on("oauth2:authSuccess",function(){
             $location.hash('');
             var tokenPayload = jwtHelper.decodeToken(AccessToken.get().id_token);
-            UserService.GetByEmail(tokenPayload.email).then(function(user){
-                if(user===null) {
+            UserService.ExistUser(tokenPayload.email).then(function(response){
+                if(!response.exists) {
 
                     $location.path('/register');
                 }

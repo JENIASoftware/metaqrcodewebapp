@@ -12,7 +12,8 @@
                 url: '/confirmRegistration',
                 templateUrl: 'app/confirmRegistration/confirmRegistration.html',
                 controller: 'ConfirmRegistrationCtrl',
-                controllerAs:'vm'
+                controllerAs:'vm',
+                bindToController:true
             });
     }
 })();
