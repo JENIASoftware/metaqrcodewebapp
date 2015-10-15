@@ -12,11 +12,12 @@
         vm.activeRepository;
         vm.newRepository={};
         vm.searchCriteria=null;
-
+        vm.activeFormat=null;
         vm.totalPages=totalPages;
         vm.showModal=showModal;
         vm.setActiveRepository = setActiveRepository;
         vm.search=search;
+        vm.changeTextFormat=changeTextFormat;
 
         activate();
         /////////////////////////////////////////////////////////////////////////////////
@@ -51,12 +52,20 @@
             });
         }
         function setActiveRepository(repository) {
+            vm.activeFormat='xml';
             dataservice.downloadRepository(repository.id)
                 .then(function(response){
                     vm.activeRepository = repository;
                     vm.activeRepository.text=response;
                 });
 
+        }
+        function changeTextFormat(format){
+            dataservice.downloadRepository(vm.activeRepository.id,format)
+                .then(function(response){
+                    vm.activeRepository.text=format=='json'?JSON.stringify(response): response;
+                    vm.activeFormat=format;
+                });
         }
         function showModal(){
             ModalService.showModal({

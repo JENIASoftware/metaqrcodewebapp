@@ -12,7 +12,8 @@
         'file-model',
         'afOAuth2',
         'angular-jwt',
-        'angular-loading-bar'
+        'angular-loading-bar',
+        'ng-code-mirror'
     ])
 
     .constant('app',{
@@ -63,8 +64,7 @@
             $location.hash('');
             var tokenPayload = jwtHelper.decodeToken(AccessToken.get().id_token);
             UserService.ExistUser(tokenPayload.email).then(function(response){
-                if(!response.exists) {
-
+                if(!response.data.exists) {
                     $location.path('/register');
                 }
                 else{

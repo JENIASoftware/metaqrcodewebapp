@@ -16,11 +16,10 @@
                         <img class="img-qrcode" ng-src="{{repository.qrcodeGet}}" ng-click="vm.setActiveRepository(repository)" height="100px"/>
                     </div>
                     <div class="highlight col-md-10" ng-show="vm.activeRepository!=null">
-                        <pre>
-                            <code>
-                                {{vm.activeRepository.text}}
-                            </code>
-                        </pre>
+                        <button class="btn btn-primary" ng-click="vm.changeTextFormat('xml')" ng-class="{'disabled': vm.activeFormat=='xml'}">xml</button>
+                        <button class="btn btn-primary" ng-click="vm.changeTextFormat('json')" ng-class="{'disabled': vm.activeFormat=='json'}">json</button>
+                        <code-mirror lang="{{vm.activeFormat}}" model="vm.activeRepository.text">
+                        </code-mirror>
                     </div>
                 </div>
 

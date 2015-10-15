@@ -45,8 +45,8 @@
         }
 
         function ExistUser(email) {
-            return $http.post(app.SERVER+':'+app.PORT+ '/api/rest/json/registration/exists', email)
-                .then(handleSuccess, handleError('Error exist user'));
+            return $http.post(app.SERVER+':'+app.PORT+ '/api/rest/json/registration/exists',{ email:email})
+                .then(handleSuccess, handleError);
         }
         function ValidateRegistrationCode(email,code) {
             var request={email:email,registrationConfirmationCode:code};
@@ -74,7 +74,7 @@
         }
         function GetUserProfile() {
             var token=$rootScope.globals.currentUser.sessionToken;
-            return $http.post(app.SERVER+':'+app.PORT+ '/api/rest/json/registration/read', token)
+            return $http.post(app.SERVER+':'+app.PORT+ '/api/rest/json/registration/read',{sessionToken:token})
                 .then(handleSuccess, handleError);
         }
         // private functions
@@ -91,15 +91,14 @@
             localStorage.users = JSON.stringify(users);
         }
 
-        function handleSuccess(data) {
-            if(data.returnCode && data.returnCode<0) {
-                return handleError(data);
+        function handleSuccess(response) {
+            if(response.data.returnCode && response.data.returnCode<0) {
+                return handleError(response);
             }
-            return data;
+            return response;
         }
 
-        function handleError(e) {
-            var error= e.reason || e;
+        function handleError(error) {
             return exception.catcher('XHR Failed')(error);
         }
         /*

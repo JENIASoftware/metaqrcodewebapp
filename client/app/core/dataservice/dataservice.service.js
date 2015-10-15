@@ -61,8 +61,12 @@
                 return exception.catcher('XHR Failed for getRepositories')(e);
             }
         }
-        function downloadRepository(id) {
+        function downloadRepository(id,format) {
+
             var url=app.SERVER+":"+app.PORT+"/api/rest/json/repository/download";
+            if(format && format=='json'){
+                url=app.SERVER+":"+app.PORT+"/api/rest/json/repository/downloadAsJson";
+            }
             var request={
                 id:id
             };

@@ -35,6 +35,7 @@ angular.module('metaqrcodeApp')
                 vm.searchCriteria.currentPage=data.currentPageNumber;
                 vm.searchCriteria.totalPages=data.pageTotal;
             });
+
             vm.userLogged=$rootScope.globals.currentUser;
         }
         function totalPages(){
@@ -50,7 +51,6 @@ angular.module('metaqrcodeApp')
                 vm.catalogs=data.result;
                 vm.searchCriteria.currentPage=data.currentPageNumber;
                 vm.searchCriteria.totalPages=data.pageTotal;
-                logger.info('Search result catalogs:query:['+vm.searchCriteria.query+'] totalrow['+data.rowTotal+ '] currentpage[' + data.currentPageNumber+ '] total[' +data.pageTotal+']',data.result);
             });
         }
         function setActiveCatalog(catalog) {
