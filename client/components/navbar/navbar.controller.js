@@ -60,9 +60,9 @@ angular.module('metaqrcodeApp')
                     'icon': 'qrcode'
                 },
                 {
-                    'title': 'Upload',
-                    'link': '/upload',
-                    'icon':'upload'
+                    'title': 'Developers',
+                    'link': '/developers',
+                    'icon':'laptop'
                 }];
             return menu;
         }

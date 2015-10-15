@@ -42,7 +42,7 @@
                 <h4>
                     {{vm.activeCatalog.description}} <div class="star-rating pull-right" star-rating rating-value="vm.activeCatalog.stars" max="5"></div>
                 </h4>
-                <div class="highlight" ng-show="vm.activeCatalog!=null">
+                <div ng-show="vm.activeCatalog!=null">
                     <code-mirror lang="xml" model="vm.activeCatalog.text">
                     </code-mirror>
                 </div>

@@ -63,7 +63,7 @@
         function changeTextFormat(format){
             dataservice.downloadRepository(vm.activeRepository.id,format)
                 .then(function(response){
-                    vm.activeRepository.text=format=='json'?JSON.stringify(response): response;
+                    vm.activeRepository.text=format=='json'?JSON.stringify(response, null, 2): response;
                     vm.activeFormat=format;
                 });
         }
