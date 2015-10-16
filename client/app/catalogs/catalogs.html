@@ -43,6 +43,8 @@
                     {{vm.activeCatalog.description}} <div class="star-rating pull-right" star-rating rating-value="vm.activeCatalog.stars" max="5"></div>
                 </h4>
                 <div ng-show="vm.activeCatalog!=null">
+                    <button class="btn btn-xs btn-primary" ui-zeroclip zeroclip-copied="copied=true" zeroclip-model="vm.activeCatalog.text">Copy</button>
+                    <span ng-show="copied">Text Copied!</span>
                     <code-mirror lang="xml" model="vm.activeCatalog.text">
                     </code-mirror>
                 </div>

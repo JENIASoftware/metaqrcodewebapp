@@ -13,7 +13,8 @@
         'afOAuth2',
         'angular-jwt',
         'angular-loading-bar',
-        'ng-code-mirror'
+        'ng-code-mirror',
+        'zeroclipboard'
     ])
 
     .constant('app',{
@@ -30,9 +31,9 @@
     .config(config)
     .run(run);
 
-    config.$inject=['$logProvider', '$urlRouterProvider', '$locationProvider','toastr','cfpLoadingBarProvider'];
+    config.$inject=['$logProvider', '$urlRouterProvider', '$locationProvider','toastr','cfpLoadingBarProvider','uiZeroclipConfigProvider'];
     /* @ngInject */
-    function config($logProvider, $urlRouterProvider, $locationProvider,toastr,cfpLoadingBarProvider) {
+    function config($logProvider, $urlRouterProvider, $locationProvider,toastr,cfpLoadingBarProvider,uiZeroclipConfigProvider) {
         if ($logProvider.debugEnabled) {
             $logProvider.debugEnabled(true);
         }
@@ -43,6 +44,9 @@
         toastr.options.timeOut = 4000;
         toastr.options.positionClass = 'toast-bottom-right';
         cfpLoadingBarProvider.includeSpinner = false;
+        uiZeroclipConfigProvider.setZcConf({
+            swfPath: '../bower_components/zeroclipboard/dist/ZeroClipboard.swf'
+        });
     }
 
     run.$inject = ['$rootScope', '$location', '$cookieStore','UserService','jwtHelper','AccessToken','logger'];

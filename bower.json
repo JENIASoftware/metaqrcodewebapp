@@ -13,6 +13,7 @@
     "angular-resource": ">=1.2.*",
     "angular-sanitize": ">=1.2.*",
     "angular-ui-router": "~0.2.15",
+    "angular-zeroclipboard": "~0.8.0",
     "AngularJS-OAuth2": "angularjs-oauth2#*",
     "animate-css": "animate-css#~3.4.0",
     "bootstrap": "~3.3.5",

@@ -248,7 +248,33 @@ body {
   cursor: pointer;
 }
 
+/*************************
+Clipborad Copy Button
+*************************/
+.btn-clipboard {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 10;
+  display: block;
+  padding: 5px 8px;
+  font-size: 12px;
+  color: #767676;
+  cursor: pointer;
+  background-color: #fff;
+  border: 1px solid #e1e1e8;
+  border-radius: 0 4px 0 4px;
+}
+@media (min-width: 768px) {
+  .zero-clipboard {
+    display: block;
+  }
 
+  .zero-clipboard {
+    position: relative;
+    display: none;
+  }
+}
   .browsehappy {
     margin: 0.2em 0;
     background: #ccc;
