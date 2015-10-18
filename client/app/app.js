@@ -14,7 +14,8 @@
         'angular-jwt',
         'angular-loading-bar',
         'ng-code-mirror',
-        'zeroclipboard'
+        'zeroclipboard',
+        'ngTable'
     ])
 
     .constant('app',{

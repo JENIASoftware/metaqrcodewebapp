@@ -1,0 +1,25 @@
+<div class="container">
+    <div class="row">
+        <div ng-repeat="catalog in vm.repository.catalogEntries">
+            <div class="panel panel-info">
+                <div class="panel-heading clearfix">
+                    <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Catalog - {{catalog.description || catalog.name}}</h4>
+                    <div class="btn-group pull-right" ng-if="vm.userLogged">
+                        <button class="btn btn-default" ng-click="vm.showModal()" title="upload new catalog"><i class="fa fa-upload"></i> </button>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div class="col-md-3">
+                        <img ng-src="{{vm.repository.qrcodeGet}}"/>
+                    </div>
+                    <div class="highlight col-md-9">
+                        <button class="btn btn-primary" ng-click="vm.changeTextFormat('xml')" ng-class="{'disabled': vm.activeFormat=='xml'}">xml</button>
+                        <button class="btn btn-primary" ng-click="vm.changeTextFormat('json')" ng-class="{'disabled': vm.activeFormat=='json'}">json</button>
+                        <code-mirror lang="{{vm.activeFormat}}" model="vm.repository.text">
+                        </code-mirror>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

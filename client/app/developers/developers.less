@@ -1,37 +1,48 @@
-/*
-A Bootstrap 3.1 affix sidebar template
-from http://bootply.com
-
-This CSS code should follow the 'bootstrap.css'
-in your HTML file.
-
-license: MIT
-author: bootply.com
-*/
 
 #masthead {
-  min-height:250px;
+  min-height:270px;
+  background-color:@base-gray;
+  color:@base-orange;
 }
 
 #masthead h1 {
-  font-size: 30px;
+  font-size: 55px;
   line-height: 1;
-  padding-top:20px;
 }
 
 #masthead .well {
-  margin-top:8%;
+  background-color:@base-gray;
+  border-color:@base-gray;
+}
+
+/* hide sidebar sub menus by default */
+#sidebar.nav .nav {
+  display: none;
+  font-size:12px;
+}
+
+/* show sub menu when parent is active */
+#sidebar.nav>.active>ul {
+  display: block;
 }
 
 @media screen and (min-width: 768px) {
   #masthead h1 {
-    font-size: 50px;
+    font-size: 100px;
   }
 }
 
 .navbar-bright {
   background-color:#111155;
   color:#fff;
+}
+
+.navbar-bright a, #masthead a, #masthead .lead {
+  color:@base-orange;
+}
+
+.navbar-bright li > a:hover {
+  background-color:#000033;
 }
 
 .affix-top,.affix{
@@ -51,8 +62,19 @@ author: bootply.com
     width:228px;
   }
 }
-
-#sidebar li.active {
-  border:0 #eee solid;
-  border-right-width:5px;
+#sidebar{
+  li.active{
+    border:0 @base-gray solid;
+    border-right-width:4px;
+  }
+  li li.active {
+    border:0 @base-orange solid;
+    border-left-width:4px;
+  }
+  li a {
+    color: @base-gray;
+  }
+  li li a {
+    color: @base-gray;
+  }
 }

@@ -16,6 +16,7 @@
       <link rel="stylesheet" href="bower_components/angular-code-mirror/dist/css/angular-code-mirror.css" />
       <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css" />
       <link rel="stylesheet" href="bower_components/animate-css/animate.css" />
+      <link rel="stylesheet" href="bower_components/ng-table/dist/ng-table.min.css" />
       <link rel="stylesheet" href="bower_components/toastr/toastr.css" />
       <!-- endbower -->
     <!-- endbuild -->
@@ -80,36 +81,6 @@
             </div>
 
         </div>
-
-        <div class="footer-right">
-
-            <p class="footer-company-about">
-                <span>Welcome to revolution</span>
-                PUT METADATA IN THE REAL WORLD
-                FREE FOR USE - OPEN SOURCE API
-            </p>
-
-            <div class="footer-icons">
-                <oauth2
-                        authorization-url="https://accounts.google.com/o/oauth2/auth"
-                        sign-out-url="https://accounts.google.com/o/oauth2/revoke?token="
-                        sign-out-append-token="true"
-                        client-id="29949601598-0lvmahoa19k0pmg15jcnckob7s57bovd.apps.googleusercontent.com"
-                        redirect-url="http://localhost:9000"
-                        response-type="id_token token"
-                        scope="openid profile email"
-                        template="app/login/loginwithgoogle.template.html"
-                        >
-                </oauth2>
-                <a href="#"><i class="fa fa-facebook"></i></a>
-                <a href="#"><i class="fa fa-twitter"></i></a>
-                <a href="#"><i class="fa fa-linkedin"></i></a>
-                <a href="#"><i class="fa fa-github"></i></a>
-
-            </div>
-
-        </div>
-
     </footer>
     <!-- Footer End -->
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
@@ -147,6 +118,7 @@
       <script src="bower_components/AngularJS-OAuth2/dist/angularJsOAuth2.js"></script>
       <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
       <script src="bower_components/lodash/dist/lodash.compat.js"></script>
+      <script src="bower_components/ng-table/dist/ng-table.min.js"></script>
       <script src="bower_components/toastr/toastr.js"></script>
       <!-- endbower -->
     <!-- endbuild -->
@@ -164,6 +136,7 @@
           <script src="app/catalogs/catalogs.controller.js"></script>
           <script src="app/catalogs/catalogs.js"></script>
           <script src="app/catalogs/catalogsModal.controller.js"></script>
+          <script src="app/catalogs/viewCatalog.controller.js"></script>
           <script src="app/confirmRegistration/confirmRegistration.controller.js"></script>
           <script src="app/confirmRegistration/confirmRegistration.js"></script>
           <script src="app/core/auth/auth.service.js"></script>
@@ -188,6 +161,7 @@
           <script src="app/repositories/repositories.controller.js"></script>
           <script src="app/repositories/repositories.js"></script>
           <script src="app/repositories/repositoryModal.controller.js"></script>
+          <script src="app/repositories/viewRepository.controller.js"></script>
           <script src="app/searchCatalog/searchCatalog.directive.js"></script>
           <script src="app/upload/upload.controller.js"></script>
           <script src="app/upload/upload.js"></script>

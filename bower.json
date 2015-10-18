@@ -21,6 +21,7 @@
     "font-awesome": ">=4.1.0",
     "json3": "~3.3.1",
     "lodash": "~2.4.1",
+    "ng-table": "~0.8.3",
     "toastr": "~2.1.2"
   },
   "devDependencies": {

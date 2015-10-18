@@ -4,9 +4,9 @@
     angular.module('metaqrcodeApp')
         .controller('RepositoriesCtrl',RepositoriesCtrl);
 
-    RepositoriesCtrl.$inject=['dataservice','logger','ModalService'];
+    RepositoriesCtrl.$inject=['dataservice','$stateParams','ModalService','NgTableParams'];
 
-    function RepositoriesCtrl(dataservice,logger,ModalService){
+    function RepositoriesCtrl(dataservice,$stateParams,ModalService,NgTableParams){
         var vm=this;
         vm.repositories = [];
         vm.activeRepository;
@@ -18,6 +18,7 @@
         vm.setActiveRepository = setActiveRepository;
         vm.search=search;
         vm.changeTextFormat=changeTextFormat;
+        vm.tableParams=null;
 
         activate();
         /////////////////////////////////////////////////////////////////////////////////
@@ -28,12 +29,7 @@
                 totalPages:0,
                 query:''
             };
-            dataservice.getRepositories(vm.searchCriteria.pageNumber,vm.searchCriteria.rowPerPage,vm.searchCriteria.query)
-                .then(function(data){
-                vm.repositories=data.result;
-                vm.searchCriteria.currentPage=data.currentPageNumber;
-                vm.searchCriteria.totalPages=data.pageTotal;
-            });
+            search();
         }
         function totalPages(){
             var ret=[];
@@ -43,12 +39,15 @@
             }
             return ret;
         }
-        function search(page){
-            dataservice.getRepositories(page,vm.searchCriteria.rowPerPage,vm.searchCriteria.query).then(function(data){
-                vm.repositories=data.result;
-                vm.searchCriteria.currentPage=data.currentPageNumber;
-                vm.searchCriteria.totalPages=data.pageTotal;
-                logger.info('Search result repositories:query:['+vm.searchCriteria.query+'] totalrow['+data.rowTotal+ '] currentpage[' + data.currentPageNumber+ '] total[' +data.pageTotal+']',data.result);
+        function search(){
+            vm.tableParams=new NgTableParams({count:vm.searchCriteria.rowPerPage}, {
+                counts: [15, 30, 50],
+                getData: function(params) {
+                    return dataservice.getRepositories(params.page()-1,params.count(),vm.searchCriteria.query).then(function(data){
+                        params.total(data.rowTotal); // recal. page nav controls
+                        return data.result;
+                    });
+                }
             });
         }
         function setActiveRepository(repository) {

@@ -1,3 +1,4 @@
+
 .navbar-default .navbar-brand {
   color: #ffffff;
 }
@@ -6,7 +7,6 @@
   background-color: @base-gray;
   border-width: 0px;
   border-radius: 0px;
-  padding: 10px 0;
 }
 .navbar-default .navbar-nav>li>a {
   color: #ffffff;
@@ -39,4 +39,10 @@
 .navbar-default .navbar-toggle:focus .icon-bar {
   background-color: @base-orange;
   border-color: @base-gray;
+}
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus {
+  background-color: @base-orange;
+  color: @base-gray;
 }

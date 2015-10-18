@@ -6,17 +6,15 @@ angular.module('metaqrcodeApp')
     .controller('CatalogsCtrl', CatalogsCtrl);
     
     /* @ngInject */
-    function CatalogsCtrl(dataservice,logger,ModalService,$rootScope,$http) {
+    function CatalogsCtrl(dataservice,ModalService,$rootScope,NgTableParams) {
         var vm = this;
         vm.catalogs = [];
         vm.activeCatalog=null;
         vm.newCatalog={};
         vm.userLogged=false;
         vm.searchCriteria=null;
-        vm.totalPages=totalPages;
+        vm.tableParams=null;
 
-        vm.getCatalogText=getCatalogText;
-        vm.setActiveCatalog = setActiveCatalog;
         vm.search=search;
         vm.showModal=showModal;
 
@@ -30,36 +28,21 @@ angular.module('metaqrcodeApp')
                 totalPages:0,
                 query:''
             };
-            dataservice.getCatalog(vm.searchCriteria.pageNumber,vm.searchCriteria.rowPerPage,vm.searchCriteria.query).then(function(data){
-                vm.catalogs=data.result;
-                vm.searchCriteria.currentPage=data.currentPageNumber;
-                vm.searchCriteria.totalPages=data.pageTotal;
-            });
+            search();
+
 
             vm.userLogged=$rootScope.globals.currentUser;
         }
-        function totalPages(){
-            var ret=[];
-            if(!vm.searchCriteria.totalPages) return 0;
-            for(var i= 0;i<vm.searchCriteria.totalPages;i++){
-                ret.push(i);
-            }
-            return ret;
-        }
-        function search(page){
-            dataservice.getCatalog(page,vm.searchCriteria.rowPerPage,vm.searchCriteria.query).then(function(data){
-                vm.catalogs=data.result;
-                vm.searchCriteria.currentPage=data.currentPageNumber;
-                vm.searchCriteria.totalPages=data.pageTotal;
+        function search(){
+            vm.tableParams=new NgTableParams({count:vm.searchCriteria.rowPerPage}, {
+                counts: [15, 30, 50],
+                getData: function(params) {
+                    return dataservice.getCatalogs(params.page()-1,params.count(),vm.searchCriteria.query).then(function(data){
+                        params.total(data.rowTotal); // recal. page nav controls
+                        return data.result;
+                    });
+                }
             });
-        }
-        function setActiveCatalog(catalog) {
-
-            dataservice.downloadCatalog(catalog.id)
-                .then(function(response){
-                    vm.activeCatalog = catalog;
-                    vm.activeCatalog.text=response;
-                });
         }
         function showModal(){
             ModalService.showModal({
@@ -81,14 +64,6 @@ angular.module('metaqrcodeApp')
                     }
                 });
             });
-        }
-        function getCatalogText(url){
-            $http.get(url)
-                .then(function(response){
-                    return response.responseText;
-                }).catch(function(e){
-                    logger.error("Error get catalog text",e);
-                })
         }
     }
 })();

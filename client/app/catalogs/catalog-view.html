@@ -1,0 +1,20 @@
+<div class="container">
+<h1 class="page-header clearfix">Catalog name: {{vm.catalog.name}}
+    <div class="star-rating pull-right" star-rating rating-value="vm.catalog.stars" max="5"></div>
+</h1>
+    <div class="row">
+        <div class="col-md-3">
+            <p>
+            <h4>
+                {{vm.catalog.description}}
+            </h4>
+            </p>
+        </div>
+        <div class="col-md-9">
+            <button class="btn btn-xs btn-primary" ui-zeroclip zeroclip-copied="copied=true" zeroclip-model="vm.catalog.text">Copy</button>
+            <span ng-show="copied">Text Copied!</span>
+            <code-mirror lang="xml" model="vm.catalog.text">
+            </code-mirror>
+        </div>
+    </div>
+</div>
