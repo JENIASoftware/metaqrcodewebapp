@@ -38,7 +38,7 @@
 
         function search(query){
             if(query) {
-                dataservice.getCatalog(0,5,query).then(function (data) {
+                dataservice.getCatalogs(0,5,query).then(function (data) {
                     vm.catalogs = data.result;
                 });
             }else{

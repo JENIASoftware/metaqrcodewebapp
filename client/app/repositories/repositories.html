@@ -15,47 +15,10 @@
             <table ng-table="vm.tableParams" class="table">
                 <tr ng-repeat="row in $data track by row.id">
                     <td data-title="'Qrcode'"><a ui-sref="viewRepository({id:row.id})"><img class="img-qrcode" ng-src="{{row.qrcodeGet}}" height="100px"/></a> </td>
-                    <td data-title="'Catalogs'"><span class="badge">{{row.catalogEntries.length || 0}}</span></td>
+                    <td data-title="'Catalogs'"><span class="badge pull-right">{{row.catalogEntries.length || 0}}</span></td>
                 </tr>
             </table>
         </div>
     </div>
-    <!--<button class="btn btn-default" ng-click="vm.showModal()" title="upload new repo"><i class="fa fa-upload"></i> </button>
-    <div ng-repeat="repository in vm.repositories">
-        <div class="row">
-        <div ng-repeat="catalog in repository.catalogEntries">
-            <div class="panel panel-info">
-                <div class="panel-heading clearfix">
-                    <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Catalog - {{catalog.description || catalog.name}}</h4>
-                    <div class="btn-group pull-right" ng-if="vm.userLogged">
-                        <button class="btn btn-default" ng-click="vm.showModal()" title="upload new catalog"><i class="fa fa-upload"></i> </button>
-                    </div>
-                </div>
-                <div class="panel-body">
-                    <div class="col-md-2">
-                        <img class="img-qrcode" ng-src="{{repository.qrcodeGet}}" ng-click="vm.setActiveRepository(repository)" height="100px"/>
-                    </div>
-                    <div class="highlight col-md-10" ng-show="vm.activeRepository!=null">
-                        <button class="btn btn-primary" ng-click="vm.changeTextFormat('xml')" ng-class="{'disabled': vm.activeFormat=='xml'}">xml</button>
-                        <button class="btn btn-primary" ng-click="vm.changeTextFormat('json')" ng-class="{'disabled': vm.activeFormat=='json'}">json</button>
-                        <code-mirror lang="{{vm.activeFormat}}" model="vm.activeRepository.text">
-                        </code-mirror>
-                    </div>
-                </div>
-
-                <div class="panel-footer clearfix">
-                    <nav style="padding-top: 7.5px;">
-                        <ul class="pagination">
-                            <li><a href="#" aria-label="Previous" ng-class="{'disabled':vm.searchCriteria.currentPage>1}"><span aria-hidden="true">«</span></a></li>
-                            <li ng-click="vm.search(page)" ng-repeat="page in vm.totalPages()" ng-class="{'active':vm.searchCriteria.currentPage==page}"><a href="#">{{page + 1}}</a></li>
-                            <li><a href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-        </div>
-        </div>
-        <hr ng-if="$index!=vm.repositories.length-1">
-    </div>-->
 </div>
 

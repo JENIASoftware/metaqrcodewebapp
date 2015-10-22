@@ -4,6 +4,9 @@
 @icon-font-path: '/bower_components/bootstrap/fonts/';
 @fa-font-path: '/bower_components/font-awesome/fonts';
 
+/*@base-gray:           @gray-base;
+@base-orange:         lighten(@base-gray, 46.7%);*/
+
 @base-gray:           #2D2D2D;
 @base-orange:         #FC6000;
 
@@ -35,7 +38,13 @@ body {
 }
 
 
-
+.profile-img {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 10px;
+  display: block;
+  background-color: @base-gray;
+}
 /* 404 Page Styles */
 
 .error-404 {
@@ -198,10 +207,12 @@ body {
 /* If you don't want the footer to be responsive, remove these media queries */
 
 @media (max-width: 880px) {
-
+  body {
+    margin-bottom: 250px;
+  }
   .footer-distributed{
     font: bold 14px sans-serif;
-    height: 600px;
+    height: 500px;
   }
 
   .footer-distributed .footer-left,
@@ -219,7 +230,7 @@ body {
 
 }
 
-/*Bootstrap Panels -- panel.info --*/
+/*Bootstrap Panels -- panel.info************/
 
 .panel-info {
     border-color: @base-gray;

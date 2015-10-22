@@ -15,7 +15,8 @@
         'angular-loading-bar',
         'ng-code-mirror',
         'zeroclipboard',
-        'ngTable'
+        'ngTable',
+        'ui.gravatar'
     ])
 
     .constant('app',{
@@ -32,9 +33,9 @@
     .config(config)
     .run(run);
 
-    config.$inject=['$logProvider', '$urlRouterProvider', '$locationProvider','toastr','cfpLoadingBarProvider','uiZeroclipConfigProvider'];
+    config.$inject=['$logProvider', '$urlRouterProvider', '$locationProvider','toastr','cfpLoadingBarProvider','uiZeroclipConfigProvider','gravatarServiceProvider'];
     /* @ngInject */
-    function config($logProvider, $urlRouterProvider, $locationProvider,toastr,cfpLoadingBarProvider,uiZeroclipConfigProvider) {
+    function config($logProvider, $urlRouterProvider, $locationProvider,toastr,cfpLoadingBarProvider,uiZeroclipConfigProvider,gravatarServiceProvider) {
         if ($logProvider.debugEnabled) {
             $logProvider.debugEnabled(true);
         }
@@ -42,12 +43,23 @@
             .otherwise('/');
 
         $locationProvider.html5Mode(true).hashPrefix('!');
+
+        //Config toastr
         toastr.options.timeOut = 4000;
         toastr.options.positionClass = 'toast-bottom-right';
+
+        //Config loading-bar
         cfpLoadingBarProvider.includeSpinner = false;
         uiZeroclipConfigProvider.setZcConf({
             swfPath: '../bower_components/zeroclipboard/dist/ZeroClipboard.swf'
         });
+
+        //Config gravatar
+        gravatarServiceProvider.defaults = {
+            size     : 100,
+            "default": 'mm'  // Mystery man as default for missing avatars
+        };
+
     }
 
     run.$inject = ['$rootScope', '$location', '$cookieStore','UserService','jwtHelper','AccessToken','logger'];

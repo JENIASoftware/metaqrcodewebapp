@@ -14,6 +14,12 @@
                 controller: 'ProfileCtrl',
                 controllerAs:'vm',
                 bindToController:true
+            }).state('editProfile', {
+                url: '/profile/edit',
+                templateUrl: 'app/profile/profile-edit.html',
+                controller: 'ProfileEditCtrl',
+                controllerAs:'vm',
+                bindToController:true
             });
     }
 })();

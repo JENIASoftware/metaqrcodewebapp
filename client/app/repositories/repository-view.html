@@ -15,6 +15,7 @@
                     <div class="highlight col-md-9">
                         <button class="btn btn-primary" ng-click="vm.changeTextFormat('xml')" ng-class="{'disabled': vm.activeFormat=='xml'}">xml</button>
                         <button class="btn btn-primary" ng-click="vm.changeTextFormat('json')" ng-class="{'disabled': vm.activeFormat=='json'}">json</button>
+                        <button class="btn btn-primary pull-right" ui-zeroclip zeroclip-copied="copied=true" zeroclip-model="vm.catalog.text">Copy</button>
                         <code-mirror lang="{{vm.activeFormat}}" model="vm.repository.text">
                         </code-mirror>
                     </div>

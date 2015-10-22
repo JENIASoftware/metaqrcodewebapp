@@ -61,7 +61,7 @@
         function Update(user) {
             user.sessionToken=$rootScope.globals.currentUser.sessionToken;
             return $http.post(app.SERVER+':'+app.PORT+ '/api/rest/json/registration/update', user)
-                .then(handleSuccess, handleError('Error updating user'));
+                .then(handleSuccess, handleError);
         }
 
         function Delete(email) {

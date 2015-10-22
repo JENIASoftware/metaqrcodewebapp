@@ -22,9 +22,13 @@
               <a ng-if="!vm.user" ng-href="/login"><i class="fa fa-sign-in"></i> Login</a>
           </li>
           <li class="dropdown" ng-if="vm.user">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{vm.user.username}} <span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                  <img  gravatar-src="vm.user.username" gravatar-size="25" class="img-circle"><span class="caret"></span></a>
               <ul class="dropdown-menu">
+                  <li><a href=#>Welcome {{vm.user.username}}</a></li>
+                  <li class="nav-divider"></li>
                   <li><a href="/profile"><i class="fa fa-user"></i> Profile</a></li>
+                  <li class="nav-divider"></li>
                   <li><a ng-click="vm.logout()"><i class="fa fa-sign-out"></i> Log Out</a></li>
               </ul>
           </li>

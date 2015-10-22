@@ -24,7 +24,7 @@
         
         function getCatalogs(pageNumber,rowPerPage,query) {
             var searchUrl=app.SERVER+":"+app.PORT+"/api/rest/json/catalog/search";
-            return $http.post(searchUrl,{nameLike:query,pageNumber:pageNumber,rowPerPage:rowPerPage,onlyMine:true})
+            return $http.post(searchUrl,{nameLike:query,pageNumber:pageNumber,rowPerPage:rowPerPage})
                 .then(success)
                 .catch(fail);
         }

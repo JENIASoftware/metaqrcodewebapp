@@ -24,7 +24,7 @@
         /////////////////////////////////////////////////////////////////////////////////
         function activate() {
             vm.searchCriteria={
-                rowPerPage:10,
+                rowPerPage:5,
                 currentPage:0,
                 totalPages:0,
                 query:''
@@ -41,7 +41,7 @@
         }
         function search(){
             vm.tableParams=new NgTableParams({count:vm.searchCriteria.rowPerPage}, {
-                counts: [15, 30, 50],
+                counts: [5, 10, 20],
                 getData: function(params) {
                     return dataservice.getRepositories(params.page()-1,params.count(),vm.searchCriteria.query).then(function(data){
                         params.total(data.rowTotal); // recal. page nav controls

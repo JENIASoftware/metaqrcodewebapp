@@ -8,7 +8,7 @@
 
     function ProfileCtrl(UserService){
         var vm=this;
-        vm.user=null;
+        vm.user={};
 
         vm.updateProfile=updateProfile;
         vm.deleteProfile=deleteProfile;
