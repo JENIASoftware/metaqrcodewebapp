@@ -5,9 +5,9 @@
     'use strict';
     angular.module('metaqrcodeApp')
         .controller('RepositoryModalCtrl',RepositoryModalCtrl);
-    RepositoryModalCtrl.$inject=['$cookieStore','$scope','$element', 'title', 'close','dataservice','logger'];
+    RepositoryModalCtrl.$inject=['$rootScope','$scope','$element', 'title', 'close','dataservice','logger','action','$stateParams'];
     /* @ngInject */
-    function RepositoryModalCtrl($cookieStore,$scope,$element, title, close,dataservice,logger){
+    function RepositoryModalCtrl($rootScope,$scope,$element, title, close,dataservice,logger,action,$stateParams){
         $scope.repository={};
         $scope.repository.defaultCatalog = null;
         $scope.repository.correlationId = null;
@@ -16,23 +16,20 @@
         $scope.upload=function(){
             var request={
                 defaultCatalog:$scope.repository.defaultCatalog,
-                correlationId:$scope.repository.correlationId,
-                sessionToken:$cookieStore.get('globals').currentUser.sessionToken
+                sessionToken:$rootScope.globals.currentUser.sessionToken
             };
-            dataservice.uploadRepository(request, $scope.file)
-                .done(function(response){
-                    if (response.returnCode >= 0) {
-                        logger.success(response.reason);
-                        $element.modal('hide');
-                        close({
-                            repository:response
-                        }, 500);
-                    } else {
-                        logger.error(response.reason);
-                    }
-                }).fail(function(error){
-                    logger.error(error.responseText);
-                })
+            if(action=="create") {
+                request.correlationId=$scope.repository.correlationId;
+                dataservice.uploadRepository(request, $scope.file)
+                    .done(success)
+                    .fail(fail)
+            }
+            if(action=="update"){
+                request.id=$stateParams.id;
+                dataservice.updateRepository(request, $scope.file)
+                    .done(success)
+                    .fail(fail)
+            }
         };
         //  This cancel function must use the bootstrap, 'modal' function because
         //  the doesn't have the 'data-dismiss' attribute.
@@ -46,6 +43,20 @@
                 repository:$scope.repository
             }, 500); // close, but give 500ms for bootstrap to animate
         };
+        function success(response){
+            if (response.returnCode >= 0) {
+                logger.success(response.reason);
+                $element.modal('hide');
+                close({
+                    repository: response
+                }, 500);
+            } else {
+                logger.error(response.reason);
+            }
+        }
 
+        function fail(error){
+            logger.error(error.responseText);
+        }
     }
 })();

@@ -71,7 +71,8 @@
                 templateUrl: "app/repositories/repositoryModalForm.html",
                 controller: "RepositoryModalCtrl",
                 inputs: {
-                    title: "Add a new Repository"
+                    title: "Add a new Repository",
+                    action:'create'
                 }
             }).then(function(modal) {
                 modal.element.modal();

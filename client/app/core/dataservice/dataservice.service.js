@@ -17,7 +17,8 @@
             uploadCatalog: uploadCatalog,
             uploadRepository:uploadRepository,
             getRepositories:getRepositories,
-            getRepository:getRepository
+            getRepository:getRepository,
+            updateRepository:updateRepository
         };
 
         return service;
@@ -102,6 +103,22 @@
         }
         function uploadRepository(request,file) {
             var uploadUrl = app.SERVER + ":" + app.PORT + "/api/rest/json/repository/upload";
+            var data = new FormData();
+            data.append('request', new Blob([JSON.stringify(request)], {
+                type: "application/json"
+            }));
+            data.append('xml', file);
+            return $.ajax({
+                type: "POST",
+                url: uploadUrl,
+                data: data,
+                cache: false,
+                contentType: false,
+                processData: false
+            });
+        }
+        function updateRepository(request,file) {
+            var uploadUrl = app.SERVER + ":" + app.PORT + "/api/rest/json/repository/update";
             var data = new FormData();
             data.append('request', new Blob([JSON.stringify(request)], {
                 type: "application/json"
