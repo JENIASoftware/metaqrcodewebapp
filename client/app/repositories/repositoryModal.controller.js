@@ -5,21 +5,22 @@
     'use strict';
     angular.module('metaqrcodeApp')
         .controller('RepositoryModalCtrl',RepositoryModalCtrl);
-    RepositoryModalCtrl.$inject=['$rootScope','$scope','$element', 'title', 'close','dataservice','logger','action','$stateParams'];
+    RepositoryModalCtrl.$inject=['$rootScope','$scope','$element', 'title', 'close','dataservice','logger','action','$stateParams','repository'];
     /* @ngInject */
-    function RepositoryModalCtrl($rootScope,$scope,$element, title, close,dataservice,logger,action,$stateParams){
-        $scope.repository={};
-        $scope.repository.defaultCatalog = null;
-        $scope.repository.correlationId = null;
+    function RepositoryModalCtrl($rootScope,$scope,$element, title, close,dataservice,logger,action,$stateParams,repository){
+        $scope.repository=repository || {};
+        $scope.repository.defaultCatalog =repository?repository.defaultCatalog: null;
+        $scope.repository.correlationId = repository?repository.correlationId: null;
         $scope.title = title;
         $scope.file=null;
         $scope.upload=function(){
             var request={
                 defaultCatalog:$scope.repository.defaultCatalog,
-                sessionToken:$rootScope.globals.currentUser.sessionToken
+                sessionToken:$rootScope.globals.currentUser.sessionToken,
+                correlationId:$scope.repository.correlationId
             };
             if(action=="create") {
-                request.correlationId=$scope.repository.correlationId;
+
                 dataservice.uploadRepository(request, $scope.file)
                     .done(success)
                     .fail(fail)

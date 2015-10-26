@@ -20,7 +20,7 @@
                 bindToController:true
             }).state('updateRepository', {
                 url: '/repositories/:id/update',
-                templateUrl: 'app/repositories/update-view.html',
+                templateUrl: 'app/repositories/repository-update.html',
                 controller: 'UpdateRepositoryCtrl',
                 controllerAs:'vm',
                 bindToController:true

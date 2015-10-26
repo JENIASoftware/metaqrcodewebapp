@@ -72,7 +72,8 @@
                 controller: "RepositoryModalCtrl",
                 inputs: {
                     title: "Add a new Repository",
-                    action:'create'
+                    action:'create',
+                    repository:{}
                 }
             }).then(function(modal) {
                 modal.element.modal();

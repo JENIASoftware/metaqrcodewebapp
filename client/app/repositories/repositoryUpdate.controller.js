@@ -40,7 +40,8 @@
                 controller: "RepositoryModalCtrl",
                 inputs: {
                     title: "Update Repository",
-                    action:"update"
+                    action:"update",
+                    repository:vm.repository
                 }
             }).then(function(modal) {
                 modal.element.modal();
