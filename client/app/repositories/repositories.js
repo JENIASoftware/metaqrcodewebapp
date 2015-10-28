@@ -18,12 +18,6 @@
                 controller: 'ViewRepositoryCtrl',
                 controllerAs:'vm',
                 bindToController:true
-            }).state('updateRepository', {
-                url: '/repositories/:id/update',
-                templateUrl: 'app/repositories/repository-update.html',
-                controller: 'UpdateRepositoryCtrl',
-                controllerAs:'vm',
-                bindToController:true
             });
     }
 })();

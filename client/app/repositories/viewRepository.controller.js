@@ -3,15 +3,15 @@
     angular.module('metaqrcodeApp')
         .controller('ViewRepositoryCtrl',ViewRepositoryCtrl);
 
-    ViewRepositoryCtrl.$inject=['dataservice','$stateParams'];
-    function ViewRepositoryCtrl(dataservice,$stateParams){
+    ViewRepositoryCtrl.$inject=['dataservice','$stateParams','ModalService'];
+    function ViewRepositoryCtrl(dataservice,$stateParams,ModalService){
         var vm=this;
         vm.repository=null;
         vm.activeFormat=null;
         vm.changeTextFormat=changeTextFormat;
+        vm.showModal=showModal;
 
         activate();
-
         ////////////////////////////////////////////////////////////////////////////////////////
         function activate(){
             dataservice.getRepository($stateParams.id)
@@ -31,6 +31,26 @@
                     vm.repository.text=format=='json'?JSON.stringify(response, null, 2): response;
                     vm.activeFormat=format;
                 });
+        }
+        function showModal(){
+            ModalService.showModal({
+                templateUrl: "app/repositories/repositoryModalForm.html",
+                controller: "RepositoryModalCtrl",
+                inputs: {
+                    title: "Update Repository",
+                    action:"update",
+                    repository:vm.repository
+                }
+            }).then(function(modal) {
+                modal.element.modal();
+                modal.close.then(function(result) {
+                    if(result.repository.qrcodeGet) {
+                        vm.newRepository = result.repository;
+                        vm.repositories.push(vm.newRepository);
+                        vm.newRepository = {};
+                    }
+                });
+            });
         }
     }
 })();
