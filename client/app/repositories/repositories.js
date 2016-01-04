@@ -11,7 +11,9 @@
                 url: '/repositories',
                 templateUrl: 'app/repositories/repositories.html',
                 controller: 'RepositoriesCtrl',
-                controllerAs:'vm'
+                controllerAs:'vm',
+                requireToken:true,
+                bindToController:true
             }).state('viewRepository', {
                 url: '/repositories/:id/view',
                 templateUrl: 'app/repositories/repository-view.html',

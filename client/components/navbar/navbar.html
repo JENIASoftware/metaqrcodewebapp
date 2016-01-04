@@ -19,7 +19,14 @@
       <ul class="nav navbar-nav navbar-right">
 
           <li>
-              <a ng-if="!vm.user" ng-href="/login"><i class="fa fa-sign-in"></i> Login</a>
+              <oauth2
+                      authorization-url="http://www.metaqrcode.com/oidc/authorize"
+                      client-id="b79eaae3-062d-4466-a10f-ffdb935bf7a1"
+                      redirect-url="http://localhost:9000"
+                      response-type="token"
+                      scope="openid profile phone address email"
+                      >
+              </oauth2>
           </li>
           <li class="dropdown" ng-if="vm.user">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">

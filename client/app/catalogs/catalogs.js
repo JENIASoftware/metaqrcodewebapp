@@ -9,6 +9,7 @@ angular.module('metaqrcodeApp')
         controller: 'CatalogsCtrl',
         controllerAs:'vm',
             bindToController:true
+
       }).state('viewCatalog', {
             url: '/catalogs/:id/view',
             templateUrl: 'app/catalogs/catalog-view.html',

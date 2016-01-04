@@ -15,8 +15,7 @@
         'angular-loading-bar',
         'ng-code-mirror',
         'zeroclipboard',
-        'ngTable',
-        'ui.gravatar'
+        'ngTable'
     ])
 
     .constant('app',{
@@ -33,9 +32,9 @@
     .config(config)
     .run(run);
 
-    config.$inject=['$logProvider', '$urlRouterProvider', '$locationProvider','toastr','cfpLoadingBarProvider','uiZeroclipConfigProvider','gravatarServiceProvider'];
+    config.$inject=['$logProvider', '$urlRouterProvider', '$locationProvider','toastr','cfpLoadingBarProvider','uiZeroclipConfigProvider',];
     /* @ngInject */
-    function config($logProvider, $urlRouterProvider, $locationProvider,toastr,cfpLoadingBarProvider,uiZeroclipConfigProvider,gravatarServiceProvider) {
+    function config($logProvider, $urlRouterProvider, $locationProvider,toastr,cfpLoadingBarProvider,uiZeroclipConfigProvider) {
         if ($logProvider.debugEnabled) {
             $logProvider.debugEnabled(true);
         }
@@ -54,11 +53,7 @@
             swfPath: '../bower_components/zeroclipboard/dist/ZeroClipboard.swf'
         });
 
-        //Config gravatar
-        gravatarServiceProvider.defaults = {
-            size     : 100,
-            "default": 'mm'  // Mystery man as default for missing avatars
-        };
+
 
     }
 
@@ -69,14 +64,14 @@
         // keep user logged in after page refresh
         $rootScope.globals = $cookieStore.get('globals') || {};
 
-        $rootScope.$on('$locationChangeStart', function (event, next, current) {
+        /*$rootScope.$on('$locationChangeStart', function (event, next, current) {
             // redirect to login page if not logged in and trying to access a restricted page
             var restrictedPage = $.inArray($location.path(), ['/repositories', '/upload']) >= 0;
             var loggedIn = $rootScope.globals.currentUser;
             if (restrictedPage && !loggedIn) {
                 $location.path('/login');
             }
-        });
+        });*/
         $rootScope.$on("oauth2:authSuccess",function(){
             $location.hash('');
             var tokenPayload = jwtHelper.decodeToken(AccessToken.get().id_token);

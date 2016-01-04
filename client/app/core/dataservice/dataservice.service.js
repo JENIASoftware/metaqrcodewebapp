@@ -36,10 +36,8 @@
                 .catch(fail);
         }
         function getRepositories(pageNumber,rowPerPage,query) {
-            var token=$rootScope.globals.currentUser.sessionToken;
             var request={
                 correlationIdLike:query,
-                sessionToken:token,
                 pageNumber:pageNumber,
                 rowPerPage:rowPerPage
             };
