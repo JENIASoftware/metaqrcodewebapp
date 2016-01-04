@@ -17,7 +17,13 @@
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
-
+          <li class="dropdown" ng-if="vm.user">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                  {{vm.user.username}}<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                  <li><a href="/profile"><i class="fa fa-user"></i> Profile</a></li>
+              </ul>
+          </li>
           <li>
               <oauth2
                       authorization-url="http://www.metaqrcode.com/oidc/authorize"
@@ -25,28 +31,11 @@
                       redirect-url="http://localhost:9000"
                       response-type="token"
                       scope="openid profile phone address email"
+                      sign-out-url="http://www.metaqrcode.com/oidc/logout"
                       >
               </oauth2>
           </li>
-          <li class="dropdown" ng-if="vm.user">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                  <img  gravatar-src="vm.user.username" gravatar-size="25" class="img-circle"><span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                  <li><a href=#>Welcome {{vm.user.username}}</a></li>
-                  <li class="nav-divider"></li>
-                  <li><a href="/profile"><i class="fa fa-user"></i> Profile</a></li>
-                  <li class="nav-divider"></li>
-                  <li><a ng-click="vm.logout()"><i class="fa fa-sign-out"></i> Log Out</a></li>
-              </ul>
-          </li>
-        <li class="dropdown">
 
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-language"></i> {{vm.selectedLanguage}} <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-              <li><a href="#" ng-click="vm.setLanguage('it')">Italiano</a></li>
-              <li><a href="#" ng-click="vm.setLanguage('en')">English</a></li>
-          </ul>
-        </li>
       </ul>
     </div>
   </div>

@@ -6,9 +6,9 @@
         .module('metaqrcodeApp')
         .factory('dataservice', dataservice);
 
-    dataservice.$inject = ['$http','logger','app','exception','$rootScope'];
+    dataservice.$inject = ['$http','logger','app','exception','$rootScope','AccessToken'];
     /* @ngInject */
-    function dataservice($http, logger,app,exception,$rootScope) {
+    function dataservice($http, logger,app,exception,$rootScope,AccessToken) {
         var service = {
             getCatalog: getCatalog,
             getCatalogs: getCatalogs,
@@ -112,7 +112,10 @@
                 data: data,
                 cache: false,
                 contentType: false,
-                processData: false
+                processData: false,
+                beforeSend:function(xhr){
+                    xhr.setRequestHeader('Authorization', 'Bearer ' + AccessToken.get().access_token)
+                }
             });
         }
         function updateRepository(request,file) {
@@ -128,14 +131,21 @@
                 data: data,
                 cache: false,
                 contentType: false,
-                processData: false
+                processData: false,
+                beforeSend:function(xhr){
+                    xhr.setRequestHeader('Authorization', 'Bearer ' + AccessToken.get().access_token)
+                }
             });
         }
         function success(response) {
             if (response.data.returnCode >= 0) {
                 return response.data;
             }
-            else { logger.error('Error code: ' + response.data.reason);}
+            else {
+
+                logger.error('Error code: ' + response.data.reason);
+                return fail(response.data.returnCode);
+            }
         }
 
         function fail(e) {

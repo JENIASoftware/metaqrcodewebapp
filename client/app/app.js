@@ -75,14 +75,10 @@
         $rootScope.$on("oauth2:authSuccess",function(){
             $location.hash('');
             var tokenPayload = jwtHelper.decodeToken(AccessToken.get().id_token);
-            UserService.ExistUser(tokenPayload.email).then(function(response){
-                if(!response.data.exists) {
-                    $location.path('/register');
-                }
-                else{
-                    $location.path('/');
-                }
-            });
+            $rootScope.globals ={
+                currentUser:{username:tokenPayload.sub}
+            }
+            $cookieStore.put('globals', $rootScope.globals);
         });
         $rootScope.$on("oauth2:authError",function(error){
             logger.error("Token: ",error);

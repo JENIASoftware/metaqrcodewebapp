@@ -35,7 +35,7 @@ angular.module('metaqrcodeApp')
         }
         function search(){
             vm.tableParams=new NgTableParams({count:vm.searchCriteria.rowPerPage}, {
-                counts: [15, 30, 50],
+                counts: [10, 30, 50],
                 getData: function(params) {
                     return dataservice.getCatalogs(params.page()-1,params.count(),vm.searchCriteria.query).then(function(data){
                         params.total(data.rowTotal); // recal. page nav controls

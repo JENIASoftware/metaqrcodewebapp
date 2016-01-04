@@ -16,7 +16,6 @@
         $scope.upload=function(){
             var request={
                 defaultCatalog:$scope.repository.defaultCatalog,
-                sessionToken:$rootScope.globals.currentUser.sessionToken,
                 correlationId:$scope.repository.correlationId
             };
             if(action=="create") {
