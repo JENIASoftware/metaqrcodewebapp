@@ -83,29 +83,45 @@
                 })
                 .catch(fail);
         }
-        function uploadCatalog(request,file) {
+        function uploadCatalog(request,file,xml) {
             var uploadUrl=app.SERVER+":"+app.PORT+"/api/rest/json/catalog/upload";
             var data = new FormData();
             data.append('request', new Blob([JSON.stringify(request)], {
                 type: "application/json"
             }));
-            data.append('xsd',file);
+            if(file) {
+                data.append('xsd', file);
+            }
+            if(xml) {
+                var blob = new Blob([xml], { type: "text/xml"});
+                data.append('xml',blob);
+            }
             return $.ajax({
                 type: "POST",
                 url: uploadUrl,
                 data: data,
                 cache: false,
                 contentType: false,
-                processData: false
+                processData: false,
+                beforeSend:function(xhr){
+                    xhr.setRequestHeader('Authorization', 'Bearer ' + AccessToken.get().access_token)
+                }
             });
         }
-        function uploadRepository(request,file) {
+        function uploadRepository(request,file,xml) {
             var uploadUrl = app.SERVER + ":" + app.PORT + "/api/rest/json/repository/upload";
             var data = new FormData();
             data.append('request', new Blob([JSON.stringify(request)], {
                 type: "application/json"
             }));
-            data.append('xml', file);
+            if(file) {
+                data.append('xml', file);
+            }
+            if(xml) {
+                var blob = new Blob([xml], { type: "text/xml"});
+                data.append('xml',blob);
+            }
+
             return $.ajax({
                 type: "POST",
                 url: uploadUrl,

@@ -16,7 +16,14 @@
                     <div class="form-group">
                         <label for="correlationId" class="col-sm-2 control-label">correlationId</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="correlationId" placeholder="correlationId" ng-model="repository.correlationId" required>
+                            <input type="text" class="form-control" id="correlationId" placeholder="correlationId" ng-model="repository.correlationId">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="xml" class="col-sm-2 control-label">File Text</label>
+                        <div class="col-sm-10">
+                            <textarea type="text" class="form-control" id="xml" name="xml" placeholder="Paste Here your XML" ng-model="repository.xml"></textarea>
                         </div>
                     </div>
                     <div class="form-group">
@@ -28,7 +35,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" ng-click="upload()" ng-disabled="newRepositoryForm.$invalid && file==null" class="btn btn-primary">OK</button>
+                <button type="button" ng-click="upload()" ng-disabled="newRepositoryForm.$invalid && file==null || newRepositoryForm.$invalid && newRepositoryForm.xml==null" class="btn btn-primary">OK</button>
                 <button type="button" ng-click="cancel()" class="btn">Cancel</button>
             </div>
         </div>

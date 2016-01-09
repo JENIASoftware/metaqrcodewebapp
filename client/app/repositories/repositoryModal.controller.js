@@ -11,6 +11,7 @@
         $scope.repository=repository || {};
         $scope.repository.defaultCatalog =repository?repository.defaultCatalog: null;
         $scope.repository.correlationId = repository?repository.correlationId: null;
+        $scope.repository.xml = null;
         $scope.title = title;
         $scope.file=null;
         $scope.upload=function(){
@@ -20,13 +21,13 @@
             };
             if(action=="create") {
 
-                dataservice.uploadRepository(request, $scope.file)
+                dataservice.uploadRepository(request, $scope.file,$scope.repository.xml)
                     .done(success)
                     .fail(fail)
             }
             if(action=="update"){
                 request.id=$stateParams.id;
-                dataservice.updateRepository(request, $scope.file)
+                dataservice.updateRepository(request, $scope.file,$scope.repository.xml)
                     .done(success)
                     .fail(fail)
             }

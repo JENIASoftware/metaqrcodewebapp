@@ -17,9 +17,9 @@
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
-          <li class="dropdown" ng-if="vm.user">
+          <li class="dropdown" ng-if="vm.getUser()">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                  {{vm.user.username}}<span class="caret"></span></a>
+                  {{vm.getUser().username}}<span class="caret"></span></a>
               <ul class="dropdown-menu">
                   <li><a href="/profile"><i class="fa fa-user"></i> Profile</a></li>
               </ul>
@@ -35,7 +35,9 @@
                       >
               </oauth2>
           </li>
-
+          <li ng-if="!vm.getUser()">
+              <p class="navbar-btn"><a class="btn btn-primary" href="/register"> Sign Up Here </a></p>
+          </li>
       </ul>
     </div>
   </div>

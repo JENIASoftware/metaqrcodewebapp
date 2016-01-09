@@ -35,7 +35,9 @@
                         vm.dataLoading = false;
                         vm.error=response.data.reason;
                     }
-                });
+                },function(error){
+                vm.error=error.data.reason;
+            });
         }
     }
 

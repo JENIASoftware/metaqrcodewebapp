@@ -15,13 +15,13 @@ angular.module('metaqrcodeApp')
         vm.logout=logout;
         vm.setLanguage=setLanguage;
         vm.selectedLanguage=null;
+        vm.getUser=getUser;
 
         activate();
 
         ////////////////////////////////////////////////////////////////////
         function activate(){
             vm.menu=getMenuItems();
-            loadCurrentUser();
             vm.selectedLanguage='en';
 
         }
@@ -38,9 +38,8 @@ angular.module('metaqrcodeApp')
         function isActive(route) {
             return route === $location.path();
         };
-
-        function loadCurrentUser(){
-            vm.user =$rootScope.globals.currentUser;
+        function getUser(){
+            return $rootScope.globals.currentUser;
         }
         function getMenuItems(){
             var menu = [

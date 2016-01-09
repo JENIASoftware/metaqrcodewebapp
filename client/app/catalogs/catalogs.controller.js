@@ -40,7 +40,7 @@ angular.module('metaqrcodeApp')
                     return dataservice.getCatalogs(params.page()-1,params.count(),vm.searchCriteria.query).then(function(data){
                         params.total(data.rowTotal); // recal. page nav controls
                         return data.result;
-                    });
+                    },function(e){});
                 }
             });
         }

@@ -62,7 +62,7 @@
     function run($rootScope, $location, $cookieStore,Endpoint,jwtHelper,AccessToken,logger,$window) {
 
         // keep user logged in after page refresh
-        $rootScope.globals = $cookieStore.get('globals') || {};
+        $rootScope.globals = $window.sessionStorage.getItem('globals') || {};
 
         $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
             if (toState && toState.requireToken) {
@@ -78,8 +78,8 @@
             var tokenPayload = jwtHelper.decodeToken(AccessToken.get().id_token);
             $rootScope.globals ={
                 currentUser:{username:tokenPayload.sub}
-            }
-            $cookieStore.put('globals', $rootScope.globals);
+            };
+            $window.sessionStorage.setItem('globals', $rootScope.globals);
         });
         $rootScope.$on("oauth2:authError",function(error){
             logger.error("Token: ",error);
