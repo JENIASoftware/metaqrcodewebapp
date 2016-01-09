@@ -13,13 +13,15 @@
                 templateUrl: 'app/profile/profile.html',
                 controller: 'ProfileCtrl',
                 controllerAs:'vm',
-                bindToController:true
+                bindToController:true,
+                requireToken:true
             }).state('editProfile', {
                 url: '/profile/edit',
                 templateUrl: 'app/profile/profile-edit.html',
                 controller: 'ProfileEditCtrl',
                 controllerAs:'vm',
-                bindToController:true
+                bindToController:true,
+                requireToken:true
             });
     }
 })();

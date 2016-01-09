@@ -57,21 +57,22 @@
 
     }
 
-    run.$inject = ['$rootScope', '$location', '$cookieStore','UserService','jwtHelper','AccessToken','logger'];
+    run.$inject = ['$rootScope', '$location', '$cookieStore','Endpoint','jwtHelper','AccessToken','logger','$window'];
     /* @ngInject */
-    function run($rootScope, $location, $cookieStore,UserService,jwtHelper,AccessToken,logger) {
+    function run($rootScope, $location, $cookieStore,Endpoint,jwtHelper,AccessToken,logger,$window) {
 
         // keep user logged in after page refresh
         $rootScope.globals = $cookieStore.get('globals') || {};
 
-        /*$rootScope.$on('$locationChangeStart', function (event, next, current) {
-            // redirect to login page if not logged in and trying to access a restricted page
-            var restrictedPage = $.inArray($location.path(), ['/repositories', '/upload']) >= 0;
-            var loggedIn = $rootScope.globals.currentUser;
-            if (restrictedPage && !loggedIn) {
-                $location.path('/login');
+        $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+            if (toState && toState.requireToken) {
+                if (!AccessToken.get()) {
+                    event.preventDefault();
+                    $window.sessionStorage.setItem('oauthRedirectRoute', $location.path());
+                    Endpoint.authorize();
+                }
             }
-        });*/
+        });
         $rootScope.$on("oauth2:authSuccess",function(){
             $location.hash('');
             var tokenPayload = jwtHelper.decodeToken(AccessToken.get().id_token);

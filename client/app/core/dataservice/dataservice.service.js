@@ -138,14 +138,17 @@
             });
         }
         function success(response) {
-            if (response.data.returnCode >= 0) {
-                return response.data;
-            }
-            else {
+            if(response.data) {
+                if (response.data.returnCode >= 0) {
+                    return response.data;
+                }
+                else {
 
-                logger.error('Error code: ' + response.data.reason);
-                return fail(response.data.returnCode);
+                    logger.error('Error code: ' + response.data.reason);
+                    return fail(response.data.returnCode);
+                }
             }
+            return fail(response);
         }
 
         function fail(e) {

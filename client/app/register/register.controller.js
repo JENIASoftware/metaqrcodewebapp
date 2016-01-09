@@ -30,7 +30,7 @@
             UserService.Create(vm.user)
                 .then(function (response) {
                     if (response.data.returnCode>=0) {
-                        $location.path('/login');
+                        $location.path('/confirmRegistration');
                     } else {
                         vm.dataLoading = false;
                         vm.error=response.data.reason;
