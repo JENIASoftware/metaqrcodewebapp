@@ -1,19 +1,69 @@
+(function(){
 'use strict';
 
 angular.module('metaqrcodeApp')
-  .controller('NavbarCtrl', function ($scope, $location) {
-    $scope.menu = [{
-      'title': 'Home',
-      'link': '/'
-    },
-    {
-      'title': 'Catalogs',
-      'link': '/catalogs'
-    }];
+    .controller('NavbarCtrl', NavbarCtrl);
 
-    $scope.isCollapsed = true;
+    NavbarCtrl.$inject=['$rootScope', '$location','UserService','AuthenticationService','localize'];
 
-    $scope.isActive = function(route) {
-      return route === $location.path();
-    };
-  });
+    function NavbarCtrl($rootScope, $location,UserService,AuthenticationService,localize) {
+        var vm=this;
+        vm.isCollapsed = true;
+        vm.user=null;
+        vm.menu = null;
+        vm.isActive = isActive;
+        vm.logout=logout;
+        vm.setLanguage=setLanguage;
+        vm.selectedLanguage=null;
+        vm.getUser=getUser;
+
+        activate();
+
+        ////////////////////////////////////////////////////////////////////
+        function activate(){
+            vm.menu=getMenuItems();
+            vm.selectedLanguage='en';
+
+        }
+
+        function setLanguage(lang){
+            localize.setLanguage(lang);
+            vm.selectedLanguage=lang;
+        }
+        function logout(){
+            AuthenticationService.ClearCredentials();
+            vm.user=null;
+            $location.path('/');
+        };
+        function isActive(route) {
+            return route === $location.path();
+        };
+        function getUser(){
+            return $rootScope.globals.currentUser;
+        }
+        function getMenuItems(){
+            var menu = [
+                {
+                    'title': 'Home',
+                    'link': '/',
+                    'icon':'home'
+                },
+                {
+                    'title': 'Catalogs',
+                    'link': '/catalogs',
+                    'icon':'list'
+                },
+                {
+                    'title': 'Repositories',
+                    'link': '/repositories',
+                    'icon': 'qrcode'
+                },
+                {
+                    'title': 'Developers',
+                    'link': 'https://github.com/JENIASoftware/metaqrcode',
+                    'icon':'laptop'
+                }];
+            return menu;
+        }
+  };
+})();

@@ -1,3 +1,30 @@
-<div class="col-md-12">
-This is the catalogs view.
+<div class="container">
+	<div class="row">
+		<div class="col-lg-12">
+            <div class="panel panel-info">
+                <div class="panel-heading clearfix">
+                    <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Catalogs</h4>
+                    <div class="pull-right">
+                        <input ng-model="vm.searchCriteria.query" ng-model-options="{ getterSetter: true }" ng-keyup="vm.search()" placeholder="Search..." class="form-control">
+                    </div>
+                    <div class="pull-right">
+                        <button  ng-if="vm.userLogged" class="btn btn-default" ng-click="vm.showModal()" title="upload new catalog"><i class="fa fa-upload"></i> Upload</button>
+                    </div>
+                </div>
+                <div class="panel-body">
+
+                    <table ng-table="vm.tableParams" class="table table-condensed table-bordered table-striped">
+                        <tr ng-repeat="row in $data track by row.id">
+                            <td data-title="'Name'">{{row.name}}</td>
+                            <td data-title="'Description'">{{row.description}}</td>
+                            <td data-title="'Url'"><a ui-sref="viewCatalog({id:row.id})"> {{row.catalogGet}}</a></td>
+                            <td data-title="'Repositories'"><a ui-sref="repositories({correlationId:row.catalogGet})"> <span class="badge">{{row.numberOfReferences || 0}}</span></a></td>
+                            <td data-title="'Rating'"><div class="star-rating pull-right" star-rating rating-value="row.stars" max="5"></div></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+		</div>
+	</div>
 </div>

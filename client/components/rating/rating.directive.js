@@ -20,9 +20,9 @@
 			link : function(scope, elem, attrs) {
 				var updateStars = function() {
 					scope.stars = [];
-					for ( var i = 0; i < scope.max; i++) {
+					for ( var i = 1; i <= scope.max; i++) {
 						scope.stars.push({
-							filled : i < scope.ratingValue
+							filled : i <= scope.ratingValue
 						});
 					}
 				};

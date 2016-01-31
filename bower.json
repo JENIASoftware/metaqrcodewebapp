@@ -3,20 +3,34 @@
   "version": "0.0.0",
   "dependencies": {
     "angular": ">=1.2.*",
-    "angular-bootstrap": "~0.11.0",
+    "angular-code-mirror": "~0.0.3",
     "angular-cookies": ">=1.2.*",
+    "angular-file-model": "~0.3.1",
+    "angular-file-upload": "~2.1.4",
+    "angular-gravatar": "~0.4.1",
+    "angular-jwt": "~0.0.9",
+    "angular-loading-bar": "~0.8.0",
+    "angular-modal-service": "~0.6.7",
     "angular-resource": ">=1.2.*",
     "angular-sanitize": ">=1.2.*",
     "angular-ui-router": "~0.2.15",
-    "bootstrap": "~3.1.1",
+    "angular-zeroclipboard": "~0.8.0",
+    "animate-css": "animate-css#~3.4.0",
+    "bootstrap": "~3.3.5",
     "es5-shim": "~3.0.1",
     "font-awesome": ">=4.1.0",
     "json3": "~3.3.1",
     "lodash": "~2.4.1",
-    "toast": "~1.2.4"
+    "ng-table": "~0.8.3",
+    "toastr": "~2.1.2",
+    "angular-md5": "~0.1.10"
   },
   "devDependencies": {
     "angular-mocks": ">=1.2.*",
     "angular-scenario": ">=1.2.*"
+  },
+  "resolutions": {
+    "bootstrap": "~3.3.5",
+    "angular": "~1.4.x"
   }
 }

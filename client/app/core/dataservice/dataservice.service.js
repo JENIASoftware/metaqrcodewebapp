@@ -6,63 +6,169 @@
         .module('metaqrcodeApp')
         .factory('dataservice', dataservice);
 
-    dataservice.$inject = ['$http', '$q'];
+    dataservice.$inject = ['$http','logger','app','exception','$rootScope','AccessToken'];
     /* @ngInject */
-    function dataservice($http, $q) {
+    function dataservice($http, logger,app,exception,$rootScope,AccessToken) {
         var service = {
             getCatalog: getCatalog,
-            download: download,
-            upload: upload
+            getCatalogs: getCatalogs,
+            downloadCatalog: downloadCatalog,
+            downloadRepository: downloadRepository,
+            uploadCatalog: uploadCatalog,
+            uploadRepository:uploadRepository,
+            getRepositories:getRepositories,
+            getRepository:getRepository,
+            updateRepository:updateRepository
         };
 
         return service;
         
-        function getCatalog() {
-            return $http.get('/api/rest/json/catalog')
+        function getCatalogs(pageNumber,rowPerPage,query) {
+            var searchUrl=app.SERVER+":"+app.PORT+"/api/rest/json/catalog/search";
+            return $http.post(searchUrl,{nameLike:query,pageNumber:pageNumber,rowPerPage:rowPerPage})
                 .then(success)
                 .catch(fail);
-
-            function success(response) {
-                if (response.data.returnCode >= 0) {
-                    return response.data.result;
-                }
-               // else { logger.error('Failed load catalog with code: ' + response.data.returnCode);}
-            }
-
-            function fail(e) {
-                //return exception.catcher('XHR Failed for getCatalog')(e);
-            }
         }
-        function download(id) {
-            return $http.get('/file/download')
+        function getCatalog(id) {
+            var searchUrl=app.SERVER+":"+app.PORT+"/api/rest/json/catalog/search";
+            return $http.post(searchUrl,{id:id})
                 .then(success)
                 .catch(fail);
-
-            function success(response) {
-                return response.data;
-               // else { logger.error('Failed load catalog with code: ' + response.data.returnCode);}
-            }
-
-            function fail(e) {
-                //return exception.catcher('XHR Failed for getCatalog')(e);
-            }
         }
-        
-        function upload(catalog) {
-             return $http.post('/api/catalogs',catalog)
+        function getRepositories(pageNumber,rowPerPage,query) {
+            var request={
+                correlationIdLike:query,
+                pageNumber:pageNumber,
+                rowPerPage:rowPerPage
+            };
+            var searchUrl=app.SERVER+":"+app.PORT+"/api/rest/json/repository/search";
+            return $http.post(searchUrl,request)
                 .then(success)
                 .catch(fail);
+        }
+        function getRepository(id) {
+            var token=$rootScope.globals.currentUser.sessionToken;
+            var request={
+                id:id,
+                sessionToken:token
+            };
+            var searchUrl=app.SERVER+":"+app.PORT+"/api/rest/json/repository/search";
+            return $http.post(searchUrl,request)
+                .then(success)
+                .catch(fail);
+        }
+        function downloadRepository(id,format) {
 
-            function success(response) {
-                if (response.data.returnCode >= 0) {
-                    return response.data.results;
+            var url=app.SERVER+":"+app.PORT+"/api/rest/json/repository/download";
+            if(format && format=='json'){
+                url=app.SERVER+":"+app.PORT+"/api/rest/json/repository/downloadAsJson";
+            }
+            var request={
+                id:id
+            };
+            return $http.post(url,request)
+                .then(function(response){
+                    return response.data;
+                })
+                .catch(fail);
+        }
+        function downloadCatalog(id) {
+            var url=app.SERVER+":"+app.PORT+"/api/rest/json/catalog/download";
+            var request={
+                id:id
+            };
+            return $http.post(url,request)
+                .then(function(response){
+                    return response.data;
+                })
+                .catch(fail);
+        }
+        function uploadCatalog(request,file,xml) {
+            var uploadUrl=app.SERVER+":"+app.PORT+"/api/rest/json/catalog/upload";
+            var data = new FormData();
+            data.append('request', new Blob([JSON.stringify(request)], {
+                type: "application/json"
+            }));
+            if(file) {
+                data.append('xsd', file);
+            }
+            if(xml) {
+                var blob = new Blob([xml], { type: "text/xml"});
+                data.append('xml',blob);
+            }
+            return $.ajax({
+                type: "POST",
+                url: uploadUrl,
+                data: data,
+                cache: false,
+                contentType: false,
+                processData: false,
+                beforeSend:function(xhr){
+                    xhr.setRequestHeader('Authorization', 'Bearer ' + AccessToken.get().access_token)
                 }
-               // else { logger.error('Failed load catalog with code: ' + response.data.returnCode);}
+            });
+        }
+        function uploadRepository(request,file,xml) {
+            var uploadUrl = app.SERVER + ":" + app.PORT + "/api/rest/json/repository/upload";
+            var data = new FormData();
+            data.append('request', new Blob([JSON.stringify(request)], {
+                type: "application/json"
+            }));
+            if(file) {
+                data.append('xml', file);
+            }
+            if(xml) {
+                var blob = new Blob([xml], { type: "text/xml"});
+                data.append('xml',blob);
             }
 
-            function fail(e) {
-                //return exception.catcher('XHR Failed for getCatalog')(e);
+            return $.ajax({
+                type: "POST",
+                url: uploadUrl,
+                data: data,
+                cache: false,
+                contentType: false,
+                processData: false,
+                beforeSend:function(xhr){
+                    xhr.setRequestHeader('Authorization', 'Bearer ' + AccessToken.get().access_token)
+                }
+            });
+        }
+        function updateRepository(request,file) {
+            var uploadUrl = app.SERVER + ":" + app.PORT + "/api/rest/json/repository/update";
+            var data = new FormData();
+            data.append('request', new Blob([JSON.stringify(request)], {
+                type: "application/json"
+            }));
+            data.append('xml', file);
+            return $.ajax({
+                type: "POST",
+                url: uploadUrl,
+                data: data,
+                cache: false,
+                contentType: false,
+                processData: false,
+                beforeSend:function(xhr){
+                    xhr.setRequestHeader('Authorization', 'Bearer ' + AccessToken.get().access_token)
+                }
+            });
+        }
+        function success(response) {
+            if(response.data) {
+                if (response.data.returnCode >= 0) {
+                    return response.data;
+                }
+                else {
+
+                    logger.error('Error code: ' + response.data.reason);
+                    return fail(response.data.returnCode);
+                }
             }
+            return fail(response);
+        }
+
+        function fail(e) {
+            return exception.catcher('XHR Failed')(e);
         }
     }
 })();

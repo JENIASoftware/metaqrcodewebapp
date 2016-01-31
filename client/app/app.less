@@ -4,19 +4,313 @@
 @icon-font-path: '/bower_components/bootstrap/fonts/';
 @fa-font-path: '/bower_components/font-awesome/fonts';
 
-/**
- * App-wide Styles
+/*@base-gray:           @gray-base;
+@base-orange:         lighten(@base-gray, 46.7%);*/
+
+@base-gray:           #2D2D2D;
+@base-orange:         #FC6000;
+
+@border-radius-base:0px;
+@border-radius-large:0px;
+@border-radius-small:0px;
+@input-border-focus:@base-orange;
+
+@btn-primary-color:@base-orange;
+@btn-primary-bg:@base-gray;
+/*!
+ * Start Bootstrap - Modern Business HTML Template (http://startbootstrap.com)
+ * Code licensed under the Apache License v2.0.
+ * For details, see http://www.apache.org/licenses/LICENSE-2.0.
  */
 
-.browsehappy {
+/* Global Styles */
+
+
+body {
+  margin-bottom: 250px;
+}
+html{
+  position: relative;
+  min-height: 100%;
+}
+body {
+  padding-top: 75px; /* Required padding for .navbar-fixed-top. Remove if using .navbar-static-top. Change if height of navigation changes. */
+}
+
+
+.profile-img {
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 10px;
+  display: block;
+  background-color: @base-gray;
+}
+/* 404 Page Styles */
+
+.error-404 {
+  font-size: 100px;
+}
+
+
+/* Footer Styles */
+
+
+.footer-distributed{
+  background-color: @base-gray;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
+  box-sizing: border-box;
+  width: 100%;
+  text-align: left;
+  font: bold 16px sans-serif;
+  position: absolute;
+  bottom: 0;
+  /* Set the fixed height of the footer here */
+  height: 250px;
+  padding: 55px 50px;
+  margin-top: 80px;
+}
+
+.footer-distributed .footer-left,
+.footer-distributed .footer-center,
+.footer-distributed .footer-right{
+  display: inline-block;
+  vertical-align: top;
+}
+
+/* Footer left */
+
+.footer-distributed .footer-left{
+  width: 40%;
+}
+
+/* The company logo */
+
+.footer-distributed h3{
+  color:  #ffffff;
+  font: normal 36px sans-serif;
+  margin: 0;
+}
+
+.footer-distributed h3 span{
+  color:  @base-orange;
+}
+
+/* Footer links */
+
+.footer-distributed .footer-links{
+  color:  #ffffff;
+  margin: 20px 0 12px;
+  padding: 0;
+}
+
+.footer-distributed .footer-links a{
+  display:inline-block;
+  line-height: 1.8;
+  text-decoration: none;
+  color:  inherit;
+}
+
+.footer-distributed .footer-company-name{
+  color:  #8f9296;
+  font-size: 14px;
+  font-weight: normal;
+  margin: 0;
+}
+
+/* Footer Center */
+
+.footer-distributed .footer-center{
+  width: 55%;
+}
+
+.footer-distributed .footer-center i{
+  background-color:  #33383b;
+  color: #ffffff;
+  font-size: 25px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 42px;
+  margin: 10px 15px;
+  vertical-align: middle;
+}
+
+.footer-distributed .footer-center i.fa-envelope{
+  font-size: 17px;
+  line-height: 38px;
+}
+
+.footer-distributed .footer-center p{
+  display: inline-block;
+  color: #ffffff;
+  vertical-align: middle;
+  margin:0;
+}
+
+.footer-distributed .footer-center p span{
+  display:block;
+  font-weight: normal;
+  font-size:14px;
+  line-height:2;
+}
+
+.footer-distributed .footer-center p a{
+  color:  @base-orange;
+  text-decoration: none;;
+}
+
+
+/* Footer Right */
+
+.footer-distributed .footer-right{
+  width: 20%;
+}
+
+.footer-distributed .footer-company-about{
+  line-height: 20px;
+  color:  #92999f;
+  font-size: 13px;
+  font-weight: normal;
+  margin: 0;
+}
+
+.footer-distributed .footer-company-about span{
+  display: block;
+  color:  #ffffff;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.footer-distributed .footer-icons{
+  margin-top: 25px;
+}
+
+.footer-distributed .footer-icons a{
+  display: inline-block;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+  background-color:  #33383b;
+  border-radius: 2px;
+
+  font-size: 20px;
+  color: #ffffff;
+  text-align: center;
+  line-height: 35px;
+
+  margin-right: 3px;
+  margin-bottom: 5px;
+}
+
+/* If you don't want the footer to be responsive, remove these media queries */
+
+@media (max-width: 880px) {
+  body {
+    margin-bottom: 250px;
+  }
+  .footer-distributed{
+    font: bold 14px sans-serif;
+    height: 500px;
+  }
+
+  .footer-distributed .footer-left,
+  .footer-distributed .footer-center,
+  .footer-distributed .footer-right{
+    display: block;
+    width: 100%;
+    margin-bottom: 40px;
+    text-align: center;
+  }
+
+  .footer-distributed .footer-center i{
+    margin-left: 0;
+  }
+
+}
+
+/*Bootstrap Panels -- panel.info************/
+
+.panel-info {
+    border-color: @base-gray;
+   .panel-heading{
+      background-color: @base-gray;
+      color: @base-orange;
+   }
+  .panel-footer{
+
+    background-color: @base-gray;
+    color: @base-orange;
+    a{
+      color: @base-orange;
+    }
+  }
+}
+
+/************** Loding Bar *****************
+
+*******************************************/
+#loading-bar .bar{
+  background-color: @base-orange;
+}
+
+.img-qrcode{
+  cursor: pointer;
+}
+
+/*************************
+Clipborad Copy Button
+*************************/
+.btn-clipboard {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 10;
+  display: block;
+  padding: 5px 8px;
+  font-size: 12px;
+  color: #767676;
+  cursor: pointer;
+  background-color: #fff;
+  border: 1px solid #e1e1e8;
+  border-radius: 0 4px 0 4px;
+}
+@media (min-width: 768px) {
+  .zero-clipboard {
+    display: block;
+  }
+
+  .zero-clipboard {
+    position: relative;
+    display: none;
+  }
+}
+  .browsehappy {
     margin: 0.2em 0;
     background: #ccc;
     color: #000;
     padding: 0.2em 0;
-}
+  }
+  section{
+    border-top: 1px solid #E5E5E5;
+    padding: 15px 0px;
+  }
 
-// injector
-@import 'catalogs/catalogs.less';
-@import 'main/main.less';
-@import 'modal/modal.less';
-// endinjector
+  // injector
+  @import 'catalogs/catalogs.less';
+  @import 'coming/coming.less';
+  @import 'developers/developers.less';
+  @import 'hiw/hiw.less';
+  @import 'login/login.less';
+  @import 'main/main.less';
+  @import 'profile/profile.less';
+  @import 'register/register.less';
+  @import 'repositories/repositories.less';
+  @import 'searchCatalog/searchCatalog.less';
+  @import 'upload/upload.less';
+  @import 'fileInput/fileInput.less';
+  @import 'modal/modal.less';
+  @import 'navbar/navbar.less';
+  @import 'rating/rating.less';
+  // endinjector

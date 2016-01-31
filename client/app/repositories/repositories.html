@@ -1,0 +1,24 @@
+<div class="container">
+    <h1 class="page-header">Repositories</h1>
+    <div class="panel panel-info">
+        <div class="panel-heading clearfix">
+            <h4 class="panel-title pull-left" style="padding-top: 7.5px;">Catalogs</h4>
+            <div class="pull-right">
+                <input ng-model="vm.searchCriteria.query" ng-model-options="{ getterSetter: true }" ng-keyup="vm.search()" placeholder="Search..." class="form-control">
+            </div>
+            <div class="pull-right">
+                <button  class="btn btn-default" ng-click="vm.showModal()" title="upload new repository"><i class="fa fa-upload"></i> Upload</button>
+            </div>
+        </div>
+        <div class="panel-body">
+
+            <table ng-table="vm.tableParams" class="table">
+                <tr ng-repeat="row in $data track by row.id">
+                    <td data-title="'Qrcode'"><a ui-sref="viewRepository({id:row.id})"><img class="img-qrcode" ng-src="{{row.qrcodeGet}}" height="100px"/></a> </td>
+                    <td data-title="'Catalogs'"><span class="badge pull-right">{{row.catalogEntries.length || 0}}</span></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+

@@ -55,16 +55,21 @@ module.exports = function (grunt) {
     },
     watch: {
       injectJS: {
-        files: [
-          '<%= yeoman.client %>/{app,components,ext-modules}/**/*.js',
-          '!<%= yeoman.client %>/{app,components,ext-modules}/**/*.spec.js',
-          '!<%= yeoman.client %>/{app,components,ext-modules}/**/*.mock.js',
+          files: [
+              '<%= yeoman.client %>/blocks/logger/logger.module.js',
+              '<%= yeoman.client %>/blocks/logger/logger.js',
+              '<%= yeoman.client %>/blocks/exception/exception.module.js',
+              '<%= yeoman.client %>/blocks/exception/exception-handler.provider.js',
+             '<%= yeoman.client %>/blocks/exception/exception.js',
+          '<%= yeoman.client %>/{app,components}/**/*.js',
+          '!<%= yeoman.client %>/{app,components}/**/*.spec.js',
+          '!<%= yeoman.client %>/{app,components}/**/*.mock.js',
           '!<%= yeoman.client %>/app/app.js'],
         tasks: ['injector:scripts']
       },
       injectCss: {
         files: [
-          '<%= yeoman.client %>/{app,components,ext-modules}/**/*.css'
+          '<%= yeoman.client %>/{app,components}/**/*.css'
         ],
         tasks: ['injector:css']
       },
@@ -94,10 +99,10 @@ module.exports = function (grunt) {
       },
       livereload: {
         files: [
-          '{.tmp,<%= yeoman.client %>}/{app,components,ext-modules}/**/*.css',
-          '{.tmp,<%= yeoman.client %>}/{app,components,ext-modules}/**/*.html',
+          '{.tmp,<%= yeoman.client %>}/{app,components}/**/*.css',
+          '{.tmp,<%= yeoman.client %>}/{app,components}/**/*.html',
           
-          '{.tmp,<%= yeoman.client %>}/{app,components,ext-modules}/**/*.js',
+          '{.tmp,<%= yeoman.client %>}/{app,components}/**/*.js',
           
           '!{.tmp,<%= yeoman.client %>}{app,components}/**/*.spec.js',
           '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.mock.js',
@@ -224,7 +229,7 @@ module.exports = function (grunt) {
       target: {
         src: '<%= yeoman.client %>/index.html',
         ignorePath: '<%= yeoman.client %>/',
-        exclude: [/bootstrap-sass-official/, /bootstrap.js/, '/json3/', '/es5-shim/', /bootstrap.css/, /font-awesome.css/ ]
+        exclude: [/bootstrap-sass-official/, '/json3/', '/es5-shim/', /font-awesome.css/ ]
       }
     },
 
@@ -325,12 +330,12 @@ module.exports = function (grunt) {
       },
       main: {
         cwd: '<%= yeoman.client %>',
-        src: ['{app,components,ext-modules}/**/*.html'],
+        src: ['{app,components}/**/*.html'],
         dest: '.tmp/templates.js'
       },
       tmp: {
         cwd: '.tmp',
-        src: ['{app,components,ext-modules}/**/*.html'],
+        src: ['{app,components}/**/*.html'],
         dest: '.tmp/tmp-templates.js'
       }
     },
@@ -376,7 +381,7 @@ module.exports = function (grunt) {
         expand: true,
         cwd: '<%= yeoman.client %>',
         dest: '.tmp/',
-        src: ['{app,components,ext-modules}/**/*.css']
+        src: ['{app,components}/**/*.css']
       }
     },
 
@@ -498,17 +503,12 @@ module.exports = function (grunt) {
         files: {
           '<%= yeoman.client %>/index.html': [
                [
-                 
+                 '<%= yeoman.client %>/blocks/logger/logger.module.js',
+              '<%= yeoman.client %>/blocks/logger/logger.js',
+              '<%= yeoman.client %>/blocks/exception/exception.module.js',
+              '<%= yeoman.client %>/blocks/exception/exception-handler.provider.js',
+             '<%= yeoman.client %>/blocks/exception/exception.js',
                  '{.tmp,<%= yeoman.client %>}/{app,components}/**/*.js',
-                  '{.tmp,<%= yeoman.client %>}/ext-modules/psMenu/psMenuModule.js',
-                  '{.tmp,<%= yeoman.client %>}/ext-modules/psMenu/psMenuController.js',
-                  '{.tmp,<%= yeoman.client %>}/ext-modules/psMenu/psMenuDirective.js',
-                  '{.tmp,<%= yeoman.client %>}/ext-modules/psMenu/psMenuItemDirective.js',
-                  '{.tmp,<%= yeoman.client %>}/ext-modules/psMenu/psMenuGroupDirective.js',
-                  '{.tmp,<%= yeoman.client %>}/ext-modules/psDashboard/psDashboardModule.js',
-                  '{.tmp,<%= yeoman.client %>}/ext-modules/psFramework/psFrameworkModule.js',
-                  '{.tmp,<%= yeoman.client %>}/ext-modules/psFramework/psFrameworkController.js',
-                 '{.tmp,<%= yeoman.client %>}/ext-modules/psFramework/psFrameworkDirective.js',
                  '!{.tmp,<%= yeoman.client %>}/app/app.js',               
                  '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.spec.js',
                  '!{.tmp,<%= yeoman.client %>}/{app,components}/**/*.mock.js'               
@@ -549,7 +549,7 @@ module.exports = function (grunt) {
         },
         files: {
           '<%= yeoman.client %>/index.html': [
-            '<%= yeoman.client %>/{app,components,ext-modules}/**/*.css'
+            '<%= yeoman.client %>/{app,components}/**/*.css'
           ]
         }
       }

@@ -1,0 +1,72 @@
+<div id="masthead">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7">
+                <h1>MetaQRCODE
+                    <p class="lead">Api Docs</p>
+                </h1>
+            </div>
+            <div class="col-md-5">
+                <div class="well well-lg">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <img src="{{vm.qrcodeRepoUrl}}" class="img-responsive">
+                        </div>
+                        <div class="col-sm-6">
+                           <strong><em> Scan this qrcode to download the related metadata</em></strong>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!--/container-->
+</div><!--/masthead-->
+
+<!--main-->
+<div class="container">
+    <div class="row">
+        <!--left-->
+        <div class="col-md-3" id="leftCol">
+            <ul class="nav nav-stacked" id="sidebar">
+                <li ng-repeat="service in vm.services"><a href="#{{service.id}}">{{service.title}}</a>
+                <ul class="nav" ng-repeat="child in service.childs">
+                    <li><a href="#{{child.id}}">{{child.title}}</a></li>
+                </ul>
+                </li>
+            </ul>
+        </div><!--/left-->
+
+        <!--right-->
+        <div class="col-md-9" id="docs">
+            <div ng-repeat="service in vm.services">
+                <h2  id="{{service.id}}">{{service.title}}</h2>
+                <hr>
+                <div ng-repeat="child in service.childs">
+                    <h3 id="{{child.id}}">{{child.title}}</h3>
+                    <p>
+                        <ul>
+                            <li><em>@url:</em> <code>{{child.url}}</code></li>
+                            <li><em>@method:</em> <code>{{child.method}}</code></li>
+                            <li>Token Required: <code> {{child.accessToken}} </code></li>
+                            <li ng-show="child.parameters.length>0">
+                                Request payload
+                                <ul>
+                                    <li ng-repeat="p in child.parameters">
+                                        <em>@{{p.name}}</em>
+                                        <code>{{p.type}}</code>
+                                        <code ng-show="p.required">required</code>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </p>
+                    <strong><em>Example</em></strong>
+                    <code-mirror lang="javascript" model="child.example">
+                    </code-mirror>
+                    <hr>
+                </div>
+
+            </div>
+        </div><!--/right-->
+    </div><!--/row-->
+</div><!--/container-->
