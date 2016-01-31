@@ -15,7 +15,8 @@
         'angular-loading-bar',
         'ng-code-mirror',
         'zeroclipboard',
-        'ngTable'
+        'ngTable',
+        'angular-md5'
     ])
 
     .constant('app',{

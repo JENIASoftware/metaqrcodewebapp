@@ -60,7 +60,7 @@ angular.module('metaqrcodeApp')
                 },
                 {
                     'title': 'Developers',
-                    'link': '/developers',
+                    'link': 'https://github.com/JENIASoftware/metaqrcode',
                     'icon':'laptop'
                 }];
             return menu;

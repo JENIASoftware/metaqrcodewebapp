@@ -20,7 +20,10 @@ angular.module('metaqrcodeApp')
         }
 
         function navigate(url){
-            $location.path(url);
+            if(url.startsWith('http')){
+            window.location.href =url;}
+            else{
+            $location.path(url);}
         }
     }
 })();

@@ -35,7 +35,7 @@
                 },
                 {
                     title:'Everyone can read METAQRCODE',
-                    img:'assets/images/readqrcode.jpg',
+                    img:'assets/images/readqrcode.JPG',
                     text:'Reading QRCode is easy. You can do it in various way and using various technologies. QRCode technology is solid and robust. Use a mobile phone, a barcode gun, a scanner, a MFP, a custom app...'
                 },
                 {
