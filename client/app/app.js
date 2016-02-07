@@ -20,7 +20,7 @@
     ])
 
     .constant('app',{
-        SERVER:'http://www.metaqrcode.com',
+        SERVER:'https://www.metaqrcode.com',
         PORT:'80'
     })
 /*
