@@ -17,8 +17,7 @@
             var fd = new FormData();
             var request={
                 name:$scope.catalog.name,
-                description:$scope.catalog.description,
-                sessionToken:$cookieStore.get('globals').currentUser.sessionToken
+                description:$scope.catalog.description
             };
             fd.append('xs', $scope.file);
             fd.append('request', new Blob([JSON.stringify(request)]),{

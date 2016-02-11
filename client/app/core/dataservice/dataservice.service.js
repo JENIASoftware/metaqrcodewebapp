@@ -24,13 +24,13 @@
         return service;
         
         function getCatalogs(pageNumber,rowPerPage,query) {
-            var searchUrl=app.SERVER+":"+app.PORT+"/api/rest/json/catalog/search";
+            var searchUrl=app.SERVER+"/api/rest/json/catalog/search";
             return $http.post(searchUrl,{nameLike:query,pageNumber:pageNumber,rowPerPage:rowPerPage})
                 .then(success)
                 .catch(fail);
         }
         function getCatalog(id) {
-            var searchUrl=app.SERVER+":"+app.PORT+"/api/rest/json/catalog/search";
+            var searchUrl=app.SERVER+"/api/rest/json/catalog/search";
             return $http.post(searchUrl,{id:id})
                 .then(success)
                 .catch(fail);
@@ -41,7 +41,7 @@
                 pageNumber:pageNumber,
                 rowPerPage:rowPerPage
             };
-            var searchUrl=app.SERVER+":"+app.PORT+"/api/rest/json/repository/search";
+            var searchUrl=app.SERVER+"/api/rest/json/repository/search";
             return $http.post(searchUrl,request)
                 .then(success)
                 .catch(fail);
@@ -52,16 +52,16 @@
                 id:id,
                 sessionToken:token
             };
-            var searchUrl=app.SERVER+":"+app.PORT+"/api/rest/json/repository/search";
+            var searchUrl=app.SERVER+"/api/rest/json/repository/search";
             return $http.post(searchUrl,request)
                 .then(success)
                 .catch(fail);
         }
         function downloadRepository(id,format) {
 
-            var url=app.SERVER+":"+app.PORT+"/api/rest/json/repository/download";
+            var url=app.SERVER+"/api/rest/json/repository/download";
             if(format && format=='json'){
-                url=app.SERVER+":"+app.PORT+"/api/rest/json/repository/downloadAsJson";
+                url=app.SERVER+"/api/rest/json/repository/downloadAsJson";
             }
             var request={
                 id:id
@@ -73,7 +73,7 @@
                 .catch(fail);
         }
         function downloadCatalog(id) {
-            var url=app.SERVER+":"+app.PORT+"/api/rest/json/catalog/download";
+            var url=app.SERVER+"/api/rest/json/catalog/download";
             var request={
                 id:id
             };
@@ -84,7 +84,7 @@
                 .catch(fail);
         }
         function uploadCatalog(request,file,xml) {
-            var uploadUrl=app.SERVER+":"+app.PORT+"/api/rest/json/catalog/upload";
+            var uploadUrl=app.SERVER+"/api/rest/json/catalog/upload";
             var data = new FormData();
             data.append('request', new Blob([JSON.stringify(request)], {
                 type: "application/json"
@@ -109,7 +109,7 @@
             });
         }
         function uploadRepository(request,file,xml) {
-            var uploadUrl = app.SERVER + ":" + app.PORT + "/api/rest/json/repository/upload";
+            var uploadUrl = app.SERVER + "/api/rest/json/repository/upload";
             var data = new FormData();
             data.append('request', new Blob([JSON.stringify(request)], {
                 type: "application/json"
@@ -135,7 +135,7 @@
             });
         }
         function updateRepository(request,file) {
-            var uploadUrl = app.SERVER + ":" + app.PORT + "/api/rest/json/repository/update";
+            var uploadUrl = app.SERVER + "/api/rest/json/repository/update";
             var data = new FormData();
             data.append('request', new Blob([JSON.stringify(request)], {
                 type: "application/json"

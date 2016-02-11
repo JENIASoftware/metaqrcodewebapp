@@ -26,7 +26,7 @@
             })
         }
         function ValidateRegistrationCode(email,code){
-            return $http.post(app.SERVER+':'+app.PORT+ '/api/rest/json/registration/confirm', { email: email, registrationConfirmationCode: code })
+            return $http.post(app.SERVER+ '/api/rest/json/registration/confirm', { email: email, registrationConfirmationCode: code })
                 .then(success)
                 .catch(fail);
             function success(response) {
@@ -59,7 +59,7 @@
                ----------------------------------------------*/
             /* Use this for real authentication
                           ----------------------------------------------*/
-             $http.post(app.SERVER+':'+app.PORT+ '/api/rest/json/login/login', { email: username, password: password })
+             $http.post(app.SERVER+ '/api/rest/json/login/login', { email: username, password: password })
                  .then(function (response) {
                      callback(response);
                  }).catch(function(e){

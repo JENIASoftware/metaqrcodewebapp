@@ -45,22 +45,22 @@
         }
 
         function ExistUser(email) {
-            return $http.post(app.SERVER+':'+app.PORT+ '/api/rest/json/registration/exists',{ email:email})
+            return $http.post(app.SERVER+ '/api/rest/json/registration/exists',{ email:email})
                 .then(handleSuccess, handleError);
         }
         function ValidateRegistrationCode(email,code) {
             var request={email:email,registrationConfirmationCode:code};
-            return $http.post(app.SERVER+':'+app.PORT+ '/api/rest/json/registration/confirm', request)
+            return $http.post(app.SERVER+ '/api/rest/json/registration/confirm', request)
                 .then(handleSuccess, handleError('Error validating code'));
         }
         function Create(user) {
-            return $http.post(app.SERVER+':'+app.PORT+ '/api/rest/json/registration/prepare', user)
+            return $http.post(app.SERVER+ '/api/rest/json/registration/prepare', user)
                 .then(handleSuccess, handleError('Error creating user'));
         }
 
         function Update(user) {
             user.sessionToken=$rootScope.globals.currentUser.sessionToken;
-            return $http.post(app.SERVER+':'+app.PORT+ '/api/rest/json/registration/update', user)
+            return $http.post(app.SERVER+ '/api/rest/json/registration/update', user)
                 .then(handleSuccess, handleError);
         }
 
@@ -69,12 +69,12 @@
                 email:email,
                 sessionToken:$rootScope.globals.currentUser.sessionToken
             };
-            return $http.post(app.SERVER+':'+app.PORT+ '/api/rest/json/registration/remove', request)
+            return $http.post(app.SERVER+ '/api/rest/json/registration/remove', request)
                 .then(handleSuccess, handleError('Error deleting user'));
         }
         function GetUserProfile() {
             var token=$rootScope.globals.currentUser.sessionToken;
-            return $http.post(app.SERVER+':'+app.PORT+ '/api/rest/json/registration/read',{sessionToken:token})
+            return $http.post(app.SERVER+ '/api/rest/json/registration/read',{sessionToken:token})
                 .then(handleSuccess, handleError);
         }
         // private functions
