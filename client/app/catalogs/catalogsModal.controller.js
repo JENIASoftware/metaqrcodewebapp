@@ -35,7 +35,9 @@
                         }, 500);
                         logger.success(response.reason);
                     }
-            })
+            }).fail(function(response){
+                    logger.error(response.reason);
+                })
         };
         //  This cancel function must use the bootstrap, 'modal' function because
         //  the doesn't have the 'data-dismiss' attribute.
