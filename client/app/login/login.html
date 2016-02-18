@@ -20,13 +20,14 @@
 
                                     <div class="form-group" >
                                         <oauth2
-                                                authorization-url="http://www.metaqrcode.com/oidc/authorize"
-                                                client-id="b79eaae3-062d-4466-a10f-ffdb935bf7a1"
-                                                redirect-url="http://localhost:9000/login"
-                                                response-type="token"
-                                                scope="openid profile phone address email"
-                                                sign-out-url="http://www.metaqrcode.com/oidc/logout"
-                                                button-class="btn btn-lg btn-primary btn-block"
+						                      authorization-url="https://www.metaqrcode.com/oidc/authorize"
+						                      client-id="b79eaae3-062d-4466-a10f-ffdb935bf7a1"
+						                      redirect-url="https://www.metaqrcode.com/"
+						                      response-type="token"
+						                      sign-out-url="https://www.metaqrcode.com/oidc/logout"
+						                      sign-out-redirect-url="https://www.metaqrcode.com/"
+						                      sign-out-append-token="true"
+						                      scope="openid profile phone address email"
                                                 >
                                         </oauth2>
                                     </div>
