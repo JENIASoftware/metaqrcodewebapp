@@ -42,7 +42,7 @@
         $urlRouterProvider
             .otherwise('/');
 
-        $locationProvider.html5Mode(true).hashPrefix('!');
+//        $locationProvider.html5Mode(true).hashPrefix('!');
 
         //Config toastr
         toastr.options.timeOut = 4000;

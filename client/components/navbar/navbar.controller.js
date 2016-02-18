@@ -45,17 +45,17 @@ angular.module('metaqrcodeApp')
             var menu = [
                 {
                     'title': 'Home',
-                    'link': '/',
+                    'link': '#/',
                     'icon':'home'
                 },
                 {
                     'title': 'Catalogs',
-                    'link': '/catalogs',
+                    'link': '#/catalogs',
                     'icon':'list'
                 },
                 {
                     'title': 'Repositories',
-                    'link': '/repositories',
+                    'link': '#/repositories',
                     'icon': 'qrcode'
                 },
                 {
