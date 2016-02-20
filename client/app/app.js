@@ -21,7 +21,7 @@
 
     .constant('app',{
         SERVER:'https://www.metaqrcode.com',
-        PORT:'80'
+        PORT:'443'
     })
 /*
         .constant('app',{

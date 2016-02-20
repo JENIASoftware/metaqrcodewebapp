@@ -16,7 +16,8 @@ module.exports = function (grunt) {
     ngtemplates: 'grunt-angular-templates',
     cdnify: 'grunt-google-cdn',
     protractor: 'grunt-protractor-runner',
-    buildcontrol: 'grunt-build-control'
+    buildcontrol: 'grunt-build-control',
+    replace: 'grunt-replace'
   });
 
   // Time how long tasks take. Can help when optimizing build times
@@ -361,6 +362,7 @@ module.exports = function (grunt) {
             'bower_components/**/*',
             'assets/images/{,*/}*.{webp}',
             'assets/fonts/**/*',
+            'WEB-INF/**/*',
             'index.html'
           ]
         }, {
@@ -553,7 +555,28 @@ module.exports = function (grunt) {
           ]
         }
       }
+      
     },
+    // replace dev urls with prod urls
+    replace: {
+        dist: {
+          options: {
+            patterns: [
+              {
+                match: /http:\/\/localhost:9000\//g,
+                replacement: 'https://www.metaqrcode.com/'
+              }
+            ]
+          },
+          files: [
+            {
+          	  expand: true, 
+//          	  flatten: true, 
+          	  src: ['<%= yeoman.dist %>/public/**/*']
+            }
+          ]
+        }
+      }
   });
 
   // Used for delaying livereload until after server has restarted
@@ -668,7 +691,8 @@ module.exports = function (grunt) {
     'cssmin',
     'uglify',
     'rev',
-    'usemin'
+    'usemin',
+    'replace'
   ]);
 
   grunt.registerTask('default', [
