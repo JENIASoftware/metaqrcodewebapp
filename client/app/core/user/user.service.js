@@ -45,29 +45,46 @@
         }
 
         function ExistUser(email) {
-            return $http.post(app.SERVER+ '/api/rest/json/registration/exists',{ email:email})
-                .then(handleSuccess, handleError);
+            return $.ajax({
+                type: "POST",
+                url: app.SERVER+ '/api/rest/json/registration/exists',
+                data: JSON.stringify({ email:email}),
+                dataType: "json",
+      		    contentType: "application/json; charset=utf-8",
+      		    cache: false
+            }).then(handleSuccess, handleError);
         }
         function ValidateRegistrationCode(email,code) {
             var request={email:email,registrationConfirmationCode:code};
-            return $http.post(app.SERVER+ '/api/rest/json/registration/confirm', request)
-                .then(handleSuccess, handleError('Error validating code'));
+            return $.ajax({
+                type: "POST",
+                url: app.SERVER+ '/api/rest/json/registration/confirm',
+                data: JSON.stringify(request),
+                dataType: "json",
+      		    contentType: "application/json; charset=utf-8",
+      		    cache: false
+            }).then(handleSuccess, handleError('Error validating code'));
         }
+
         function Create(user) {
-            return $http.post(app.SERVER+ '/api/rest/json/registration/prepare', user)
-                .then(handleSuccess, handleError('Error creating user'));
+            return $.ajax({
+                type: "POST",
+                url: app.SERVER+ '/api/rest/json/registration/prepare',
+                data: JSON.stringify(user),
+                dataType: "json",
+      		    contentType: "application/json; charset=utf-8",
+      		    cache: false
+            }).then(handleSuccess, handleError('Error creating user'));
         }
 
         function Update(user) {
             return $.ajax({
                 type: "POST",
                 url: app.SERVER+ '/api/rest/json/registration/update',
-                data: user,
+                data: JSON.stringify(user),
                 dataType: "json",
       		    contentType: "application/json; charset=utf-8",
       		    cache: false,
-                contentType: false,
-                processData: false,
                 beforeSend:function(xhr){
                     xhr.setRequestHeader('Authorization', 'Bearer ' + AccessToken.get().access_token)
                 }
@@ -81,12 +98,10 @@
             return $.ajax({
                 type: "POST",
                 url: app.SERVER+ '/api/rest/json/registration/remove',
-                data: request,
+                data: JSON.stringify(request),
                 dataType: "json",
       		  	contentType: "application/json; charset=utf-8",                
       		  	cache: false,
-                contentType: false,
-                processData: false,
                 beforeSend:function(xhr){
                     xhr.setRequestHeader('Authorization', 'Bearer ' + AccessToken.get().access_token)
                 }
@@ -98,34 +113,40 @@
                 type: "POST",
                 url: app.SERVER+ '/api/rest/json/registration/read',
                 dataType: "json",
-                data:{},
+                data:JSON.stringify(new Object),
       		  	contentType: "application/json; charset=utf-8",
       		  	cache: false,
-                contentType: false,
-                processData: false,
                 beforeSend:function(xhr){
                     xhr.setRequestHeader('Authorization', 'Bearer ' + AccessToken.get().access_token)
                 }
-            }).then(handleSuccess, handleError);
+            }).then(handleSuccessSetUser, handleError);
         }
         // private functions
 
-        function getUsers() {
-            if(!localStorage.users){
-                localStorage.users = JSON.stringify([]);
+        function getUser() {
+            if(!localStorage.user){
+                localStorage.user = JSON.stringify([]);
             }
 
-            return JSON.parse(localStorage.users);
+            return JSON.parse(localStorage.user);
         }
 
-        function setUsers(users) {
-            localStorage.users = JSON.stringify(users);
+        function setUser(user) {
+            localStorage.user = JSON.stringify(user);
         }
 
         function handleSuccess(response) {
-            if(response.data.returnCode && response.data.returnCode<0) {
+            if(response.returnCode && response.returnCode<0) {
                 return handleError(response);
             }
+            return response;
+        }
+
+        function handleSuccessSetUser(response) {
+            if(response.returnCode && response.returnCode<0) {
+                return handleError(response);
+            }
+            setUser(response);
             return response;
         }
 
