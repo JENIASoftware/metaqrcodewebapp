@@ -252,7 +252,9 @@
 
 		definition.link = function(scope, element, attrs) {
 			function compile() {
-				var tpl = '<p class="navbar-btn"><a class="{{buttonClass}}"><span href="#" ng-hide="signedIn" ng-click="signIn()" >{{signInText}}</span><span href="#" ng-show="signedIn" ng-click="signOut()">{{signOutText}}</span></a></p>';
+				// tolto il pulsante logout
+//				var tpl = '<p class="navbar-btn"><a class="{{buttonClass}}"><span href="#" ng-hide="signedIn" ng-click="signIn()" >{{signInText}}</span><span href="#" ng-show="signedIn" ng-click="signOut()">{{signOutText}}</span></a></p>';
+				var tpl = '<p class="navbar-btn"><a class="{{buttonClass}}"><span href="#" ng-hide="signedIn" ng-click="signIn()" >{{signInText}}</span></a></p>';
 				if (scope.template) {
 					$http.get(scope.template, { cache: $templateCache }).success(function(html) {
 			        element.html(html);
