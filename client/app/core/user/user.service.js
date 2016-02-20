@@ -5,8 +5,8 @@
         .module('metaqrcodeApp')
         .factory('UserService', UserService);
 
-    UserService.$inject = ['$timeout', '$filter', '$q','exception','$http','app','$rootScope'];
-    function UserService($timeout, $filter, $q,exception,$http,app,$rootScope) {
+    UserService.$inject = ['$timeout', '$filter', '$q','exception','$http','app','$rootScope','AccessToken'];
+    function UserService($timeout, $filter, $q,exception,$http,app,$rootScope,AccessToken) {
 
         var service = {};
 
@@ -59,23 +59,54 @@
         }
 
         function Update(user) {
-            user.sessionToken=$rootScope.globals.currentUser.sessionToken;
-            return $http.post(app.SERVER+ '/api/rest/json/registration/update', user)
-                .then(handleSuccess, handleError);
+            return $.ajax({
+                type: "POST",
+                url: app.SERVER+ '/api/rest/json/registration/update',
+                data: user,
+                dataType: "json",
+      		    contentType: "application/json; charset=utf-8",
+      		    cache: false,
+                contentType: false,
+                processData: false,
+                beforeSend:function(xhr){
+                    xhr.setRequestHeader('Authorization', 'Bearer ' + AccessToken.get().access_token)
+                }
+            }).then(handleSuccess, handleError);
         }
 
         function Delete(email) {
             var request={
-                email:email,
-                sessionToken:$rootScope.globals.currentUser.sessionToken
+                email:email
             };
-            return $http.post(app.SERVER+ '/api/rest/json/registration/remove', request)
-                .then(handleSuccess, handleError('Error deleting user'));
+            return $.ajax({
+                type: "POST",
+                url: app.SERVER+ '/api/rest/json/registration/remove',
+                data: request,
+                dataType: "json",
+      		  	contentType: "application/json; charset=utf-8",                
+      		  	cache: false,
+                contentType: false,
+                processData: false,
+                beforeSend:function(xhr){
+                    xhr.setRequestHeader('Authorization', 'Bearer ' + AccessToken.get().access_token)
+                }
+            }).then(handleSuccess, handleError('Error deleting user'));
         }
+        
         function GetUserProfile() {
-            var token=$rootScope.globals.currentUser.sessionToken;
-            return $http.post(app.SERVER+ '/api/rest/json/registration/read',{sessionToken:token})
-                .then(handleSuccess, handleError);
+            return $.ajax({
+                type: "POST",
+                url: app.SERVER+ '/api/rest/json/registration/read',
+                dataType: "json",
+                data:{},
+      		  	contentType: "application/json; charset=utf-8",
+      		  	cache: false,
+                contentType: false,
+                processData: false,
+                beforeSend:function(xhr){
+                    xhr.setRequestHeader('Authorization', 'Bearer ' + AccessToken.get().access_token)
+                }
+            }).then(handleSuccess, handleError);
         }
         // private functions
 
