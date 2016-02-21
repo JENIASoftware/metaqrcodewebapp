@@ -58,9 +58,9 @@
 
     }
 
-    run.$inject = ['$rootScope', '$location', '$cookieStore','Endpoint','jwtHelper','AccessToken','logger','$window'];
+    run.$inject = ['$rootScope', '$location', '$cookieStore','Endpoint','jwtHelper','AccessToken','logger','$window','UserService'];
     /* @ngInject */
-    function run($rootScope, $location, $cookieStore,Endpoint,jwtHelper,AccessToken,logger,$window) {
+    function run($rootScope, $location, $cookieStore,Endpoint,jwtHelper,AccessToken,logger,$window, UserService) {
 
         // keep user logged in after page refresh
         $rootScope.globals = $window.sessionStorage.getItem('globals') || {};
@@ -80,6 +80,10 @@
             $rootScope.globals ={
                 currentUser:{username:tokenPayload.sub}
             };
+            UserService.GetUserProfile()
+            .then(function(response){
+            	$rootScope.globals.metaqrcodeUser=response;
+            });
             $window.sessionStorage.setItem('globals', $rootScope.globals);
         });
         $rootScope.$on("oauth2:authError",function(error){
