@@ -16,9 +16,9 @@
 
                     <table ng-table="vm.tableParams" class="table table-condensed table-bordered table-striped">
                         <tr ng-repeat="row in $data track by row.id">
-                            <td data-title="'Name'">{{row.name}}</td>
+                            <td data-title="'Name'"><a ui-sref="viewCatalog({id:row.id})">{{row.name}}</a></td>
                             <td data-title="'Description'">{{row.description}}</td>
-                            <td data-title="'Url'"><a ui-sref="viewCatalog({id:row.id})"> {{row.catalogGet}}</a></td>
+                            <td data-title="'Url'">{{row.catalogGet}}</td>
                             <td data-title="'Repositories'"><a ui-sref="repositories({correlationId:row.catalogGet})"> <span class="badge">{{row.numberOfReferences || 0}}</span></a></td>
                             <td data-title="'Rating'"><div class="star-rating pull-right" star-rating rating-value="row.stars" max="5"></div></td>
                         </tr>

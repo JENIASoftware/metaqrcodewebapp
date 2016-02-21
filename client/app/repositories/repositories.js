@@ -20,6 +20,12 @@
                 controller: 'ViewRepositoryCtrl',
                 controllerAs:'vm',
                 bindToController:true
+            }).state('viewCatalogFromRepository', {
+                url: '/catalogs/:id/view',
+                templateUrl: 'app/catalogs/catalog-view.html',
+                controller: 'ViewCatalogCtrl',
+                controllerAs:'vm',
+                bindToController:true
             });
     }
 })();
