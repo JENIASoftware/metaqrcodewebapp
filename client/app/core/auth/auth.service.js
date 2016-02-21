@@ -75,6 +75,10 @@
                     sessionToken: sessionToken
                 }
             };
+            UserService.GetUserProfile()
+            .then(function(response){
+            	$rootScope.globals.metaqrcodeUser=response;
+            }); 
             $cookieStore.put('globals', $rootScope.globals);
         }
 

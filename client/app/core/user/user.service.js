@@ -24,13 +24,13 @@
 
         function GetAll() {
             var deferred = $q.defer();
-            deferred.resolve(getUsers());
+            deferred.resolve(getUser());
             return deferred.promise;
         }
 
         function GetById(id) {
             var deferred = $q.defer();
-            var filtered = $filter('filter')(getUsers(), { id: id });
+            var filtered = $filter('filter')(getUser(), { id: id });
             var user = filtered.length ? filtered[0] : null;
             deferred.resolve(user);
             return deferred.promise;
@@ -38,7 +38,7 @@
 
         function GetByUsername(username) {
             var deferred = $q.defer();
-            var filtered = $filter('filter')(getUsers(), { username: username });
+            var filtered = $filter('filter')(getUser(), { username: username });
             var user = filtered.length ? filtered[0] : null;
             deferred.resolve(user);
             return deferred.promise;
@@ -133,6 +133,7 @@
 
         function setUser(user) {
             localStorage.user = JSON.stringify(user);
+            $rootScope.globals.metaqrcodeUser=user;
         }
 
         function handleSuccess(response) {

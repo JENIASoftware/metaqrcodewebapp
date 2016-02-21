@@ -31,7 +31,7 @@ angular.module('metaqrcodeApp')
             search();
 
 
-            vm.userLogged=$rootScope.globals.currentUser;
+            vm.userLogged=$rootScope.globals.metaqrcodeUser==null?"":$rootScope.globals.metaqrcodeUser.email;
         }
         function search(){
             vm.tableParams=new NgTableParams({count:vm.searchCriteria.rowPerPage}, {

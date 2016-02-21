@@ -39,7 +39,7 @@ angular.module('metaqrcodeApp')
             return route === $location.path();
         };
         function getUser(){
-            return $rootScope.globals.currentUser;
+            return $rootScope.globals.metaqrcodeUser==null?"":$rootScope.globals.metaqrcodeUser;
         }
         function getMenuItems(){
             var menu = [

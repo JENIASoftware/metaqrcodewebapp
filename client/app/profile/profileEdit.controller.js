@@ -15,14 +15,7 @@
         function activate(){
             UserService.GetUserProfile()
                 .then(function(response){
-                    vm.user.address= response.data.address;
-                    vm.user.city= response.data.city;
-                    vm.user.email= response.data.email;
-                    vm.user.firstName=response.data.firstName;
-                    vm.user.lastName=response.data.lastName;
-                    vm.user.nickName=response.data.nickName;
-                    vm.user.preferredLanguage=response.data.preferredLanguage;
-                    vm.user.zipCode=response.data.zipCode;
+                    vm.user = response;
                 });
         }
 

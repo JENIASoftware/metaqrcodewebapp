@@ -18,7 +18,7 @@
         function activate(){
             UserService.GetUserProfile()
                 .then(function(response){
-                    vm.user=response.data;
+                    vm.user=response;
                 });
         }
 
