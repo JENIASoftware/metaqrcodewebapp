@@ -47,15 +47,23 @@
                 .catch(fail);
         }
         function getRepository(id) {
-            var token=$rootScope.globals.currentUser.sessionToken;
             var request={
                 id:id,
-                sessionToken:token
             };
-            var searchUrl=app.SERVER+"/api/rest/json/repository/search";
-            return $http.post(searchUrl,request)
-                .then(success)
-                .catch(fail);
+            var detailUrl=app.SERVER+"/api/rest/json/repository/detail";
+            return $.ajax({
+                type: "POST",
+                url: detailUrl,
+                data: JSON.stringify(request),
+                cache: false,
+                dataType: "json",
+      		    contentType: "application/json; charset=utf-8",
+                processData: false,
+                async: false,
+                beforeSend:function(xhr){
+                    xhr.setRequestHeader('Authorization', 'Bearer ' + AccessToken.get().access_token)
+                }
+            }).then(successAjax,fail);
         }
         function downloadRepository(id,format) {
 
@@ -162,6 +170,19 @@
 
                     logger.error('Error code: ' + response.data.reason);
                     return fail(response.data.returnCode);
+                }
+            }
+            return fail(response);
+        }
+        function successAjax(response) {
+            if(response) {
+                if (response.returnCode >= 0) {
+                    return response;
+                }
+                else {
+
+                    logger.error('Error code: ' + response.reason);
+                    return fail(response.returnCode);
                 }
             }
             return fail(response);

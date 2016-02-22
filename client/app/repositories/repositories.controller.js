@@ -4,9 +4,9 @@
     angular.module('metaqrcodeApp')
         .controller('RepositoriesCtrl',RepositoriesCtrl);
 
-    RepositoriesCtrl.$inject=['dataservice','$stateParams','ModalService','NgTableParams'];
+    RepositoriesCtrl.$inject=['dataservice','$stateParams','ModalService','NgTableParams','$location'];
 
-    function RepositoriesCtrl(dataservice,$stateParams,ModalService,NgTableParams){
+    function RepositoriesCtrl(dataservice,$stateParams,ModalService,NgTableParams, $location){
         var vm=this;
         vm.repositories = [];
         vm.activeRepository;
@@ -82,6 +82,9 @@
                         vm.newRepository = result.repository;
                         vm.repositories.push(vm.newRepository);
                         vm.newRepository = {};
+                        $location.path('/repositories/'+result.repository.id+'/view');
+//                        angular.element(document.body).injector().get('AuthenticationService')
+//                    	viewRepository({id:result.repository.id});
                     }
                 });
             });

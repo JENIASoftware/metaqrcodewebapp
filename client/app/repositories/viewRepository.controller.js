@@ -8,16 +8,19 @@
         var vm=this;
         vm.repository=null;
         vm.activeFormat=null;
+        vm.viewcatalogs=false;
         vm.changeTextFormat=changeTextFormat;
         vm.showModal=showModal;
+        vm.catalogs=catalogs;
 
         activate();
         ////////////////////////////////////////////////////////////////////////////////////////
         function activate(){
             dataservice.getRepository($stateParams.id)
                 .then(function(response){
-                    vm.repository=response.result[0];
+                    vm.repository=response.repositoryEntry;
                     vm.activeFormat='xml';
+                    vm.viewcatalogs=false;
                     dataservice.downloadRepository($stateParams.id)
                         .then(function(responseDownload){
                             vm.repository.text=responseDownload;
@@ -30,8 +33,18 @@
                 .then(function(response){
                     vm.repository.text=format=='json'?JSON.stringify(response, null, 2): response;
                     vm.activeFormat=format;
+                    vm.viewcatalogs=false;
                 });
         }
+
+        function catalogs(){
+            dataservice.getRepository(vm.repository.id)
+                .then(function(response){
+                	vm.activeFormat=null;
+                    vm.viewcatalogs=true;
+                });
+        }
+
         function showModal(){
             ModalService.showModal({
                 templateUrl: "app/repositories/repositoryModalForm.html",
@@ -46,7 +59,7 @@
                 modal.close.then(function(result) {
                     if(result.repository.qrcodeGet) {
                         vm.newRepository = result.repository;
-                        vm.repositories.push(vm.newRepository);
+//                        vm.repositories.push(vm.newRepository);
                         vm.newRepository = {};
                     }
                 });
