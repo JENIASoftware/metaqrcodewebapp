@@ -20,7 +20,8 @@
         }
 
         function update(){
-            UserService.Update(vm.user)
+        	vm.user.preferredLanguage='en';
+        	UserService.Update(vm.user)
                 .then(function(){
                     logger.success("Update success");
                 });

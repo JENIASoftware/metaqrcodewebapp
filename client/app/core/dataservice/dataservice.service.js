@@ -25,16 +25,36 @@
         
         function getCatalogs(pageNumber,rowPerPage,query) {
             var searchUrl=app.SERVER+"/api/rest/json/catalog/search";
-            return $http.post(searchUrl,{nameLike:query,pageNumber:pageNumber,rowPerPage:rowPerPage})
-                .then(success)
-                .catch(fail);
+            return $.ajax({
+                type: "POST",
+                url: searchUrl,
+                data: JSON.stringify({nameLike:query,pageNumber:pageNumber,rowPerPage:rowPerPage}),
+                cache: false,
+                dataType: "json",
+      		    contentType: "application/json; charset=utf-8",
+                async: false,
+                beforeSend:checkBearer,
+                error: handleError,
+                success: handleSuccess
+            });
         }
+        
         function getCatalog(id) {
-            var searchUrl=app.SERVER+"/api/rest/json/catalog/search";
-            return $http.post(searchUrl,{id:id})
-                .then(success)
-                .catch(fail);
+            var searchUrl=app.SERVER+"/api/rest/json/catalog/detail";
+            return $.ajax({
+                type: "POST",
+                url: searchUrl,
+                data: JSON.stringify({id:id}),
+                cache: false,
+                dataType: "json",
+      		    contentType: "application/json; charset=utf-8",
+                async: false,
+                beforeSend:checkBearer,
+                error: handleError,
+                success: handleSuccess
+            });
         }
+        
         function getRepositories(pageNumber,rowPerPage,query) {
             var request={
                 correlationIdLike:query,
@@ -42,10 +62,20 @@
                 rowPerPage:rowPerPage
             };
             var searchUrl=app.SERVER+"/api/rest/json/repository/search";
-            return $http.post(searchUrl,request)
-                .then(success)
-                .catch(fail);
+            return $.ajax({
+                type: "POST",
+                url: searchUrl,
+                data: JSON.stringify(request),
+                cache: false,
+                dataType: "json",
+      		    contentType: "application/json; charset=utf-8",
+                async: false,
+                beforeSend:checkBearer,
+                error: handleError,
+                success: handleSuccess
+            });
         }
+        
         function getRepository(id) {
             var request={
                 id:id,
@@ -58,39 +88,61 @@
                 cache: false,
                 dataType: "json",
       		    contentType: "application/json; charset=utf-8",
+                async: false,
+                beforeSend:checkBearer,
+                error: handleError,
+                success: handleSuccess
+            });
+        }
+        
+        function downloadRepository(id,format) {
+            var request={
+                    id:id
+                };
+            if(format && format=='json'){
+                return $.ajax({
+                    type: "POST",
+                    url: app.SERVER+"/api/rest/json/repository/downloadAsJson",
+                    data: JSON.stringify(request),
+                    cache: false,
+                    dataType: "json",
+          		    contentType: "application/json; charset=utf-8",
+                    async: false,
+                    beforeSend:checkBearer,
+                    error: handleError
+                });
+            } else {
+                return $.ajax({
+                    type: "POST",
+                    url: app.SERVER+"/api/rest/json/repository/download",
+                    data: JSON.stringify(request),
+                    cache: false,
+          		    contentType: "application/json; charset=utf-8",
+                    processData: false,
+                    async: false,
+                    beforeSend:checkBearer,
+                    error: handleError
+                });
+            }
+        }
+        
+        function downloadCatalog(id) {
+            var request={
+                id:id
+            };
+            return $.ajax({
+                type: "POST",
+                url: app.SERVER+"/api/rest/json/catalog/download",
+                data: JSON.stringify(request),
+                cache: false,
+      		    contentType: "application/json; charset=utf-8",
                 processData: false,
                 async: false,
-                beforeSend:function(xhr){
-                    xhr.setRequestHeader('Authorization', 'Bearer ' + AccessToken.get().access_token)
-                }
-            }).then(successAjax,fail);
+                beforeSend:checkBearer,
+                error: handleError
+            });
         }
-        function downloadRepository(id,format) {
-
-            var url=app.SERVER+"/api/rest/json/repository/download";
-            if(format && format=='json'){
-                url=app.SERVER+"/api/rest/json/repository/downloadAsJson";
-            }
-            var request={
-                id:id
-            };
-            return $http.post(url,request)
-                .then(function(response){
-                    return response.data;
-                })
-                .catch(fail);
-        }
-        function downloadCatalog(id) {
-            var url=app.SERVER+"/api/rest/json/catalog/download";
-            var request={
-                id:id
-            };
-            return $http.post(url,request)
-                .then(function(response){
-                    return response.data;
-                })
-                .catch(fail);
-        }
+        
         function uploadCatalog(request,file,xml) {
             var uploadUrl=app.SERVER+"/api/rest/json/catalog/upload";
             var data = new FormData();
@@ -111,11 +163,12 @@
                 cache: false,
                 contentType: false,
                 processData: false,
-                beforeSend:function(xhr){
-                    xhr.setRequestHeader('Authorization', 'Bearer ' + AccessToken.get().access_token)
-                }
+                beforeSend:checkBearer,
+                error: handleError,
+                success: handleSuccess
             });
         }
+        
         function uploadRepository(request,file,xml) {
             var uploadUrl = app.SERVER + "/api/rest/json/repository/upload";
             var data = new FormData();
@@ -137,11 +190,12 @@
                 cache: false,
                 contentType: false,
                 processData: false,
-                beforeSend:function(xhr){
-                    xhr.setRequestHeader('Authorization', 'Bearer ' + AccessToken.get().access_token)
-                }
+                beforeSend:checkBearer,
+                error: handleError,
+                success: handleSuccess
             });
         }
+        
         function updateRepository(request,file) {
             var uploadUrl = app.SERVER + "/api/rest/json/repository/update";
             var data = new FormData();
@@ -156,25 +210,19 @@
                 cache: false,
                 contentType: false,
                 processData: false,
-                beforeSend:function(xhr){
-                    xhr.setRequestHeader('Authorization', 'Bearer ' + AccessToken.get().access_token)
-                }
+                beforeSend:checkBearer,
+                error: handleError,
+                success: handleSuccess
             });
         }
-        function success(response) {
-            if(response.data) {
-                if (response.data.returnCode >= 0) {
-                    return response.data;
-                }
-                else {
-
-                    logger.error('Error code: ' + response.data.reason);
-                    return fail(response.data.returnCode);
-                }
-            }
-            return fail(response);
+        
+        function checkBearer(xhr) {
+        	if (AccessToken.get()!=null && AccessToken.get().access_token!=null) {
+        		xhr.setRequestHeader('Authorization', 'Bearer ' + AccessToken.get().access_token)
+        	}
         }
-        function successAjax(response) {
+        
+        function handleSuccess(response, textStatus, jqXHR) {
             if(response) {
                 if (response.returnCode >= 0) {
                     return response;
@@ -182,14 +230,18 @@
                 else {
 
                     logger.error('Error code: ' + response.reason);
-                    return fail(response.returnCode);
+                    return exception.catcher(response.returnCode);
                 }
             }
-            return fail(response);
+            return exception.catcher(response);
         }
 
-        function fail(e) {
-            return exception.catcher('XHR Failed')(e);
+        function handleError(jqXHR, textStatus, errorThrown) {
+        	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
+                return exception.catcher("" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason);
+        	} else {
+                return exception.catcher(textStatus);
+        	}
         }
     }
 })();

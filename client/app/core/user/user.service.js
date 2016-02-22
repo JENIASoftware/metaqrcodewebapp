@@ -49,21 +49,30 @@
                 type: "POST",
                 url: app.SERVER+ '/api/rest/json/registration/exists',
                 data: JSON.stringify({ email:email}),
+                cache: false,
                 dataType: "json",
       		    contentType: "application/json; charset=utf-8",
-      		    cache: false
-            }).then(handleSuccess, handleError);
+                async: false,
+                beforeSend:checkBearer,
+                error: handleError,
+                success: handleSuccess
+            });
         }
+        
         function ValidateRegistrationCode(email,code) {
             var request={email:email,registrationConfirmationCode:code};
             return $.ajax({
                 type: "POST",
                 url: app.SERVER+ '/api/rest/json/registration/confirm',
                 data: JSON.stringify(request),
+                cache: false,
                 dataType: "json",
       		    contentType: "application/json; charset=utf-8",
-      		    cache: false
-            }).then(handleSuccess, handleError('Error validating code'));
+                async: false,
+                beforeSend:checkBearer,
+                error: handleError,
+                success: handleSuccess
+            });
         }
 
         function Create(user) {
@@ -71,24 +80,29 @@
                 type: "POST",
                 url: app.SERVER+ '/api/rest/json/registration/prepare',
                 data: JSON.stringify(user),
+                cache: false,
                 dataType: "json",
       		    contentType: "application/json; charset=utf-8",
-      		    cache: false
-            }).then(handleSuccess, handleError('Error creating user'));
+                async: false,
+                beforeSend:checkBearer,
+                error: handleError,
+                success: handleSuccess
+            });
         }
 
         function Update(user) {
             return $.ajax({
                 type: "POST",
                 url: app.SERVER+ '/api/rest/json/registration/update',
-                data: JSON.stringify(user),
+                data:  JSON.stringify(user),
+                cache: false,
                 dataType: "json",
       		    contentType: "application/json; charset=utf-8",
-      		    cache: false,
-                beforeSend:function(xhr){
-                    xhr.setRequestHeader('Authorization', 'Bearer ' + AccessToken.get().access_token)
-                }
-            }).then(handleSuccess, handleError);
+                async: false,
+                beforeSend:checkBearer,
+                error: handleError,
+                success: handleSuccess
+            });
         }
 
         function Delete(email) {
@@ -98,28 +112,30 @@
             return $.ajax({
                 type: "POST",
                 url: app.SERVER+ '/api/rest/json/registration/remove',
-                data: JSON.stringify(request),
+                data:  JSON.stringify(request),
+                cache: false,
                 dataType: "json",
-      		  	contentType: "application/json; charset=utf-8",                
-      		  	cache: false,
-                beforeSend:function(xhr){
-                    xhr.setRequestHeader('Authorization', 'Bearer ' + AccessToken.get().access_token)
-                }
-            }).then(handleSuccess, handleError('Error deleting user'));
+      		    contentType: "application/json; charset=utf-8",
+                async: false,
+                beforeSend:checkBearer,
+                error: handleError,
+                success: handleSuccess
+            });
         }
         
         function GetUserProfile() {
             return $.ajax({
                 type: "POST",
                 url: app.SERVER+ '/api/rest/json/registration/read',
+                data: JSON.stringify(new Object),
+                cache: false,
                 dataType: "json",
-                data:JSON.stringify(new Object),
-      		  	contentType: "application/json; charset=utf-8",
-      		  	cache: false,
-                beforeSend:function(xhr){
-                    xhr.setRequestHeader('Authorization', 'Bearer ' + AccessToken.get().access_token)
-                }
-            }).then(handleSuccessSetUser, handleError);
+      		    contentType: "application/json; charset=utf-8",
+                async: false,
+                beforeSend:checkBearer,
+                error: handleError,
+                success: handleSuccess
+            });
         }
         // private functions
 
@@ -127,7 +143,6 @@
             if(!localStorage.user){
                 localStorage.user = JSON.stringify([]);
             }
-
             return JSON.parse(localStorage.user);
         }
 
@@ -136,53 +151,33 @@
             $rootScope.globals.metaqrcodeUser=user;
         }
 
-        function handleSuccess(response) {
-            if(response.returnCode && response.returnCode<0) {
-                return handleError(response);
+        function checkBearer(xhr) {
+        	if (AccessToken.get()!=null && AccessToken.get().access_token!=null) {
+        		xhr.setRequestHeader('Authorization', 'Bearer ' + AccessToken.get().access_token)
+        	}
+        }
+        
+        function handleSuccess(response, textStatus, jqXHR) {
+            if(response) {
+                if (response.returnCode >= 0) {
+                    return response;
+                }
+                else {
+
+                    logger.error('Error code: ' + response.reason);
+                    return exception.catcher(response.returnCode);
+                }
             }
-            return response;
+            return exception.catcher(response);
         }
 
-        function handleSuccessSetUser(response) {
-            if(response.returnCode && response.returnCode<0) {
-                return handleError(response);
-            }
-            setUser(response);
-            return response;
+        function handleError(jqXHR, textStatus, errorThrown) {
+        	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
+                return exception.catcher("" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason);
+        	} else {
+                return exception.catcher(textStatus);
+        	}
         }
-
-        function handleError(error) {
-            return exception.catcher('XHR Failed')(error);
-        }
-        /*
-         function Create(user) {
-         var deferred = $q.defer();
-
-         // simulate api call with $timeout
-         $timeout(function () {
-         GetByUsername(user.username)
-         .then(function (duplicateUser) {
-         if (duplicateUser !== null) {
-         deferred.resolve({data:{ returnCode: -1, reason: 'Username "' + user.username + '" is already taken' }});
-         } else {
-         var users = getUsers();
-
-         // assign id
-         var lastUser = users[users.length - 1] || { id: 0 };
-         user.id = lastUser.id + 1;
-
-         //Genero il nuovo codice per la validazione
-         user.registrationCode=user.id;
-         users.push(user);
-         setUsers(users);
-
-         deferred.resolve({data:{ returnCode: 0 }});
-         }
-         });
-         }, 1000);
-
-         return deferred.promise;
-         }*/
 
     }
 })();
