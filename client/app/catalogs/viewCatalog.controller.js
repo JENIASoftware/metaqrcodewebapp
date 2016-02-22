@@ -13,10 +13,10 @@
         function activate(){
             dataservice.getCatalog($stateParams.id)
                 .then(function(response){
-                    vm.catalog=response.result[0];
-                    dataservice.downloadCatalog($stateParams.id)
-                        .then(function(responseDownload){
-                            vm.catalog.text=responseDownload;
+                    vm.catalog=response.catalogEntry;
+                    dataservice.downloadCatalog(vm.catalog.id)
+                        .then(function(response, textStatus, jqXHR){
+                            vm.catalog.text=jqXHR.responseText;
                         });
                 });
         }

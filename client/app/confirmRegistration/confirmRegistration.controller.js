@@ -14,15 +14,20 @@
 
 
         function validateRegistrationCode() {
-            vm.dataLoading = true;
             AuthenticationService.ValidateRegistrationCode(vm.email,vm.registrationConfirmationCode)
                 .then(function (response) {
-                    if (response.data.returnCode>=0) {
+                    if (response.returnCode>=0) {
                         $location.path('/login');
                     } else {
-                        vm.dataLoading = false;
-                        vm.error=response.data.reason;
+                        vm.error=response.reason;
                     }
+                }, function (jqXHR, textStatus, errorThrown) {
+                	vm.dataLoading = false;
+                	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
+                        return vm.error = "" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason;
+                	} else {
+                        return vm.error=textStatus;
+                	}
                 });
         }
     }

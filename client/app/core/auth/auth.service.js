@@ -26,45 +26,35 @@
             })
         }
         function ValidateRegistrationCode(email,code){
-            return $http.post(app.SERVER+ '/api/rest/json/registration/confirm', { email: email, registrationConfirmationCode: code })
-                .then(success)
-                .catch(fail);
-            function success(response) {
-                if (response.data.returnCode < 0) {
-                    logger.error('Failed validation with code: ' + response.data.returnCode);}
-                return response;
-            }
+            return $.ajax({
+                type: "POST",
+                url: app.SERVER+ '/api/rest/json/registration/confirm',
+                data:  JSON.stringify({ email: email, registrationConfirmationCode: code }),
+                cache: false,
+                dataType: "json",
+      		    contentType: "application/json; charset=utf-8",
+                async: false,
+                beforeSend:checkBearer,
+                error: handleError,
+                success: handleSuccess
+            });
 
-            function fail(e) {
-                return exception.catcher('XHR Failed for validation code')(e);
-            }
         }
 
         function Login(username, password, callback) {
 
-            /* Dummy authentication for testing, uses $timeout to simulate api call
-                        
-            $timeout(function () {
-                var response;
-                UserService.GetByUsername(username)
-                    .then(function (user) {
-                        if (user !== null && user.password === password) {
-                            response ={data: { returnCode: 0, sessionToken: 'sessionToken' }};
-                        } else {
-                            response = {data:{ returnCode: -1, reason: 'Username or password is incorrect' }};
-                        }
-                        callback(response);
-                    });
-            }, 1000);
-               ----------------------------------------------*/
-            /* Use this for real authentication
-                          ----------------------------------------------*/
-             $http.post(app.SERVER+ '/api/rest/json/login/login', { email: username, password: password })
-                 .then(function (response) {
-                     callback(response);
-                 }).catch(function(e){
-             return exception.catcher('XHR Failed for Login')(e);
-             });
+            return $.ajax({
+                type: "POST",
+                url: app.SERVER+ '/api/rest/json/login/login',
+                data:  JSON.stringify({ email: username, password: password }),
+                cache: false,
+                dataType: "json",
+      		    contentType: "application/json; charset=utf-8",
+                async: false,
+                beforeSend:checkBearer,
+                error: handleError,
+                success: handleSuccess
+            });
 
         }
 
@@ -87,5 +77,34 @@
             $cookieStore.remove('globals');
             AccessToken.destroy();
         }
+        
+        function checkBearer(xhr) {
+        	if (AccessToken.get()!=null && AccessToken.get().access_token!=null) {
+        		xhr.setRequestHeader('Authorization', 'Bearer ' + AccessToken.get().access_token)
+        	}
+        }
+        
+        function handleSuccess(response, textStatus, jqXHR) {
+            if(response) {
+                if (response.returnCode >= 0) {
+                    return response;
+                }
+                else {
+
+                    logger.error('Error code: ' + response.reason);
+                    return exception.catcher(response.returnCode);
+                }
+            }
+            return exception.catcher(response);
+        }
+
+        function handleError(jqXHR, textStatus, errorThrown) {
+        	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
+                return exception.catcher("" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason);
+        	} else {
+                return exception.catcher(textStatus);
+        	}
+        }
+
     }
 })();
