@@ -10,6 +10,7 @@ angular.module('metaqrcodeApp')
         var vm = this;
         vm.catalogs = [];
         vm.navigate=navigate;
+        vm.scrollBottom=scrollBottom;
 
         activate();
         
@@ -26,6 +27,10 @@ angular.module('metaqrcodeApp')
             else{
 	            $location.path(url);
             }
+        }
+
+        function scrollBottom(){
+        	$('html, body').scrollTop( $(document).height() );
         }
     }
 })();
