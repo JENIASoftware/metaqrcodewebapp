@@ -26,17 +26,23 @@
         }
         function register() {
             vm.dataLoading = true;
+        	vm.user.preferredLanguage='en';
             UserService.Create(vm.user)
                 .then(function (response) {
-                    if (response.data.returnCode>=0) {
+                    if (response.returnCode>=0) {
                         $location.path('/confirmRegistration');
                     } else {
                         vm.dataLoading = false;
-                        vm.error=response.data.reason;
+                        vm.error=response.reason;
                     }
-                },function(error){
-                vm.error=error.data.reason;
-            });
+                }, function (jqXHR, textStatus, errorThrown) {
+                	vm.dataLoading = false;
+                	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
+                        return vm.error = "" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason;
+                	} else {
+                        return vm.error=textStatus;
+                	}
+                });
         }
     }
 

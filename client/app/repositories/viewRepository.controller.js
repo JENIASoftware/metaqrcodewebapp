@@ -21,17 +21,17 @@
                     vm.repository=response.repositoryEntry;
                     vm.activeFormat='xml';
                     vm.viewcatalogs=false;
-                    dataservice.downloadRepository($stateParams.id)
-                        .then(function(responseDownload){
-                            vm.repository.text=responseDownload;
+                    dataservice.downloadRepository(vm.repository.id)
+                        .then(function(response, textStatus, jqXHR){
+                        	vm.repository.text=jqXHR.responseText;
                         });
                 });
         }
 
         function changeTextFormat(format){
             dataservice.downloadRepository(vm.repository.id,format)
-                .then(function(response){
-                    vm.repository.text=format=='json'?JSON.stringify(response, null, 2): response;
+                .then(function(response, textStatus, jqXHR){
+                	vm.repository.text=jqXHR.responseText;
                     vm.activeFormat=format;
                     vm.viewcatalogs=false;
                 });

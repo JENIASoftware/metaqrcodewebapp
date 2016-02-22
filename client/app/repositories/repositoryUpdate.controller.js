@@ -20,16 +20,16 @@
                     vm.repository=response.result[0];
                     vm.activeFormat='xml';
                     dataservice.downloadRepository($stateParams.id)
-                        .then(function(responseDownload){
-                            vm.repository.text=responseDownload;
+                        .then(function(response, textStatus, jqXHR){
+                        	vm.repository.text=jqXHR.responseText;
                         });
                 });
         }
 
         function changeTextFormat(format){
             dataservice.downloadRepository(vm.repository.id,format)
-                .then(function(response){
-                    vm.repository.text=format=='json'?JSON.stringify(response, null, 2): response;
+                .then(function(response, textStatus, jqXHR){
+                    vm.repository.text=format=='json'?JSON.stringify(jqXHR.responseText, null, 2): jqXHR.responseText;
                     vm.activeFormat=format;
                 });
         }

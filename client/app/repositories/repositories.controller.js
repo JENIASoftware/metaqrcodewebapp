@@ -53,16 +53,16 @@
         function setActiveRepository(repository) {
             vm.activeFormat='xml';
             dataservice.downloadRepository(repository.id)
-                .then(function(response){
+                .then(function(response, textStatus, jqXHR){
+                    vm.activeRepository.text=jqXHR.responseText;
                     vm.activeRepository = repository;
-                    vm.activeRepository.text=response;
                 });
 
         }
         function changeTextFormat(format){
             dataservice.downloadRepository(vm.activeRepository.id,format)
-                .then(function(response){
-                    vm.activeRepository.text=format=='json'?JSON.stringify(response, null, 2): response;
+                .then(function(response, textStatus, jqXHR){
+                    vm.activeRepository.text=format=='json'?JSON.stringify(jqXHR.responseText, null, 2): jqXHR.responseText;
                     vm.activeFormat=format;
                 });
         }
