@@ -572,7 +572,7 @@ module.exports = function (grunt) {
             {
           	  expand: true, 
 //          	  flatten: true, 
-          	  src: ['<%= yeoman.dist %>/public/**/*']
+          	  src: ['<%= yeoman.dist %>/public/**/*.js','<%= yeoman.dist %>/public/**/*.html','<%= yeoman.dist %>/public/**/*.css']
             }
           ]
         }
