@@ -19,6 +19,13 @@
             UserService.GetUserProfile()
                 .then(function(response){
                     vm.user=response;
+                }, function (jqXHR, textStatus, errorThrown) {
+                	vm.dataLoading = false;
+                	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
+                        return vm.error = "" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason;
+                	} else {
+                        return vm.error=textStatus;
+                	}
                 });
         }
 

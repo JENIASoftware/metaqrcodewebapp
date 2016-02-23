@@ -19,7 +19,7 @@
                 <button class="btn btn-primary" ng-click="vm.changeTextFormat('json')" ng-class="{'disabled': (vm.activeFormat=='json' && !vm.viewcatalogs)}">json</button>
                 <button class="btn btn-primary" ng-click="vm.catalogs()" ng-class="{'disabled': vm.viewcatalogs}">catalogs</button>
                 <button class="btn btn-primary pull-right" ui-zeroclip zeroclip-copied="copied=true" 
-                		zeroclip-model="vm.catalog.text" ng-hide="vm.viewcatalogs">Copy</button>
+                		zeroclip-model="vm.repository.text" ng-hide="vm.viewcatalogs">Copy</button>
                 <span ng-show="copied">Text Copied!</span>
                 <code-mirror ng-hide="vm.viewcatalogs" lang="{{vm.activeFormat}}" model="vm.repository.text">
                 </code-mirror>

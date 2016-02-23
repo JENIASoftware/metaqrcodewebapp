@@ -46,7 +46,14 @@
                     return dataservice.getRepositories(params.page()-1,params.count(),vm.searchCriteria.query).then(function(data){
                         params.total(data.rowTotal); // recal. page nav controls
                         return data.result;
-                    },function(e){});
+                    }, function (jqXHR, textStatus, errorThrown) {
+                    	vm.dataLoading = false;
+                    	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
+                            return vm.error = "" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason;
+                    	} else {
+                            return vm.error=textStatus;
+                    	}
+                    });
                 }
             });
         }
@@ -56,6 +63,13 @@
                 .then(function(response, textStatus, jqXHR){
                     vm.activeRepository.text=jqXHR.responseText;
                     vm.activeRepository = repository;
+                }, function (jqXHR, textStatus, errorThrown) {
+                	vm.dataLoading = false;
+                	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
+                        return vm.error = "" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason;
+                	} else {
+                        return vm.error=textStatus;
+                	}
                 });
 
         }
@@ -64,6 +78,13 @@
                 .then(function(response, textStatus, jqXHR){
                     vm.activeRepository.text=format=='json'?JSON.stringify(jqXHR.responseText, null, 2): jqXHR.responseText;
                     vm.activeFormat=format;
+                }, function (jqXHR, textStatus, errorThrown) {
+                	vm.dataLoading = false;
+                	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
+                        return vm.error = "" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason;
+                	} else {
+                        return vm.error=textStatus;
+                	}
                 });
         }
         function showModal(){
@@ -86,7 +107,21 @@
 //                        angular.element(document.body).injector().get('AuthenticationService')
 //                    	viewRepository({id:result.repository.id});
                     }
+                }, function (jqXHR, textStatus, errorThrown) {
+                	vm.dataLoading = false;
+                	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
+                        return vm.error = "" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason;
+                	} else {
+                        return vm.error=textStatus;
+                	}
                 });
+            }, function (jqXHR, textStatus, errorThrown) {
+            	vm.dataLoading = false;
+            	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
+                    return vm.error = "" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason;
+            	} else {
+                    return vm.error=textStatus;
+            	}
             });
         }
     }

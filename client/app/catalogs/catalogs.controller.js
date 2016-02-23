@@ -40,7 +40,14 @@ angular.module('metaqrcodeApp')
                     return dataservice.getCatalogs(params.page()-1,params.count(),vm.searchCriteria.query).then(function(data){
                         params.total(data.rowTotal); // recal. page nav controls
                         return data.result;
-                    },function(e){});
+                    }, function (jqXHR, textStatus, errorThrown) {
+                    	vm.dataLoading = false;
+                    	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
+                            return vm.error = "" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason;
+                    	} else {
+                            return vm.error=textStatus;
+                    	}
+                    });
                 }
             });
         }
@@ -62,7 +69,21 @@ angular.module('metaqrcodeApp')
                         vm.catalogs.push(vm.newCatalog);
                         vm.newCatalog = {};
                     }
+                }, function (jqXHR, textStatus, errorThrown) {
+                	vm.dataLoading = false;
+                	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
+                        return vm.error = "" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason;
+                	} else {
+                        return vm.error=textStatus;
+                	}
                 });
+            }, function (jqXHR, textStatus, errorThrown) {
+            	vm.dataLoading = false;
+            	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
+                    return vm.error = "" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason;
+            	} else {
+                    return vm.error=textStatus;
+            	}
             });
         }
     }

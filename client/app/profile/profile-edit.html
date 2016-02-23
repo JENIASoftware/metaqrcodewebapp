@@ -4,6 +4,7 @@
             <div class="panel panel-info">
                 <div class="panel-heading">
                     <strong>{{vm.user.firstName}} {{vm.user.lastName}}</strong>
+                    <div ng-show="vm.error" class="alert alert-danger">{{vm.error}}</div>
                 </div>
                 <div class="panel-body">
 				    <form role="form" ng-submit="vm.update()" name="form" novalidate>

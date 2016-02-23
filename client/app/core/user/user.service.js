@@ -91,10 +91,19 @@
         }
 
         function Update(user) {
-            return $.ajax({
+        	var userUpdated = new Object();
+        	userUpdated.email = user.email;
+        	userUpdated.nickName = user.nickName;
+        	userUpdated.firstName = user.firstName;
+        	userUpdated.lastName = user.lastName;
+        	userUpdated.address = user.address;
+        	userUpdated.city = user.city;
+        	userUpdated.zipCode = user.zipCode;
+        	userUpdated.preferredLanguage = user.preferredLanguage;
+        	return $.ajax({
                 type: "POST",
                 url: app.SERVER+ '/api/rest/json/registration/update',
-                data:  JSON.stringify(user),
+                data:  JSON.stringify(userUpdated),
                 cache: false,
                 dataType: "json",
       		    contentType: "application/json; charset=utf-8",
