@@ -60,7 +60,7 @@
                 templateUrl: "app/repositories/repositoryModalForm.html",
                 controller: "RepositoryModalCtrl",
                 inputs: {
-                    title: "Update Repository",
+                    title: "Update XML repository",
                     action:"update",
                     repository:vm.repository
                 }

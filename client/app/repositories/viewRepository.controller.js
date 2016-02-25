@@ -24,7 +24,19 @@
                     dataservice.downloadRepository(vm.repository.id)
                         .then(function(response, textStatus, jqXHR){
                         	vm.repository.text=jqXHR.responseText;
+                        },function (jqXHR, textStatus, errorThrown) {
+                        	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
+                        		logger.error("" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason);
+                        	} else {
+                                logger.error(textStatus);
+                        	}
                         });
+                },function (jqXHR, textStatus, errorThrown) {
+                	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
+                		logger.error("" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason);
+                	} else {
+                        logger.error(textStatus);
+                	}
                 });
         }
 
@@ -34,6 +46,12 @@
                 	vm.repository.text=jqXHR.responseText;
                     vm.activeFormat=format;
                     vm.viewcatalogs=false;
+                },function (jqXHR, textStatus, errorThrown) {
+                	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
+                		logger.error("" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason);
+                	} else {
+                        logger.error(textStatus);
+                	}
                 });
         }
 
@@ -42,6 +60,12 @@
                 .then(function(response){
                 	vm.activeFormat=null;
                     vm.viewcatalogs=true;
+                },function (jqXHR, textStatus, errorThrown) {
+                	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
+                		logger.error("" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason);
+                	} else {
+                        logger.error(textStatus);
+                	}
                 });
         }
 
@@ -50,7 +74,7 @@
                 templateUrl: "app/repositories/repositoryModalForm.html",
                 controller: "RepositoryModalCtrl",
                 inputs: {
-                    title: "Update Repository",
+                    title: "Update an existing XML repository",
                     action:"update",
                     repository:vm.repository
                 }

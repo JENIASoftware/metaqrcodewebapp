@@ -8,27 +8,27 @@
             <div class="modal-body">
                 <div class="alert alert-info">
                     <p>
-                        Create a new repository. Select a default catalog or a correlationId and upload your xml file or xml text.
+                        Create a new XML repository entry or update an existing one. Select a default catalog or a correlationId (busines key) and upload your <b>XML</b> file or <b>XML</b> text.
                     </p>
                 </div>
                 <form class="form-horizontal" role="form" name="newRepositoryForm" novalidate>
                     <div class="form-group">
-                        <label for="defaultCatalog" class="col-sm-2 control-label">Default Catalog Url</label>
+                        <label for="defaultCatalog" class="col-sm-2 control-label">Default XSD catalog URL</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="defaultCatalog" placeholder="defaultCatalog" ng-model="repository.defaultCatalog" required>
+                            <input type="text" class="form-control" id="defaultCatalog" placeholder="default XSD catalog link (optional)" ng-model="repository.defaultCatalog" required>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="correlationId" class="col-sm-2 control-label">Correlation Id</label>
+                        <label for="correlationId" class="col-sm-2 control-label">Correlation Id (business key)</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="correlationId" placeholder="correlationId" ng-model="repository.correlationId">
+                            <input type="text" class="form-control" id="correlationId" placeholder="correlation id, your business key (optional)" ng-model="repository.correlationId">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="xml" class="col-sm-2 control-label">File Text</label>
                         <div class="col-sm-10">
-                            <textarea type="text" class="form-control" id="xml" name="xml" placeholder="Paste Here your XML" ng-model="repository.xml"></textarea>
+                            <textarea type="text" class="form-control" id="xml" name="xml" placeholder="paste here your XML (optional, in alternative use browse button to upload XML file)" ng-model="repository.xml"></textarea>
                         </div>
                     </div>
                     <div class="form-group">

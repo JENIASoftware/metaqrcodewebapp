@@ -22,14 +22,44 @@
             if(action=="create") {
 
                 dataservice.uploadRepository(request, $scope.file,$scope.repository.xml)
-                    .done(success)
-                    .fail(fail)
+                    .then(function (response){
+                        if (response.returnCode >= 0) {
+                            logger.success(response.reason);
+                            $element.modal('hide');
+                            close({
+                                repository: response
+                            }, 500);
+                        } else {
+                            logger.error(response.reason);
+                        }
+                    },function (jqXHR, textStatus, errorThrown) {
+                    	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
+                    		logger.error("" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason);
+                    	} else {
+                            logger.error(textStatus);
+                    	}
+                    })
             }
             if(action=="update"){
                 request.id=$stateParams.id;
                 dataservice.updateRepository(request, $scope.file,$scope.repository.xml)
-                    .done(success)
-                    .fail(fail)
+                    .then(function (response){
+                        if (response.returnCode >= 0) {
+                            logger.success(response.reason);
+                            $element.modal('hide');
+                            close({
+                                repository: response
+                            }, 500);
+                        } else {
+                            logger.error(response.reason);
+                        }
+                    },function (jqXHR, textStatus, errorThrown) {
+                    	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
+                    		logger.error("" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason);
+                    	} else {
+                            logger.error(textStatus);
+                    	}
+                    })
             }
         };
         //  This cancel function must use the bootstrap, 'modal' function because

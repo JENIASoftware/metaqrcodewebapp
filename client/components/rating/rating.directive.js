@@ -1,4 +1,4 @@
-(function () {
+	(function () {
 	'use strict';
 	
 	angular.module('metaqrcodeApp')
@@ -8,7 +8,7 @@
 		return {
 			restrict : 'A',
 			template : '<ul class="rating">'
-					 + '	<li ng-repeat="star in stars" ng-class="star" ng-click="toggle($index)">'
+					 + '	<li ng-repeat="star in stars" ng-class="star">'
 					 + '<i class="fa fa-lg fa-star-o"></i>'
 					 + '</li>'
 					 + '</ul>',
@@ -27,18 +27,11 @@
 					}
 				};
 				
-				scope.toggle = function(index) {
-					scope.ratingValue = index + 1;
-					scope.onRatingSelected({
-						rating : index + 1
-					});
-				};
-				
 				scope.$watch('ratingValue',
 					function(oldVal, newVal) {
-						if (newVal) {
+//						if (newVal) {
 							updateStars();
-						}
+//						}
 					}
 				);
 			}

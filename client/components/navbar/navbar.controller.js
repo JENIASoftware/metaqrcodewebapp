@@ -49,12 +49,12 @@ angular.module('metaqrcodeApp')
                     'icon':'home'
                 },
                 {
-                    'title': 'Catalogs',
+                    'title': 'XSD Catalog',
                     'link': '#/catalogs',
                     'icon':'list'
                 },
                 {
-                    'title': 'Repositories',
+                    'title': 'XML Repository',
                     'link': '#/repositories',
                     'icon': 'qrcode'
                 },

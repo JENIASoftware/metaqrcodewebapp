@@ -92,7 +92,7 @@
                 templateUrl: "app/repositories/repositoryModalForm.html",
                 controller: "RepositoryModalCtrl",
                 inputs: {
-                    title: "Add a new Repository",
+                    title: "Add a new XML repository",
                     action:'create',
                     repository:{}
                 }
