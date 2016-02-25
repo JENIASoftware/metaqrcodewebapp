@@ -20,18 +20,10 @@
     ])
 
     .constant('app',{
-        SERVER:'https://www.metaqrcode.com',
-        PORT:'443'
-    })
-/*
-        .constant('app',{
-            SERVER:'http://localhost',
-            PORT:'9000'
-        })
-*/
-        .constant('toastr', toastr)
-    .config(config)
-    .run(run);
+        SERVER:'http://localhost:8080',
+    	}).constant('toastr', toastr)
+    	  .config(config)
+    	  .run(run);
 
     config.$inject=['$logProvider', '$urlRouterProvider', '$locationProvider','toastr','cfpLoadingBarProvider','uiZeroclipConfigProvider',];
     /* @ngInject */
@@ -45,7 +37,7 @@
 //        $locationProvider.html5Mode(true).hashPrefix('!');
 
         //Config toastr
-        toastr.options.timeOut = 4000;
+        toastr.options.timeOut = 10000;
         toastr.options.positionClass = 'toast-bottom-right';
 
         //Config loading-bar
@@ -83,6 +75,12 @@
             UserService.GetUserProfile()
             .then(function(response){
             	$rootScope.globals.metaqrcodeUser=response;
+            },function (jqXHR, textStatus, errorThrown) {
+            	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
+            		logger.error("" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason);
+            	} else {
+                    logger.error(textStatus);
+            	}
             });
             $window.sessionStorage.setItem('globals', $rootScope.globals);
         });

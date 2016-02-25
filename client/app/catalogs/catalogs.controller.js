@@ -56,7 +56,7 @@ angular.module('metaqrcodeApp')
                 templateUrl: "app/catalogs/catalogForm.html",
                 controller: "CatalogsModalCtrl",
                 inputs: {
-                    title: "Add a new Catalog"
+                    title: "Add a new XSD catalog"
                 }
             }).then(function(modal) {
                 // The modal object has the element built, if this is a bootstrap modal

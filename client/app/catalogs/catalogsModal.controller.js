@@ -24,7 +24,7 @@
                 type: "application/json"
             });
             dataservice.uploadCatalog(request, $scope.file)
-                .done(function(response){
+                .then(function(response){
                     if (response.returnCode < 0) {
                         logger.error(response.reason);
 
@@ -35,9 +35,13 @@
                         }, 500);
                         logger.success(response.reason);
                     }
-            }).fail(function(response){
-                    logger.error(response.reason);
-                })
+	            }, function (jqXHR, textStatus, errorThrown) {
+	            	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
+	            		logger.error("" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason);
+	            	} else {
+	                    logger.error(textStatus);
+	            	}
+	            });
         };
         //  This cancel function must use the bootstrap, 'modal' function because
         //  the doesn't have the 'data-dismiss' attribute.
