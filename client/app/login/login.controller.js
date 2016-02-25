@@ -30,6 +30,12 @@
                     vm.dataLoading = false;
                     vm.error=response.data.reason;
                 }
+            },function (jqXHR, textStatus, errorThrown) {
+            	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
+            		logger.error("" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason);
+            	} else {
+                    logger.error(textStatus);
+            	}
             });
         };
     }

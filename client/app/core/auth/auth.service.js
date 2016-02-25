@@ -68,6 +68,12 @@
             UserService.GetUserProfile()
             .then(function(response){
             	$rootScope.globals.metaqrcodeUser=response;
+            },function (jqXHR, textStatus, errorThrown) {
+            	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
+            		logger.error("" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason);
+            	} else {
+                    logger.error(textStatus);
+            	}
             }); 
             $cookieStore.put('globals', $rootScope.globals);
         }

@@ -28,7 +28,7 @@
                     img:'assets/images/create_xml.jpg',
                     text:'METAQRCODE provides an XML schema (XSD) catalog that define metadata formats.<br/>'+
                     	'You can use an existing XSD or upload a new one.<br/>'+
-                    	'When you upload your XML metadata METAQRCODE will validate XML and create your QRCode.'
+                    	'When you upload your XML metadata, METAQRCODE will validate XML and create your QRCode.'
                 },
                 {
                     title:'Put the QRCode in the real world!',
