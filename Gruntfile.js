@@ -563,9 +563,13 @@ module.exports = function (grunt) {
           options: {
             patterns: [
               {
-                match: /http:\/\/localhost:9000\//g,
-                replacement: 'https://www.metaqrcode.com/'
-              }
+                match: /http:\/\/localhost:9000/g,
+                replacement: 'https://www.metaqrcode.com'
+              },
+              {
+                  match: /http:\/\/localhost:8080/g,
+                  replacement: 'https://www.metaqrcode.com'
+                }
             ]
           },
           files: [
