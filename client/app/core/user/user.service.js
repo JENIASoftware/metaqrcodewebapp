@@ -184,7 +184,7 @@
         	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
                 return exception.catcher("" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason);
         	} else {
-                return exception.catcher(textStatus);
+                return exception.catcher(textStatus + " : " + errorThrown.toLocaleString());
         	}
         }
 

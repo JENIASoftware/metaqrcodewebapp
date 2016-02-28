@@ -72,7 +72,7 @@
             	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
             		logger.error("" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason);
             	} else {
-                    logger.error(textStatus);
+                    logger.error(textStatus + " : " + errorThrown.toLocaleString());
             	}
             }); 
             $cookieStore.put('globals', $rootScope.globals);
@@ -101,14 +101,14 @@
                     return exception.catcher(response.returnCode);
                 }
             }
-            return exception.catcher(response);
+            return logger.error(response);
         }
 
         function handleError(jqXHR, textStatus, errorThrown) {
         	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
                 return exception.catcher("" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason);
         	} else {
-                return exception.catcher(textStatus);
+                return exception.catcher(textStatus + " : " + errorThrown.toLocaleString());
         	}
         }
 
