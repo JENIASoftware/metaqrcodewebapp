@@ -28,14 +28,14 @@
                         	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
                         		logger.error("" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason);
                         	} else {
-                                logger.error(textStatus);
+                                logger.error(textStatus + " : " + errorThrown.toLocaleString());
                         	}
                         });
                 },function (jqXHR, textStatus, errorThrown) {
                 	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
                 		logger.error("" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason);
                 	} else {
-                        logger.error(textStatus);
+                        logger.error(textStatus + " : " + errorThrown.toLocaleString());
                 	}
                 });
         }
@@ -50,7 +50,7 @@
                 	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
                 		logger.error("" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason);
                 	} else {
-                        logger.error(textStatus);
+                        logger.error(textStatus + " : " + errorThrown.toLocaleString());
                 	}
                 });
         }
@@ -64,7 +64,7 @@
                 	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
                 		logger.error("" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason);
                 	} else {
-                        logger.error(textStatus);
+                        logger.error(textStatus + " : " + errorThrown.toLocaleString());
                 	}
                 });
         }

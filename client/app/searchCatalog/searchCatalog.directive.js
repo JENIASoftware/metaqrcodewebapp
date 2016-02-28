@@ -23,8 +23,8 @@
 
     }
 
-    SearchCatalogCtrl.$inject=['dataservice'];
-    function SearchCatalogCtrl(dataservice){
+    SearchCatalogCtrl.$inject=['dataservice','logger'];
+    function SearchCatalogCtrl(dataservice, logger){
         var vm=this;
         vm.catalogs=null;
         vm.query='';
@@ -44,7 +44,7 @@
                 	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
                 		logger.error("" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason);
                 	} else {
-                        logger.error(textStatus);
+                        logger.error(textStatus + " : " + errorThrown.toLocaleString());
                 	}
                 });
             }else{

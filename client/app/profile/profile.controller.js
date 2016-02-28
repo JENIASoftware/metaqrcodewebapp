@@ -24,7 +24,7 @@
                 	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
                         return vm.error = "" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason;
                 	} else {
-                        return vm.error=textStatus;
+                        return vm.error=textStatus + " : " + errorThrown.toLocaleString();;
                 	}
                 });
         }
