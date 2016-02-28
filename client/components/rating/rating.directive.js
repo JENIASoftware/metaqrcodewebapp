@@ -29,9 +29,7 @@
 				
 				scope.$watch('ratingValue',
 					function(oldVal, newVal) {
-//						if (newVal) {
-							updateStars();
-//						}
+						updateStars();
 					}
 				);
 			}

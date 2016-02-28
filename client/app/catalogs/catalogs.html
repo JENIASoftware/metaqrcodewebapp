@@ -9,7 +9,7 @@
                         <input ng-model="vm.searchCriteria.query" ng-model-options="{ getterSetter: true }" ng-keyup="vm.search()" placeholder="search..." class="form-control">
                     </div>
                     <div class="pull-right">
-                        <button  ng-if="vm.userLogged" class="btn btn-default" ng-click="vm.showModal()" title="upload new catalog"><i class="fa fa-upload"></i> Upload</button>
+                        <button ng-if="vm.userLogged" class="btn btn-default" ng-click="vm.showModal()" title="upload new catalog"><i class="fa fa-upload"></i> Upload</button>
                     </div>
                 </div>
                 <div class="panel-body">
@@ -21,7 +21,7 @@
                             <td data-title="'Url'">{{row.catalogGet}}</td>
                             <td data-title="'Publisher'">{{row.nickNamePublisher}}</td>
                             <td data-title="'Repositories'" class="text-center"><a ui-sref="repositories({correlationId:row.catalogGet})"><span class="badge">{{row.numberOfReferences || 0}}</span></a></td>
-                            <td data-title="'Rating'" class="text-center"><div star-rating rating-value="row.stars" max="5"></div></td>
+                            <td data-title="'Rating'" class="text-center"><div ng-click="vm.showModalVote(row)" star-rating rating-value="row.stars" max="5"/></td>
 		                    <td data-title="'Referencies'" class="text-center">
 					            <table>
 					                <tr ng-repeat="rowC in row.catalogEntries track by rowC.id">
