@@ -103,6 +103,7 @@ angular.module('metaqrcodeApp')
                 $("#jRate").jRate({
                 	startColor: '#FC6000',
             		endColor: '#FC6000',
+            		backgroundColor: 'rgb(221, 221, 221)',
             		precision: 1,
             		min: 0,
             		max: 5,

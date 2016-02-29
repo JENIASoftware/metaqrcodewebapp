@@ -5,29 +5,26 @@
     'use strict';
     angular.module('metaqrcodeApp')
         .controller('CatalogsModalVoteCtrl',CatalogsModalVoteCtrl);
-    CatalogsModalVoteCtrl.$inject=['$cookieStore','$scope','$element', 'title', 'close','dataservice','logger'];
+    CatalogsModalVoteCtrl.$inject=['$cookieStore','$scope','$element', 'title', 'activeCatalog', 'close','dataservice','logger'];
     /* @ngInject */
     function CatalogsModalVoteCtrl($cookieStore,$scope,$element, title, activeCatalog, close,dataservice,logger){
         $scope.catalog={};
-        $scope.catalog.name = null;
-        $scope.catalog.description = null;
+    	
+        $scope.catalog.id = activeCatalog.id;
+        $scope.catalog.note = null;
+        
         $scope.title = title;
         $scope.activeCatalog = activeCatalog;
         $scope.vote=function(){
-            var fd = new FormData();
             var request={
-                name:$scope.catalog.name,
-                description:$scope.catalog.description
+                id:$scope.catalog.id,
+                stars:$('#stars').val(),
+                note:$scope.catalog.note
             };
-            fd.append('xs', $scope.file);
-            fd.append('request', new Blob([JSON.stringify(request)]),{
-                type: "application/json"
-            });
-            dataservice.uploadCatalog(request, $scope.file)
+            dataservice.voteCatalog(request)
                 .then(function(response){
                     if (response.returnCode < 0) {
                         logger.error(response.reason);
-
                     } else {
                         $element.modal('hide');
                         close({

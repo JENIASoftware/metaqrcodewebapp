@@ -18,7 +18,8 @@
             uploadRepository:uploadRepository,
             getRepositories:getRepositories,
             getRepository:getRepository,
-            updateRepository:updateRepository
+            updateRepository:updateRepository,
+            voteCatalog:voteCatalog
         };
 
         return service;
@@ -45,6 +46,22 @@
                 type: "POST",
                 url: searchUrl,
                 data: JSON.stringify({id:id}),
+                cache: false,
+                dataType: "json",
+      		    contentType: "application/json; charset=utf-8",
+                async: false,
+                beforeSend:checkBearer,
+                error: handleError,
+                success: handleSuccess
+            });
+        }
+        
+        function voteCatalog(request) {
+            var voteUrl=app.SERVER+"/api/rest/json/catalog/vote";
+            return $.ajax({
+                type: "POST",
+                url: voteUrl,
+                data: JSON.stringify(request),
                 cache: false,
                 dataType: "json",
       		    contentType: "application/json; charset=utf-8",
