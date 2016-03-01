@@ -11,19 +11,16 @@
         $scope.catalog={};
         $scope.catalog.name = null;
         $scope.catalog.description = null;
+        $scope.catalog.xsd=null;
+        $scope.catalog.file=null;
+        $scope.catalog.uploadFile=true;
         $scope.title = title;
-        $scope.file=null;
         $scope.upload=function(){
-            var fd = new FormData();
             var request={
                 name:$scope.catalog.name,
                 description:$scope.catalog.description
             };
-            fd.append('xs', $scope.file);
-            fd.append('request', new Blob([JSON.stringify(request)]),{
-                type: "application/json"
-            });
-            dataservice.uploadCatalog(request, $scope.file)
+            dataservice.uploadCatalog(request, $scope.catalog.file, $scope.catalog.xsd)
                 .then(function(response){
                     if (response.returnCode < 0) {
                         logger.error(response.reason);

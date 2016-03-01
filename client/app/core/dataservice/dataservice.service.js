@@ -160,7 +160,7 @@
             });
         }
         
-        function uploadCatalog(request,file,xml) {
+        function uploadCatalog(request,file,xsd) {
             var uploadUrl=app.SERVER+"/api/rest/json/catalog/upload";
             var data = new FormData();
             data.append('request', new Blob([JSON.stringify(request)], {
@@ -169,9 +169,9 @@
             if(file) {
                 data.append('xsd', file);
             }
-            if(xml) {
-                var blob = new Blob([xml], { type: "text/xml"});
-                data.append('xml',blob);
+            if(xsd) {
+                var blob = new Blob([xsd], { type: "text/xml"});
+                data.append('xsd',blob);
             }
             return $.ajax({
                 type: "POST",
