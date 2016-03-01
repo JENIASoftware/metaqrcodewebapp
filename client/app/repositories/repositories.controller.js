@@ -26,10 +26,9 @@
             vm.searchCriteria={
                 rowPerPage:5,
                 currentPage:0,
-                totalPages:0,
-                query:''
+                totalPages:0
             };
-            search();
+            search($stateParams.catalogEntryId);
         }
         function totalPages(){
             var ret=[];
@@ -39,11 +38,11 @@
             }
             return ret;
         }
-        function search(){
+        function search(catalogEntryId){
             vm.tableParams=new NgTableParams({count:vm.searchCriteria.rowPerPage}, {
                 counts: [5, 10, 20],
                 getData: function(params) {
-                    return dataservice.getRepositories(params.page()-1,params.count(),vm.searchCriteria.query).then(function(data){
+                    return dataservice.getRepositories(params.page()-1,params.count(),catalogEntryId).then(function(data){
                         params.total(data.rowTotal); // recal. page nav controls
                         return data.result;
                     }, function (jqXHR, textStatus, errorThrown) {

@@ -72,9 +72,9 @@
             });
         }
         
-        function getRepositories(pageNumber,rowPerPage,query) {
+        function getRepositories(pageNumber,rowPerPage,catalogEntryId) {
             var request={
-                correlationIdLike:query,
+            	catalogEntryId:catalogEntryId,
                 pageNumber:pageNumber,
                 rowPerPage:rowPerPage
             };

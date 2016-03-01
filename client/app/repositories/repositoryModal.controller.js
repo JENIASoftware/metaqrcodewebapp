@@ -11,6 +11,7 @@
         $scope.repository=repository || {};
         $scope.repository.defaultCatalog =repository?repository.defaultCatalog: null;
         $scope.repository.correlationId = repository?repository.correlationId: null;
+        $scope.repository.personal = false;
         $scope.repository.xml = null;
         $scope.repository.uploadFile = true;
         $scope.title = title;
@@ -18,7 +19,8 @@
         $scope.upload=function(){
             var request={
                 defaultCatalog:$scope.repository.defaultCatalog,
-                correlationId:$scope.repository.correlationId
+                correlationId:$scope.repository.correlationId,
+                personal:$scope.repository.personal 
             };
             if(action=="create") {
 

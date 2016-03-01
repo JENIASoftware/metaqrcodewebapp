@@ -20,7 +20,7 @@
                             <td data-title="'Description'">{{row.description}}</td>
                             <td data-title="'Url'">{{row.catalogGet}}</td>
                             <td data-title="'Publisher'">{{row.nickNamePublisher}}</td>
-                            <td data-title="'Repositories'" class="text-center"><a ui-sref="repositories({correlationId:row.catalogGet})"><span class="badge">{{row.numberOfReferences || 0}}</span></a></td>
+                            <td data-title="'Repositories'" class="text-center"><a ui-sref="repositoriesFromCatalog({catalogEntryId:row.id})"><span class="badge">{{row.numberOfReferences || 0}}</span></a></td>
                             <td data-title="'Rating'" class="text-center"><div ng-click="vm.showModalVote(row)" star-rating rating-value="row.stars" max="5"/></td>
 		                    <td data-title="'Referencies'" class="text-center">
 					            <table>

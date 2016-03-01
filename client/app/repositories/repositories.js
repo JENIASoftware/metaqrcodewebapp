@@ -26,6 +26,13 @@
                 controller: 'ViewCatalogCtrl',
                 controllerAs:'vm',
                 bindToController:true
+            }).state('repositoriesFromCatalog', {
+                url: '/repositories/:catalogEntryId',
+                templateUrl: 'app/repositories/repositories.html',
+                controller: 'RepositoriesCtrl',
+                controllerAs:'vm',
+                requireToken:true,
+                bindToController:true
             });
     }
 })();
