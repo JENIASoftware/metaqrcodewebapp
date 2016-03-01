@@ -15,7 +15,7 @@
                     <div class="form-group">
                         <label for="defaultCatalog" class="col-sm-2 control-label">Default XSD catalog URL</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="defaultCatalog" placeholder="default XSD catalog link (optional)" ng-model="repository.defaultCatalog" required>
+                            <input type="text" class="form-control" id="defaultCatalog" placeholder="default XSD catalog link (optional)" ng-model="repository.defaultCatalog">
                         </div>
                     </div>
                     <div class="form-group">
@@ -26,14 +26,38 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="xml" class="col-sm-2 control-label">File Text</label>
+                        <label class="col-sm-2 control-label vcenter">Which format?</label>
+                    	<div class="col-sm-10 vcenter">
+                    		<div class="row vcenter">
+		                        <div class="col-sm-2 vcenter">
+		                        	<label>file upload</label>
+		                        </div>
+		                        <div class="col-sm-1 vcenter">
+		                            <input type="radio" class="formradio form-control" ng-model="repository.uploadFile" ng-value="true"/>
+		                        </div>
+		                        <div class="col-sm-2 vcenter">
+		                        </div>
+		                        <div class="col-sm-2 vcenter">
+		                        	<label>text area</label>
+		                        </div>
+		                        <div class="col-sm-1 vcenter">
+		                            <input type="radio" class="formradio form-control" ng-model="repository.uploadFile" ng-value="false"/>
+		                        </div>
+		                        <div class="col-sm-4 vcenter">
+		                        </div>
+                    		</div>
+                    	</div>
+                    </div>
+                    <div class="form-group" ng-show="!repository.uploadFile">
+                        <label for="xml" class="col-sm-2 control-label">XML Document</label>
                         <div class="col-sm-10">
-                            <textarea type="text" class="form-control" id="xml" name="xml" placeholder="paste here your XML (optional, in alternative use browse button to upload XML file)" ng-model="repository.xml"></textarea>
+                            <textarea type="text" class="form-control" id="xml" name="xml" placeholder="paste here your XML" ng-model="repository.xml"></textarea>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="col-sm-offset-2 col-sm-10">
-                            <file-input file="file" filter=".xml"></file-input>
+                    <div class="form-group" ng-show="repository.uploadFile">
+                        <label for="fileXML" class="col-sm-2 control-label">XML Document</label>
+                        <div class="col-sm-10">
+                            <file-input id="fileXML" name="fileXML" file="repository.file" filter=".xml"></file-input>
                         </div>
                     </div>
 

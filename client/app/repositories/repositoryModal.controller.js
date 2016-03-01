@@ -12,8 +12,9 @@
         $scope.repository.defaultCatalog =repository?repository.defaultCatalog: null;
         $scope.repository.correlationId = repository?repository.correlationId: null;
         $scope.repository.xml = null;
+        $scope.repository.uploadFile = true;
         $scope.title = title;
-        $scope.file=null;
+        $scope.repository.file=null;
         $scope.upload=function(){
             var request={
                 defaultCatalog:$scope.repository.defaultCatalog,
@@ -21,7 +22,7 @@
             };
             if(action=="create") {
 
-                dataservice.uploadRepository(request, $scope.file,$scope.repository.xml)
+                dataservice.uploadRepository(request, $scope.repository.file,$scope.repository.xml)
                     .then(function (response){
                         if (response.returnCode >= 0) {
                             logger.success(response.reason);
@@ -42,7 +43,7 @@
             }
             if(action=="update"){
                 request.id=$stateParams.id;
-                dataservice.updateRepository(request, $scope.file,$scope.repository.xml)
+                dataservice.updateRepository(request, $scope.repository.file,$scope.repository.xml)
                     .then(function (response){
                         if (response.returnCode >= 0) {
                             logger.success(response.reason);
