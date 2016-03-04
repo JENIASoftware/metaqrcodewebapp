@@ -24,12 +24,12 @@
 
         return service;
         
-        function getCatalogs(pageNumber,rowPerPage,query) {
+        function getCatalogs(pageNumber,rowPerPage,query, mine) {
             var searchUrl=app.SERVER+"/api/rest/json/catalog/search";
             return $.ajax({
                 type: "POST",
                 url: searchUrl,
-                data: JSON.stringify({nameLike:query,pageNumber:pageNumber,rowPerPage:rowPerPage}),
+                data: JSON.stringify({descriptionLike:query,pageNumber:pageNumber,rowPerPage:rowPerPage,onlyMine:mine}),
                 cache: false,
                 dataType: "json",
       		    contentType: "application/json; charset=utf-8",

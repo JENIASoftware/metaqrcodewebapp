@@ -8,6 +8,8 @@
 //var scope = "extracurricular";
 //var state = Date.now() + "" + Math.random();
 
+var fakeAccessToken="";
+
 (function() {
 	function getSessionToken($window) {
 		var tokenString = $window.sessionStorage.getItem('token');
@@ -78,7 +80,8 @@
                 }
 			} else {
 				// Try and get the token from the hash params on the URL
-				var hashValues = window.location.hash;
+				fakeAccessToken = window.location.hash;
+				var hashValues=fakeAccessToken;	
 				if (hashValues.length > 0) {
 					if (hashValues.indexOf('#/') == 0) {
 						hashValues = hashValues.substring(2);

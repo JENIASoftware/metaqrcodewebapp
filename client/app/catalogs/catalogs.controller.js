@@ -14,10 +14,13 @@ angular.module('metaqrcodeApp')
         vm.userLogged=false;
         vm.searchCriteria=null;
         vm.tableParams=null;
+        vm.mine=false;
 
         vm.search=search;
         vm.showModal=showModal;
         vm.showModalVote=showModalVote;
+        vm.showMine=showMine;
+        vm.showAll=showAll;
 
         activate();
 
@@ -38,7 +41,7 @@ angular.module('metaqrcodeApp')
             vm.tableParams=new NgTableParams({count:vm.searchCriteria.rowPerPage}, {
                 counts: [10, 30, 50],
                 getData: function(params) {
-                    return dataservice.getCatalogs(params.page()-1,params.count(),vm.searchCriteria.query).then(function(data){
+                    return dataservice.getCatalogs(params.page()-1,params.count(),vm.searchCriteria.query,vm.mine).then(function(data){
                         params.total(data.rowTotal); // recal. page nav controls
                         return data.result;
                     }, function (jqXHR, textStatus, errorThrown) {
@@ -51,6 +54,14 @@ angular.module('metaqrcodeApp')
                     });
                 }
             });
+        }
+        function showMine(){
+        	vm.mine=true;
+        	search();
+        }
+        function showAll(){
+        	vm.mine=false;
+        	search();
         }
         function showModal(){
             ModalService.showModal({

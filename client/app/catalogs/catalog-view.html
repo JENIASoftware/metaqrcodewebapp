@@ -1,6 +1,6 @@
 <div class="container">
 <h1 class="page-header clearfix">XSD catalog name: {{vm.catalog.name}} <br/><br/>{{vm.catalog.catalogGet}}<br/>
-    <div class="star-rating pull-right" star-rating rating-value="vm.catalog.stars" max="5"></div>
+    <div ng-click="vm.showModalVote(vm.catalog)" class="star-rating pull-right" star-rating rating-value="vm.catalog.stars" max="5"></div>
 </h1>
     <div class="row">
         <div class="col-md-3">
