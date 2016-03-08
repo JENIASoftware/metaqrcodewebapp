@@ -24,16 +24,9 @@
                             <td data-title="'Name'"><a ui-sref="viewCatalog({id:row.id})">{{row.name}}</a></td>
                             <td data-title="'Description'">{{row.description}}</td>
                             <td data-title="'Url'">{{row.catalogGet}}</td>
-                            <td data-title="'Publisher'">{{row.nickNamePublisher}}</td>
-                            <td data-title="'Repositories'" class="text-center"><a ui-sref="repositoriesFromCatalog({catalogEntryId:row.id})"><span class="badge">{{row.numberOfReferences || 0}}</span></a></td>
                             <td data-title="'Rating'" class="text-center text-nowrap"><div ng-click="vm.showModalVote(row)" star-rating rating-value="row.stars" max="5"/></td>
-		                    <td data-title="'Referencies'" class="text-center">
-					            <table>
-					                <tr ng-repeat="rowC in row.catalogEntries track by rowC.id">
-					                    <td><a ui-sref="viewCatalog({id:rowC.id})">{{rowC.name}}</a></td>
-					                </tr>
-					            </table>
-		                    </td>
+                            <td class="text-center"><div ng-click="vm.showModalDetail(row)"><i class="fa fa-search"></i></div></td>
+                            <td ng-if="vm.userLogged" class="text-center"><div ng-click="vm.deleteCatalog(row)"><i class="fa fa-trash"></i></div></td>
                         </tr>
                     </table>
                 </div>

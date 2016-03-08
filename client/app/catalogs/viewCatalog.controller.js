@@ -3,8 +3,8 @@
     angular.module('metaqrcodeApp')
         .controller('ViewCatalogCtrl',ViewCatalogCtrl);
 
-    ViewCatalogCtrl.$inject=['dataservice','$stateParams','ModalService','$rootScope'];
-    function ViewCatalogCtrl(dataservice,$stateParams,ModalService,$rootScope){
+    ViewCatalogCtrl.$inject=['dataservice','$stateParams','ModalService','$rootScope','logger'];
+    function ViewCatalogCtrl(dataservice,$stateParams,ModalService,$rootScope,logger){
         var vm=this;
         vm.catalog=null;
         vm.userLogged=false;
@@ -21,19 +21,19 @@
                             vm.catalog.text=jqXHR.responseText;
                         }, function (jqXHR, textStatus, errorThrown) {
                         	vm.dataLoading = false;
-                        	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
-                                return vm.error = "" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason;
-                        	} else {
-                                return vm.error=textStatus + " : " + errorThrown.toLocaleString();;
-                        	}
+        	            	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
+        	            		logger.error("" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason);
+        	            	} else {
+        	                    logger.error(textStatus + " : " + errorThrown.toLocaleString());
+        	            	}
                         });
                 }, function (jqXHR, textStatus, errorThrown) {
                 	vm.dataLoading = false;
-                	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
-                        return vm.error = "" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason;
-                	} else {
-                        return vm.error=textStatus + " : " + errorThrown.toLocaleString();;
-                	}
+	            	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
+	            		logger.error("" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason);
+	            	} else {
+	                    logger.error(textStatus + " : " + errorThrown.toLocaleString());
+	            	}
                 });
             vm.userLogged=$rootScope.globals.metaqrcodeUser==null?"":$rootScope.globals.metaqrcodeUser.email;
         }
@@ -73,18 +73,18 @@
                     }
                 }, function (jqXHR, textStatus, errorThrown) {
                 	vm.dataLoading = false;
-                	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
-                        return vm.error = "" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason;
-                	} else {
-                        return vm.error=textStatus + " : " + errorThrown.toLocaleString();;
-                	}
+	            	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
+	            		logger.error("" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason);
+	            	} else {
+	                    logger.error(textStatus + " : " + errorThrown.toLocaleString());
+	            	}
                 });
             }, function (jqXHR, textStatus, errorThrown) {
             	vm.dataLoading = false;
             	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
-                    return vm.error = "" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason;
+            		logger.error("" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason);
             	} else {
-                    return vm.error=textStatus + " : " + errorThrown.toLocaleString();;
+                    logger.error(textStatus + " : " + errorThrown.toLocaleString());
             	}
             });
         }

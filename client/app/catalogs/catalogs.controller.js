@@ -4,9 +4,11 @@
 
 angular.module('metaqrcodeApp')
     .controller('CatalogsCtrl', CatalogsCtrl);
+
+	CatalogsCtrl.$inject=['dataservice','ModalService','$rootScope','NgTableParams','logger'];
     
     /* @ngInject */
-    function CatalogsCtrl(dataservice,ModalService,$rootScope,NgTableParams) {
+    function CatalogsCtrl(dataservice,ModalService,$rootScope,NgTableParams,logger) {
         var vm = this;
         vm.catalogs = [];
         vm.activeCatalog=null;
@@ -19,8 +21,10 @@ angular.module('metaqrcodeApp')
         vm.search=search;
         vm.showModal=showModal;
         vm.showModalVote=showModalVote;
+        vm.showModalDetail=showModalDetail;
         vm.showMine=showMine;
         vm.showAll=showAll;
+        vm.deleteCatalog=deleteCatalog;
 
         activate();
 
@@ -45,14 +49,54 @@ angular.module('metaqrcodeApp')
                         params.total(data.rowTotal); // recal. page nav controls
                         return data.result;
                     }, function (jqXHR, textStatus, errorThrown) {
-                    	vm.dataLoading = false;
                     	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
-                            return vm.error = "" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason;
+                    		logger.error("" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason);
                     	} else {
-                            return vm.error=textStatus + " : " + errorThrown.toLocaleString();;
+                            logger.error(textStatus + " : " + errorThrown.toLocaleString());
                     	}
                     });
                 }
+            });
+        }
+        function deleteCatalog(activeCatalog){
+        	if (!vm.userLogged) return;
+            ModalService.showModal({
+                templateUrl: "app/yesno/yesno.html",
+                controller: "YesNoController",
+                inputs: {
+                    title: "Please confirm",
+                    body: "Are you sure do you want to delete this XSD Catalog?"
+                }
+            }).then(function(modal) {
+                // The modal object has the element built, if this is a bootstrap modal
+                // you can call 'modal' to show it, if it's a custom modal just show or hide
+                // it as you need to.
+                modal.element.modal();
+                modal.close.then(function(result) {
+                	if (result) {
+	                	dataservice.deleteCatalog(activeCatalog.id).then(function(data){
+	                    	search();
+	                    }, function (jqXHR, textStatus, errorThrown) {
+	                    	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
+	                    		logger.error("" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason);
+	                    	} else {
+	                            logger.error(textStatus + " : " + errorThrown.toLocaleString());
+	                    	}
+	                    });
+                	}
+                }, function (jqXHR, textStatus, errorThrown) {
+                	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
+                		logger.error("" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason);
+                	} else {
+                        logger.error(textStatus + " : " + errorThrown.toLocaleString());
+                	}
+                });
+            }, function (jqXHR, textStatus, errorThrown) {
+            	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
+            		logger.error("" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason);
+            	} else {
+                    logger.error(textStatus + " : " + errorThrown.toLocaleString());
+            	}
             });
         }
         function showMine(){
@@ -82,19 +126,17 @@ angular.module('metaqrcodeApp')
                         vm.newCatalog = {};
                     }
                 }, function (jqXHR, textStatus, errorThrown) {
-                	vm.dataLoading = false;
                 	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
-                        return vm.error = "" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason;
+                		logger.error("" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason);
                 	} else {
-                        return vm.error=textStatus + " : " + errorThrown.toLocaleString();;
+                        logger.error(textStatus + " : " + errorThrown.toLocaleString());
                 	}
                 });
             }, function (jqXHR, textStatus, errorThrown) {
-            	vm.dataLoading = false;
             	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
-                    return vm.error = "" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason;
+            		logger.error("" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason);
             	} else {
-                    return vm.error=textStatus + " : " + errorThrown.toLocaleString();;
+                    logger.error(textStatus + " : " + errorThrown.toLocaleString());
             	}
             });
         }
@@ -126,25 +168,47 @@ angular.module('metaqrcodeApp')
         		});
                 modal.element.modal();
                 modal.close.then(function(result) {
-                    if(result.catalog.name) {
-                        vm.newCatalog = result.catalog;
-                        vm.catalogs.push(vm.newCatalog);
-                        vm.newCatalog = {};
-                    }
                 }, function (jqXHR, textStatus, errorThrown) {
-                	vm.dataLoading = false;
                 	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
-                        return vm.error = "" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason;
+                		logger.error("" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason);
                 	} else {
-                        return vm.error=textStatus + " : " + errorThrown.toLocaleString();;
+                        logger.error(textStatus + " : " + errorThrown.toLocaleString());
                 	}
                 });
             }, function (jqXHR, textStatus, errorThrown) {
-            	vm.dataLoading = false;
             	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
-                    return vm.error = "" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason;
+            		logger.error("" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason);
             	} else {
-                    return vm.error=textStatus + " : " + errorThrown.toLocaleString();;
+                    logger.error(textStatus + " : " + errorThrown.toLocaleString());
+            	}
+            });
+        }
+        function showModalDetail(activeCatalog){
+            ModalService.showModal({
+                templateUrl: "app/catalogs/catalogDetail.html",
+                controller: "CatalogsModalDetailCtrl",
+                inputs: {
+                    title: "XSD catalog detail",
+                    activeCatalog:activeCatalog
+                }
+            }).then(function(modal) {
+                // The modal object has the element built, if this is a bootstrap modal
+                // you can call 'modal' to show it, if it's a custom modal just show or hide
+                // it as you need to.
+                modal.element.modal();
+                modal.close.then(function(result) {
+                }, function (jqXHR, textStatus, errorThrown) {
+                	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
+                		logger.error("" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason);
+                	} else {
+                        logger.error(textStatus + " : " + errorThrown.toLocaleString());
+                	}
+                });
+            }, function (jqXHR, textStatus, errorThrown) {
+            	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
+            		logger.error("" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason);
+            	} else {
+                    logger.error(textStatus + " : " + errorThrown.toLocaleString());
             	}
             });
         }
