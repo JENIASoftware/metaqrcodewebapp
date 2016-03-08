@@ -18,6 +18,7 @@
         vm.setActiveRepository = setActiveRepository;
         vm.search=search;
         vm.changeTextFormat=changeTextFormat;
+        vm.deleteRepository=deleteRepository;
         vm.tableParams=null;
 
         activate();
@@ -53,6 +54,46 @@
                     	}
                     });
                 }
+            });
+        }
+        function deleteRepository(activeRepository){
+            ModalService.showModal({
+                templateUrl: "app/yesno/yesno.html",
+                controller: "YesNoController",
+                inputs: {
+                    title: "Please confirm",
+                    body: "Are you sure do you want to delete this XML Repository?"
+                }
+            }).then(function(modal) {
+                // The modal object has the element built, if this is a bootstrap modal
+                // you can call 'modal' to show it, if it's a custom modal just show or hide
+                // it as you need to.
+                modal.element.modal();
+                modal.close.then(function(result) {
+                	if (result) {
+	                	dataservice.deleteRepository(activeRepository.id).then(function(data){
+	                    	search();
+	                    }, function (jqXHR, textStatus, errorThrown) {
+	                    	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
+	                    		logger.error("" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason);
+	                    	} else {
+	                            logger.error(textStatus + " : " + errorThrown.toLocaleString());
+	                    	}
+	                    });
+                	}
+                }, function (jqXHR, textStatus, errorThrown) {
+                	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
+                		logger.error("" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason);
+                	} else {
+                        logger.error(textStatus + " : " + errorThrown.toLocaleString());
+                	}
+                });
+            }, function (jqXHR, textStatus, errorThrown) {
+            	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
+            		logger.error("" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason);
+            	} else {
+                    logger.error(textStatus + " : " + errorThrown.toLocaleString());
+            	}
             });
         }
         function setActiveRepository(repository) {
