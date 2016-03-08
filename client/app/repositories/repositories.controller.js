@@ -4,9 +4,9 @@
     angular.module('metaqrcodeApp')
         .controller('RepositoriesCtrl',RepositoriesCtrl);
 
-    RepositoriesCtrl.$inject=['dataservice','$stateParams','ModalService','NgTableParams','$location'];
+    RepositoriesCtrl.$inject=['dataservice','$stateParams','ModalService','NgTableParams','$location','logger'];
 
-    function RepositoriesCtrl(dataservice,$stateParams,ModalService,NgTableParams, $location){
+    function RepositoriesCtrl(dataservice,$stateParams,ModalService,NgTableParams, $location, logger){
         var vm=this;
         vm.repositories = [];
         vm.activeRepository;
@@ -46,11 +46,10 @@
                         params.total(data.rowTotal); // recal. page nav controls
                         return data.result;
                     }, function (jqXHR, textStatus, errorThrown) {
-                    	vm.dataLoading = false;
                     	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
-                            return vm.error = "" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason;
+                    		logger.error("" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason);
                     	} else {
-                            return vm.error=textStatus + " : " + errorThrown.toLocaleString();;
+                            logger.error(textStatus + " : " + errorThrown.toLocaleString());
                     	}
                     });
                 }
@@ -63,11 +62,10 @@
                     vm.activeRepository.text=jqXHR.responseText;
                     vm.activeRepository = repository;
                 }, function (jqXHR, textStatus, errorThrown) {
-                	vm.dataLoading = false;
                 	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
-                        return vm.error = "" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason;
+                		logger.error("" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason);
                 	} else {
-                        return vm.error=textStatus + " : " + errorThrown.toLocaleString();;
+                        logger.error(textStatus + " : " + errorThrown.toLocaleString());
                 	}
                 });
 
@@ -78,11 +76,10 @@
                     vm.activeRepository.text=format=='json'?JSON.stringify(jqXHR.responseText, null, 2): jqXHR.responseText;
                     vm.activeFormat=format;
                 }, function (jqXHR, textStatus, errorThrown) {
-                	vm.dataLoading = false;
                 	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
-                        return vm.error = "" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason;
+                		logger.error("" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason);
                 	} else {
-                        return vm.error=textStatus + " : " + errorThrown.toLocaleString();;
+                        logger.error(textStatus + " : " + errorThrown.toLocaleString());
                 	}
                 });
         }
@@ -107,19 +104,17 @@
 //                    	viewRepository({id:result.repository.id});
                     }
                 }, function (jqXHR, textStatus, errorThrown) {
-                	vm.dataLoading = false;
                 	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
-                        return vm.error = "" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason;
+                		logger.error("" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason);
                 	} else {
-                        return vm.error=textStatus + " : " + errorThrown.toLocaleString();;
+                        logger.error(textStatus + " : " + errorThrown.toLocaleString());
                 	}
                 });
             }, function (jqXHR, textStatus, errorThrown) {
-            	vm.dataLoading = false;
             	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
-                    return vm.error = "" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason;
+            		logger.error("" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason);
             	} else {
-                    return vm.error=textStatus + " : " + errorThrown.toLocaleString();;
+                    logger.error(textStatus + " : " + errorThrown.toLocaleString());
             	}
             });
         }

@@ -3,12 +3,11 @@
     angular.module('metaqrcodeApp')
         .controller('ViewRepositoryCtrl',ViewRepositoryCtrl);
 
-    ViewRepositoryCtrl.$inject=['dataservice','$stateParams','ModalService'];
-    function ViewRepositoryCtrl(dataservice,$stateParams,ModalService){
+    ViewRepositoryCtrl.$inject=['dataservice','$stateParams','ModalService','logger'];
+    function ViewRepositoryCtrl(dataservice,$stateParams,ModalService,logger){
         var vm=this;
         vm.repository=null;
         vm.activeFormat=null;
-        vm.viewcatalogs=false;
         vm.changeTextFormat=changeTextFormat;
         vm.showModal=showModal;
         vm.catalogs=catalogs;
@@ -20,7 +19,6 @@
                 .then(function(response){
                     vm.repository=response.repositoryEntry;
                     vm.activeFormat='xml';
-                    vm.viewcatalogs=false;
                     dataservice.downloadRepository(vm.repository.id)
                         .then(function(response, textStatus, jqXHR){
                         	vm.repository.text=jqXHR.responseText;
@@ -45,7 +43,6 @@
                 .then(function(response, textStatus, jqXHR){
                 	vm.repository.text=jqXHR.responseText;
                     vm.activeFormat=format;
-                    vm.viewcatalogs=false;
                 },function (jqXHR, textStatus, errorThrown) {
                 	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
                 		logger.error("" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason);
@@ -59,7 +56,6 @@
             dataservice.getRepository(vm.repository.id)
                 .then(function(response){
                 	vm.activeFormat=null;
-                    vm.viewcatalogs=true;
                 },function (jqXHR, textStatus, errorThrown) {
                 	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
                 		logger.error("" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason);

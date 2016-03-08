@@ -1,0 +1,21 @@
+<div class="modal fade">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" ng-click="cancel()" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">{{title}}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="alert alert-info">
+                    <p>
+                        {{body}}
+                    </p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" ng-click="close(true)" class="btn btn-primary">Yes</button>
+                <button type="button" ng-click="close(false)" class="btn">No</button>
+            </div>
+        </div>
+    </div>
+</div>

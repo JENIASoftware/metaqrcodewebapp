@@ -19,7 +19,9 @@
             getRepositories:getRepositories,
             getRepository:getRepository,
             updateRepository:updateRepository,
-            voteCatalog:voteCatalog
+            voteCatalog:voteCatalog,
+            deleteCatalog:deleteCatalog,
+            deleteRepository:deleteRepository
         };
 
         return service;
@@ -45,6 +47,22 @@
             return $.ajax({
                 type: "POST",
                 url: searchUrl,
+                data: JSON.stringify({id:id}),
+                cache: false,
+                dataType: "json",
+      		    contentType: "application/json; charset=utf-8",
+                async: false,
+                beforeSend:checkBearer,
+                error: handleError,
+                success: handleSuccess
+            });
+        }
+        
+        function deleteCatalog(id) {
+            var deleteUrl=app.SERVER+"/api/rest/json/catalog/delete";
+            return $.ajax({
+                type: "POST",
+                url: deleteUrl,
                 data: JSON.stringify({id:id}),
                 cache: false,
                 dataType: "json",
@@ -102,6 +120,22 @@
                 type: "POST",
                 url: detailUrl,
                 data: JSON.stringify(request),
+                cache: false,
+                dataType: "json",
+      		    contentType: "application/json; charset=utf-8",
+                async: false,
+                beforeSend:checkBearer,
+                error: handleError,
+                success: handleSuccess
+            });
+        }
+        
+        function deleteRepository(id) {
+            var deleteUrl=app.SERVER+"/api/rest/json/repository/delete";
+            return $.ajax({
+                type: "POST",
+                url: deleteUrl,
+                data: JSON.stringify({id:id}),
                 cache: false,
                 dataType: "json",
       		    contentType: "application/json; charset=utf-8",

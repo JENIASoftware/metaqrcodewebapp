@@ -17,13 +17,12 @@
                 <tr ng-repeat="row in $data track by row.id">
                     <td data-title="'Qrcode'" class="text-center"><a ui-sref="viewRepository({id:row.id})"><img class="img-qrcode" ng-src="{{row.qrcodeGet}}" height="100px"/></a></td>
                     <td data-title="'Correlation Id'" class="text-center"><a ui-sref="viewRepository({id:row.id})">{{row.correlationId}}</a></td>
-                    <td data-title="'Referring XSD catalogs'" class="text-center">
-			            <table>
+                    <td data-title="'Referring XSD catalogs'" >
+			            <table class="tableFullWidth text-center">
 			                <tr ng-repeat="rowC in row.catalogEntries track by rowC.id">
 			                    <td><a ui-sref="viewCatalogFromRepository({id:rowC.id})">{{rowC.name}}</a></td>
 			                </tr>
 			            </table>
-	                    <span class="badge pull-right">{{row.catalogEntries.length || 0}}</span>
                     </td>
                 </tr>
             </table>

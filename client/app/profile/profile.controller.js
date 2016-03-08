@@ -4,9 +4,9 @@
     angular.module('metaqrcodeApp')
         .controller('ProfileCtrl',ProfileCtrl);
 
-    ProfileCtrl.$inject=['UserService'];
+    ProfileCtrl.$inject=['UserService','logger'];
 
-    function ProfileCtrl(UserService){
+    function ProfileCtrl(UserService,logger){
         var vm=this;
         vm.user={};
 
@@ -21,11 +21,11 @@
                     vm.user=response;
                 }, function (jqXHR, textStatus, errorThrown) {
                 	vm.dataLoading = false;
-                	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
-                        return vm.error = "" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason;
-                	} else {
-                        return vm.error=textStatus + " : " + errorThrown.toLocaleString();;
-                	}
+	            	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
+	            		logger.error("" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason);
+	            	} else {
+	                    logger.error(textStatus + " : " + errorThrown.toLocaleString());
+	            	}
                 });
         }
 

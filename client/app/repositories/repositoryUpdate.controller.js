@@ -3,8 +3,8 @@
     angular.module('metaqrcodeApp')
         .controller('UpdateRepositoryCtrl',UpdateRepositoryCtrl);
 
-    UpdateRepositoryCtrl.$inject=['dataservice','$stateParams','ModalService'];
-    function UpdateRepositoryCtrl(dataservice,$stateParams,ModalService){
+    UpdateRepositoryCtrl.$inject=['dataservice','$stateParams','ModalService','logger'];
+    function UpdateRepositoryCtrl(dataservice,$stateParams,ModalService,logger){
         var vm=this;
         vm.repository=null;
         vm.activeFormat=null;
@@ -24,19 +24,19 @@
                         	vm.repository.text=jqXHR.responseText;
                         }, function (jqXHR, textStatus, errorThrown) {
                         	vm.dataLoading = false;
-                        	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
-                                return vm.error = "" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason;
-                        	} else {
-                                return vm.error=textStatus + " : " + errorThrown.toLocaleString();;
-                        	}
+        	            	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
+        	            		logger.error("" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason);
+        	            	} else {
+        	                    logger.error(textStatus + " : " + errorThrown.toLocaleString());
+        	            	}
                         });
                 }, function (jqXHR, textStatus, errorThrown) {
                 	vm.dataLoading = false;
-                	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
-                        return vm.error = "" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason;
-                	} else {
-                        return vm.error=textStatus + " : " + errorThrown.toLocaleString();;
-                	}
+	            	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
+	            		logger.error("" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason);
+	            	} else {
+	                    logger.error(textStatus + " : " + errorThrown.toLocaleString());
+	            	}
                 });
         }
 
@@ -47,11 +47,11 @@
                     vm.activeFormat=format;
                 }, function (jqXHR, textStatus, errorThrown) {
                 	vm.dataLoading = false;
-                	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
-                        return vm.error = "" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason;
-                	} else {
-                        return vm.error=textStatus + " : " + errorThrown.toLocaleString();;
-                	}
+	            	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
+	            		logger.error("" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason);
+	            	} else {
+	                    logger.error(textStatus + " : " + errorThrown.toLocaleString());
+	            	}
                 });
         }
 
@@ -74,18 +74,18 @@
                     }
                 }, function (jqXHR, textStatus, errorThrown) {
                 	vm.dataLoading = false;
-                	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
-                        return vm.error = "" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason;
-                	} else {
-                        return vm.error=textStatus + " : " + errorThrown.toLocaleString();;
-                	}
+	            	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
+	            		logger.error("" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason);
+	            	} else {
+	                    logger.error(textStatus + " : " + errorThrown.toLocaleString());
+	            	}
                 });
             }, function (jqXHR, textStatus, errorThrown) {
             	vm.dataLoading = false;
             	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
-                    return vm.error = "" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason;
+            		logger.error("" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason);
             	} else {
-                    return vm.error=textStatus + " : " + errorThrown.toLocaleString();;
+                    logger.error(textStatus + " : " + errorThrown.toLocaleString());
             	}
             });
         }

@@ -5,8 +5,8 @@
         .module('metaqrcodeApp')
         .controller('RegisterController', RegisterController);
 
-    RegisterController.$inject = ['UserService', '$location', 'AuthenticationService'];
-    function RegisterController(UserService, $location, AuthenticationService) {
+    RegisterController.$inject = ['UserService', '$location', 'AuthenticationService','logger'];
+    function RegisterController(UserService, $location, AuthenticationService,logger) {
         var vm = this;
 
         vm.register = register;
@@ -37,11 +37,11 @@
                     }
                 }, function (jqXHR, textStatus, errorThrown) {
                 	vm.dataLoading = false;
-                	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
-                        return vm.error = "" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason;
-                	} else {
-                        return vm.error=textStatus + " : " + errorThrown.toLocaleString();;
-                	}
+	            	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
+	            		logger.error("" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason);
+	            	} else {
+	                    logger.error(textStatus + " : " + errorThrown.toLocaleString());
+	            	}
                 });
         }
     }

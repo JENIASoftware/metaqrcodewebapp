@@ -8,26 +8,34 @@
             </div>
         </div>
         <div class="panel-body">
-            <div class="col-md-3 text-center">
-                <img ng-src="{{vm.repository.qrcodeGet}}"/><br/><br/>
-                <a href="{{vm.repository.qrcodeGet}}" download="qrcode.png" title="download">
-				    <i class="fa fa-download"></i> download
-				</a>
+            <div class="col-md-3">
+            	<div class="row  text-center">
+	                <img ng-src="{{vm.repository.qrcodeGet}}"/><br/><br/>
+	                <a href="{{vm.repository.qrcodeGet}}" download="qrcode.png" title="download">
+					    <i class="fa fa-download"></i> download
+					</a>
+				</div>
+				<br/>
+            	<div class="row">
+            		<div class="col-md-1"></div>
+            		<div class="col-md-11">
+			            <h4>Referred XSD Catalogs : </h4>
+			            <table class="tableFullWidth">
+			                <tr ng-repeat="rowC in vm.repository.catalogEntries track by rowC.id">
+			                    <td><a ui-sref="viewCatalogFromRepository({id:rowC.id})">{{rowC.name}}</a></td>
+			                </tr>
+				        </table>
+			        </div>
+            	</div>
             </div>
             <div class="highlight col-md-9">
-                <button class="btn btn-primary" ng-click="vm.changeTextFormat('xml')" ng-class="{'disabled': (vm.activeFormat=='xml' && !vm.viewcatalogs)}">xml</button>
-                <button class="btn btn-primary" ng-click="vm.changeTextFormat('json')" ng-class="{'disabled': (vm.activeFormat=='json' && !vm.viewcatalogs)}">json</button>
-                <button class="btn btn-primary" ng-click="vm.catalogs()" ng-class="{'disabled': vm.viewcatalogs}">catalogs</button>
+                <button class="btn btn-primary" ng-click="vm.changeTextFormat('xml')" ng-class="{'disabled': (vm.activeFormat=='xml')}">xml</button>
+                <button class="btn btn-primary" ng-click="vm.changeTextFormat('json')" ng-class="{'disabled': (vm.activeFormat=='json')}">json</button>
                 <button class="btn btn-primary pull-right" ui-zeroclip zeroclip-copied="copied=true" 
-                		zeroclip-model="vm.repository.text" ng-hide="vm.viewcatalogs">Copy</button>
+                		zeroclip-model="vm.repository.text">Copy</button>
                 <span ng-show="copied">Text Copied!</span>
-                <code-mirror ng-hide="vm.viewcatalogs" lang="{{vm.activeFormat}}" model="vm.repository.text">
+                <code-mirror lang="{{vm.activeFormat}}" model="vm.repository.text">
                 </code-mirror>
-				<table ng-hide="!vm.viewcatalogs" class="catalogsTable">
-					<tr ng-repeat="row in vm.repository.catalogEntries track by row.id">
-						<td><a ui-sref="viewCatalogFromRepository({id:row.id})">{{row.name}}</a></td>
-					</tr>
-				</table>
             </div>
         </div>
     </div>
