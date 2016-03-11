@@ -54,39 +54,44 @@
     /* @ngInject */
     function run($rootScope, $location, $cookieStore,Endpoint,jwtHelper,AccessToken,logger,$window, UserService) {
 
-        // keep user logged in after page refresh
-        $rootScope.globals = $window.sessionStorage.getItem('globals') || {};
-
-        $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
-            if (toState && toState.requireToken) {
-                if (!AccessToken.get()) {
-                    event.preventDefault();
-                    $window.sessionStorage.setItem('oauthRedirectRoute', $location.path());
-                    Endpoint.authorize();
-                }
-            }
-        });
-        $rootScope.$on("oauth2:authSuccess",function(){
-            $location.hash('');
-            var tokenPayload = jwtHelper.decodeToken(AccessToken.get().id_token);
-            $rootScope.globals ={
-                currentUser:{username:tokenPayload.sub}
-            };
-            UserService.GetUserProfile()
-            .then(function(response){
-            	$rootScope.globals.metaqrcodeUser=response;
-            },function (jqXHR, textStatus, errorThrown) {
-            	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
-            		logger.error("" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason);
-            	} else {
-                    logger.error(textStatus + " : " + errorThrown.toLocaleString());
-            	}
-            });
-            $window.sessionStorage.setItem('globals', $rootScope.globals);
-        });
-        $rootScope.$on("oauth2:authError",function(error){
-            logger.error("Token: ",error);
-        });
+    	try {
+	    	
+	        // keep user logged in after page refresh
+	        $rootScope.globals = $window.sessionStorage.getItem('globals') || {};
+	
+	        $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+	            if (toState && toState.requireToken) {
+	                if (!AccessToken.get()) {
+	                    event.preventDefault();
+	                    $window.sessionStorage.setItem('oauthRedirectRoute', $location.path());
+	                    Endpoint.authorize();
+	                }
+	            }
+	        });
+	        $rootScope.$on("oauth2:authSuccess",function(){
+	            $location.hash('');
+	            var tokenPayload = jwtHelper.decodeToken(AccessToken.get().id_token);
+	            $rootScope.globals ={
+	                currentUser:{username:tokenPayload.sub}
+	            };
+	            UserService.GetUserProfile()
+	            .then(function(response){
+	            	$rootScope.globals.metaqrcodeUser=response;
+	            },function (jqXHR, textStatus, errorThrown) {
+	            	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
+	            		logger.error("" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason);
+	            	} else {
+	                    logger.error(textStatus + " : " + errorThrown.toLocaleString());
+	            	}
+	            });
+	            $window.sessionStorage.setItem('globals', $rootScope.globals);
+	        });
+	        $rootScope.$on("oauth2:authError",function(error){
+	            logger.error("Token: ",error);
+	        });
+    	} catch (e) {
+            logger.error("Unable to initialize page. Is this browser supporting html 5? You need Chrome, Firefox or IE 11 (or later) to have METAQRCODE working");
+    	}
 
     }
 })();
