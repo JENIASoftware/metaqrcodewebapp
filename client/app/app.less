@@ -27,7 +27,6 @@
 
 
 body {
-  margin-bottom: 250px;
 }
 html{
   position: relative;
@@ -54,20 +53,20 @@ body {
 
 /* Footer Styles */
 
-
 .footer-distributed{
   background-color: @base-gray;
   box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.12);
   box-sizing: border-box;
   width: 100%;
-  text-align: left;
+  text-align: center;
   font: bold 16px sans-serif;
-  position: absolute;
-  bottom: 0;
   /* Set the fixed height of the footer here */
-  height: 250px;
-  padding: 55px 50px;
-  margin-top: 80px;
+/*  height: 250px;*/
+/*  padding-top: 20px;
+  padding-bottom: 10px; */
+  padding-left: 30px;
+  padding-right: 30px;
+/*  margin-top: 80px;*/
 }
 
 .footer-distributed .footer-left,
@@ -75,14 +74,18 @@ body {
 .footer-distributed .footer-right{
   display: inline-block;
   vertical-align: top;
+  text-align: left;
 }
 
 /* Footer left */
 
 .footer-distributed .footer-left{
-  width: 40%;
+  width: 50%;
 }
 
+.footer-distributed .footer-center{
+  width: 0%;
+}
 /* The company logo */
 
 .footer-distributed h3{
@@ -117,18 +120,18 @@ body {
   margin: 0;
 }
 
-/* Footer Center */
+/* Footer right */
 
-.footer-distributed .footer-center{
-  width: 55%;
+.footer-distributed .footer-right{
+  width: 50%;
 }
 
-.footer-distributed .footer-center i{
+.footer-distributed .footer-right i{
   background-color:  #33383b;
   color: #ffffff;
   font-size: 25px;
   width: 38px;
-  height: 38px;
+  height: 18px;
   border-radius: 50%;
   text-align: center;
   line-height: 42px;
@@ -136,36 +139,30 @@ body {
   vertical-align: middle;
 }
 
-.footer-distributed .footer-center i.fa-envelope{
+.footer-distributed .footer-right i.fa-envelope{
   font-size: 17px;
   line-height: 38px;
 }
 
-.footer-distributed .footer-center p{
+.footer-distributed .footer-right p{
   display: inline-block;
   color: #ffffff;
   vertical-align: middle;
   margin:0;
 }
 
-.footer-distributed .footer-center p span{
-  display:block;
+.footer-distributed .footer-right p span{
+/*  display:block; */
   font-weight: normal;
   font-size:14px;
   line-height:2;
 }
 
-.footer-distributed .footer-center p a{
+.footer-distributed .footer-right p a{
   color:  @base-orange;
   text-decoration: none;;
 }
 
-
-/* Footer Right */
-
-.footer-distributed .footer-right{
-  width: 20%;
-}
 
 .footer-distributed .footer-company-about{
   line-height: 20px;
@@ -176,7 +173,7 @@ body {
 }
 
 .footer-distributed .footer-company-about span{
-  display: block;
+/*  display: block; */
   color:  #ffffff;
   font-size: 14px;
   font-weight: bold;
@@ -188,7 +185,7 @@ body {
 }
 
 .footer-distributed .footer-icons a{
-  display: inline-block;
+/*  display: inline-block; */
   width: 35px;
   height: 35px;
   cursor: pointer;
@@ -208,17 +205,17 @@ body {
 
 @media (max-width: 880px) {
   body {
-    margin-bottom: 250px;
+/*    margin-bottom: 250px;*/
   }
   .footer-distributed{
     font: bold 14px sans-serif;
-    height: 500px;
+/*    height: 500px;*/
   }
 
   .footer-distributed .footer-left,
   .footer-distributed .footer-center,
   .footer-distributed .footer-right{
-    display: block;
+/*    display: block;*/
     width: 100%;
     margin-bottom: 40px;
     text-align: center;
@@ -327,13 +324,31 @@ Clipborad Copy Button
   .tableFullWidth {
   	width:100%;
   }
+  .footerTableOfContent {
+ 	margin:20px;
+  }
+  .footerTableOfContent td{
+ 	padding-top:5px;
+ 	padding-left:25px;
+ 	padding-right:25px;
+  }
+  .footerTableOfContent .title{
+    color: @base-orange;
+    font: bold 16px sans-serif;
+  }
+  .main-content {
+  	min-height:688px;
+  }
+  
   // injector
   @import 'catalogs/catalogs.less';
   @import 'coming/coming.less';
   @import 'developers/developers.less';
+  @import 'faq/faq.less';
   @import 'hiw/hiw.less';
   @import 'login/login.less';
   @import 'main/main.less';
+  @import 'pricing/pricing.less';
   @import 'profile/profile.less';
   @import 'register/register.less';
   @import 'repositories/repositories.less';

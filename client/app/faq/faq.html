@@ -1,0 +1,11 @@
+<div class="container">
+    <h1 class="page-header">FAQ - Frequently Asked Questions</h1>
+    <div class="row faq-container">
+        <div class="col-sm-12" ng-repeat="item in vm.model">
+			<div class="caption questionAndAnswer">
+            	<h3 ng-bind-html="item.question" class="faq-question"></h3>
+            	<p ng-bind-html="item.answer" class="faq-answer"></p>
+            </div>
+        </div>
+    </div>
+</div>
