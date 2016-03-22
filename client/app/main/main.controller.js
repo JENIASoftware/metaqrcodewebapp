@@ -21,7 +21,7 @@ angular.module('metaqrcodeApp')
         }
 
         function navigate(url){
-            if(url.startsWith('http')){
+            if(url.startsWith('http') || url.startsWith('https') || url.startsWith('mailto')){
             	window.location.href =url;
             }
             else{
