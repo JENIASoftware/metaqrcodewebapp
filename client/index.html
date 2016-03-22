@@ -38,54 +38,45 @@
     <!-- Navigation -->
     <div ng-include="'components/navbar/navbar.html'"></div>
     <!-- Navigation End-->
-    <div class="page-wrap">
-    <div class="animated fadeIn" ui-view=""></div>
-    
-
-</div>
+    <div class="page-wrap main-content">
+	    <div class="animated fadeIn" ui-view=""></div>
+	</div>
     <!-- Footer -->
     <footer class="footer-distributed">
 
-        <div class="footer-left">
-
-            <h3>META<span>QRCODE</span></h3>
-
-            <p class="footer-links">
-                <a href="#/">Home</a>
-                ·
-                <a href="#/hiw">How It Works</a>
-                ·
-                <a href="#/catalogs">Catalogs</a>
-                ·
-                <a href="#/repositories">Repositories</a>
-                ·
-                <a href="https://github.com/JENIASoftware/metaqrcode/issues">Faq</a>
-                ·
-                <a href="https://github.com/JENIASoftware/metaqrcode/wiki">Wiki</a>
-            </p>
-
-
-            <p class="footer-company-name">METAQRCODE &copy; 2016</p>
-        </div>
-
-        <div class="footer-center">
-
-            <div>
-                <i class="fa fa-map-marker"></i><p>Via Garibaldi 45, 40033, Casalecchio di Reno, Bologna, Italy</p>
-            </div>
-
-            <div>
-                <i class="fa fa-phone"></i>
-                <p>+39 051 19984925</p>
-            </div>
-
-            <div>
-                <i class="fa fa-envelope"></i>
-                <p><a href="mailto:info@jenia.it">info@jenia.it</a></p>
-            </div>
-
-        </div>
+        <div class="row">
+	        <div class="col-lg-6 footer-left">
+		    
+			    <table class="footerTableOfContent">
+			    	<thead class="title">
+				    	<tr><td>Documentation</td><td>Resources</td><td>Talk with us</td><td>Other</td></tr>
+			    	</thead>
+			    	<tbody class="footer-links">
+				    	<tr><td><a href="#/hiw">How dos it works?</a></td><td><a href="#/register">Start now</a></td><td><a href="https://github.com/JENIASoftware/metaqrcode/issues">Report a problem</a></td><td><a href="#/">Home</a></td></tr>
+				    	<tr><td><a href="https://github.com/JENIASoftware/metaqrcode#readme">Learn more</a></td><td><a href="#/catalogs">XSD catalog</a></td><td><a href="mailto:info@jenia.it?subject=[METAQRCODE] More info needed">Contact us</a></td><td>Pricing</td></tr>
+				    	<tr><td><a href="https://github.com/JENIASoftware/metaqrcode/wiki">Wiki</a></td><td><a href="#/repositories">XML repository</a></td><td></td><td></td></tr>
+				    	<tr><td><a href="#/faq">Faq</a></td><td><a href="https://github.com/JENIASoftware/metaqrcode">Developers</a></td><td></td><td></td></tr>
+				    	<tr><td></td><td><a href="#/coming">Mobile app</a></td><td></td><td></td></tr>
+				    	<tr><td></td><td></td><td></td><td></td></tr>
+			    	</tbody>
+			    </table>
+	        </div>
+	
+	        <div class="col-lg-6 footer-right">
+	
+			    <table class="footerTableOfContent">
+			    	<tbody class="footer-links">
+				    	<tr><td colspan="2"><h3 alt="metaqrcode">META<span alt="metaqrcode">QRCODE</span></h3></td></tr>
+				    	<tr><td><i class="fa fa-map-marker"></i></td><td><p>Via Garibaldi 45, 40033, Casalecchio di Reno, Bologna, Italy</p></td></tr>
+				    	<tr><td><i class="fa fa-phone"></i></td><td><p>+39 051 19984925</p></td></tr>
+				    	<tr><td><i class="fa fa-envelope"></i></td><td><p><a href="mailto:info@jenia.it">info@jenia.it</a></p></td></tr>
+			    	</tbody>
+			    </table>
+	        </div>
+	        <p class="footer-company-name text-right">METAQRCODE &copy; 2016</p>
+	    </div>
     </footer>
+	
     <!-- Footer End -->
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
 	<script>
@@ -159,12 +150,16 @@
           <script src="app/core/user/user.service.js"></script>
           <script src="app/developers/developers.controller.js"></script>
           <script src="app/developers/developers.js"></script>
+          <script src="app/faq/faq.controller.js"></script>
+          <script src="app/faq/faq.js"></script>
           <script src="app/hiw/hiw.controller.js"></script>
           <script src="app/hiw/hiw.js"></script>
           <script src="app/login/login.controller.js"></script>
           <script src="app/login/login.js"></script>
           <script src="app/main/main.controller.js"></script>
           <script src="app/main/main.js"></script>
+          <script src="app/pricing/pricing.controller.js"></script>
+          <script src="app/pricing/pricing.js"></script>
           <script src="app/profile/profile.controller.js"></script>
           <script src="app/profile/profile.js"></script>
           <script src="app/profile/profileEdit.controller.js"></script>
