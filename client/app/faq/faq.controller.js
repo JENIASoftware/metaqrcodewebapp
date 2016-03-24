@@ -16,12 +16,15 @@
         function getModel(){
             var model=[
                 {
-                    question:'Where can i use generated qrcode?',
-                    answer:'There is no limit about qrcode usage. You can download and print generated qrcode everyware and anytime.'
+                    question:'How can i test METAQRCODE?',
+                    answer:'We provide a test user : <br/>' +
+                    		'email : test@test.it<br/>' +
+                    		'password : test.it<br/>' +
+                    		'<b>Note that XSD and XML uploaded with these credential will be periodically deleted</b>'
                 },
                 {
-                    question:'I have to pay anytime i print the qrcode?',
-                    answer:'No, <a href="/#/pricing">pricing policy</a> are referrred to XML metadata upload, not to qrcode download and/or print.'
+                    question:'Where can i use generated qrcode?',
+                    answer:'There is no limit about qrcode usage. You can download and print generated qrcode everyware and anytime.'
                 },
                 {
                     question:'How can i read the qrcode?',
@@ -62,6 +65,14 @@
                     		'You can find java sample code here : <br/><a href="https://github.com/JENIASoftware/metaqrcode/tree/master/metaqrcode-client/metaqrcode-client-java">https://github.com/JENIASoftware/metaqrcode/tree/master/metaqrcode-client/metaqrcode-client-java</a>.<br/>'+
                     		'DTO used by REST services are described as java code in this project : <br/><a href="https://github.com/JENIASoftware/metaqrcode/tree/master/metaqrcode-dto">https://github.com/JENIASoftware/metaqrcode/tree/master/metaqrcode-dto</a>'
                     		
+                },
+                {
+                    question:'I have to pay anytime i print the qrcode?',
+                    answer:'No, <a href="/#/pricing">pricing policy</a> are referrred to XML metadata upload, not to qrcode download and/or print.'
+                },
+                {
+                    question:'METAQRCODE is available only as a service?',
+                    answer:'No, if your organization need to use metaqrcode as an own service, we can provide you a server installation. Pleas <a href="mailto:info@jenia.it?subject=[METAQRCODE] More info needed">contact us</a> to have more info.'
                 }
             ];
             return model;

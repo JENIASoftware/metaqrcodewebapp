@@ -2,9 +2,9 @@
     'use strict';
 
     angular.module('metaqrcodeApp')
-        .controller('PricingCtrl',PricingCtrl);
+        .controller('PrivacyCtrl',PrivacyCtrl);
 
-    function PricingCtrl(){
+    function PrivacyCtrl(){
         var vm=this;
 
         activate();
