@@ -7,10 +7,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="google-site-verification" content="Giw6Hi7vuoISG2-tp8Q0s_eT2b29d6d3xCoQC7V9RG0" />
+<!--     <meta name="google-signin-client_id" content="593775260311-5escj92rgjm3spv5rnpl9bglimgf1fm2.apps.googleusercontent.com"> -->
     <base href="/">
     <title>metaqrcode : XML into QRCODE</title>
-	<meta name="description" content="metaqrcode : xml, qrcode, xml qrcode, xml into qrcode, put metadata in the real world, put metadata in qrcode, qrcode generator, xml metadata" /> 
-	<meta name="keywords" content="qrcode, xml, metadata, opensource, open source, jenia, jenia software" /> 
+	<meta name="description" content="metaqrcode : bring the power of XML metadata inside QRCODE" /> 
+	<meta name="keywords" content="qrcode, xml, metadata, opensource, open source, jenia, jenia software, xml qrcode, xml into qrcode, put metadata in the real world, put metadata in qrcode, qrcode generator, xml metadata" /> 
 	<meta http-equiv="Content-Language" content="en" />
 
     <meta name="viewport" content="width=device-width">
@@ -28,6 +29,7 @@
       <!-- injector:css -->
       <!-- endinjector -->
     <!-- endbuild -->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
   </head>
 
   <body ng-app="metaqrcodeApp">
@@ -53,9 +55,9 @@
 			    	</thead>
 			    	<tbody class="footer-links">
 				    	<tr><td><a href="#/hiw">How dos it works?</a></td><td><a href="#/register">Start now</a></td><td><a href="https://github.com/JENIASoftware/metaqrcode/issues">Report a problem</a></td><td><a href="#/">Home</a></td></tr>
-				    	<tr><td><a href="https://github.com/JENIASoftware/metaqrcode#readme">Learn more</a></td><td><a href="#/catalogs">XSD catalog</a></td><td><a href="mailto:info@jenia.it?subject=[METAQRCODE] More info needed">Contact us</a></td><td>Pricing</td></tr>
-				    	<tr><td><a href="https://github.com/JENIASoftware/metaqrcode/wiki">Wiki</a></td><td><a href="#/repositories">XML repository</a></td><td></td><td></td></tr>
-				    	<tr><td><a href="#/faq">Faq</a></td><td><a href="https://github.com/JENIASoftware/metaqrcode">Developers</a></td><td></td><td></td></tr>
+				    	<tr><td><a href="https://github.com/JENIASoftware/metaqrcode#readme">Learn more</a></td><td><a href="#/catalogs">XSD catalog</a></td><td><a href="mailto:info@jenia.it?subject=[METAQRCODE] More info needed">Contact us</a></td><td><a href="#/pricing">Pricing</a></td></tr>
+				    	<tr><td><a href="https://github.com/JENIASoftware/metaqrcode/wiki">Wiki</a></td><td><a href="#/repositories">XML repository</a></td><td></td><td><a href="#/privacy">Privacy</a></td></tr>
+				    	<tr><td><a href="#/faq">Faq</a></td><td><a href="https://github.com/JENIASoftware/metaqrcode">Developers</a></td><td></td><td><a href="#/termsConditions">Terms of services</a></td></tr>
 				    	<tr><td></td><td><a href="#/coming">Mobile app</a></td><td></td><td></td></tr>
 				    	<tr><td></td><td></td><td></td><td></td></tr>
 			    	</tbody>
@@ -148,10 +150,10 @@
           <script src="app/core/localize/i18n/i18nAttr.directive.js"></script>
           <script src="app/core/localize/localize.service.js"></script>
           <script src="app/core/user/user.service.js"></script>
-          <script src="app/developers/developers.controller.js"></script>
-          <script src="app/developers/developers.js"></script>
           <script src="app/faq/faq.controller.js"></script>
           <script src="app/faq/faq.js"></script>
+          <script src="app/googleLogin/googleLogin.controller.js"></script>
+          <script src="app/googleLogin/googleLogin.js"></script>
           <script src="app/hiw/hiw.controller.js"></script>
           <script src="app/hiw/hiw.js"></script>
           <script src="app/login/login.controller.js"></script>
@@ -173,6 +175,8 @@
           <script src="app/repositories/repositoryUpdate.controller.js"></script>
           <script src="app/repositories/viewRepository.controller.js"></script>
           <script src="app/searchCatalog/searchCatalog.directive.js"></script>
+          <script src="app/termsConditions/termsConditions.controller.js"></script>
+          <script src="app/termsConditions/termsConditions.js"></script>
           <script src="app/upload/upload.controller.js"></script>
           <script src="app/upload/upload.js"></script>
           <script src="app/yesno/yesnocontroller.js"></script>
