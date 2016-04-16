@@ -8,8 +8,6 @@
 //var scope = "extracurricular";
 //var state = Date.now() + "" + Math.random();
 
-var fakeAccessToken="";
-
 (function() {
 	function getSessionToken($window) {
 		var tokenString = $window.sessionStorage.getItem('token');
@@ -22,7 +20,8 @@ var fakeAccessToken="";
 
 	angular.module('oauth2.accessToken', []).factory('AccessToken', ['$rootScope', '$location', '$window', function($rootScope, $location, $window) {
 		var service = {
-			token: null
+			token: null,
+			type: null
 		};
 		var oAuth2HashParams = ['id_token', 'access_token', 'token_type', 'expires_in', 'scope', 'state', 'error', 'error_description'];
 
@@ -39,6 +38,7 @@ var fakeAccessToken="";
 			if (token !== null) {
 				setExpiresAt(token);
 				$window.sessionStorage.setItem('token', JSON.stringify(token));
+				$window.sessionStorage.setItem('tokenType', 'Bearer');
 			}
 			return token;
 		}
@@ -63,6 +63,16 @@ var fakeAccessToken="";
 	        return null;
 		}
 
+		service.getType = function() {
+			return this.type;
+		};
+		service.setType = function(newtype) {
+			this.type = newtype;
+		};
+		service.setFromLogin = function(sessionToken) {
+			this.token = sessionToken;
+			this.type = 'Token';
+		};
 		service.get = function() {
 			return this.token;
 		};
@@ -77,11 +87,11 @@ var fakeAccessToken="";
                 service.token = setTokenFromHashParams(values);
                 if (service.token) {
                     parsedFromHash = true;
+                    service.type='Bearer';
                 }
 			} else {
 				// Try and get the token from the hash params on the URL
-				fakeAccessToken = window.location.hash;
-				var hashValues=fakeAccessToken;	
+				var hashValues=window.location.hash;	
 				if (hashValues.length > 0) {
 					if (hashValues.indexOf('#/') == 0) {
 						hashValues = hashValues.substring(2);
@@ -89,6 +99,7 @@ var fakeAccessToken="";
 					service.token = setTokenFromHashParams(hashValues);
 					if (service.token) {
 						parsedFromHash = true;
+	                    service.type='Bearer';
 					}
 				}
 			}
@@ -97,6 +108,9 @@ var fakeAccessToken="";
 				service.token = getSessionToken($window);
 				if (service.token === undefined) {
 					service.token = null;
+                    service.type=null;
+				} else {
+                    service.type='Bearer';
 				}
 			}
 
@@ -126,8 +140,10 @@ var fakeAccessToken="";
 		};
 		service.destroy = function() {
 			$window.sessionStorage.setItem('token', null);
+			$window.sessionStorage.setItem('tokenType', null);
             $window.sessionStorage.setItem('globals',null);
 	        service.token = null;
+	        service.type = null;
 		};
 
 		return service;
@@ -232,8 +248,9 @@ var fakeAccessToken="";
 	// Open ID directive
 	angular.module('oauth2.directive', ['angular-md5']).directive('oauth2', ['$rootScope', '$http', '$window', '$location', '$templateCache', '$compile', 'AccessToken', 'Endpoint', 'md5', function($rootScope, $http, $window, $location, $templateCache, $compile, accessToken, endpoint, md5) {
 		var definition = {
-		    restrict: 'E',
+//		    restrict: 'E',
 		    replace: true,
+		    transclude: true,
 		    scope: {
 				authorizationUrl: '@',          // authorization server url
 				clientId: '@',       			// client ID
@@ -256,7 +273,14 @@ var fakeAccessToken="";
 		definition.link = function(scope, element, attrs) {
 			function compile() {
 				// tolto il pulsante logout
-				var tpl = '<p class="navbar-btn"><a class="{{buttonClass}}"><span href="#" ng-hide="signedIn" ng-click="signIn()" >{{signInText}}</span><span href="#" ng-show="signedIn" ng-click="signOut()">{{signOutText}}</span></a></p>';
+				var tpl = '<a href="#" ng-hide="signedIn" ng-click="signIn()" id="oauth2-signin"><i class="fa fa-sign-in"></i> {{signInText}}</a>'+
+						  '<a href="#" ng-show="signedIn" ng-click="signOut()" id="oauth2-signout"><i class="fa fa-sign-out"></i> {{signOutText}}</a>';
+//		var tpl = '<p class="navbar-btn">'+
+//				    '<a class="{{buttonClass}}">'+
+//				      '<span href="#" ng-hide="signedIn" ng-click="signIn()" id="oauth2-signin">{{signInText}}</span>'+
+//				      '<span href="#" ng-show="signedIn" ng-click="signOut()" id="oauth2-signout">{{signOutText}}</span>'+
+//				    '</a>'+
+//				  '</p>';
 //				var tpl = '<p class="navbar-btn" ng-hide="signedIn" ><a class="{{buttonClass}}"><span href="#" ng-click="signIn()" >{{signInText}}</span></a></p>';
 				if (scope.template) {
 					$http.get(scope.template, { cache: $templateCache }).success(function(html) {

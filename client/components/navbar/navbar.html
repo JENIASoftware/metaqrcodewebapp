@@ -21,21 +21,43 @@
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" onclick="return false;">
                   {{vm.getUser().email}}<span class="caret"></span></a>
               <ul class="dropdown-menu">
-                  <li><a href="#/profile"><i class="fa fa-user"></i> Profile</a></li>
-              </ul>
+               	<li><a href="#/profile"><i class="fa fa-user"></i> Profile</a></li>
+				<li oauth2 ng-if="vm.isLoginBearer()"
+                     authorization-url="http://localhost:8080/oidc/authorize"
+                     client-id="b79eaae3-062d-4466-a10f-ffdb935bf7a1"
+                     redirect-url="http://localhost:9000/#/"
+                     response-type="token"
+                     sign-out-url="http://localhost:8080/oidc/logout"
+                     sign-out-redirect-url="http://localhost:9000/#/"
+                     sign-out-append-token="true"
+                     scope="openid profile phone address email"
+                     >
+				</li>
+				<li google-sign-out-button ng-if="vm.isLoginGoogle()"
+                	g-client-id="593775260311-5escj92rgjm3spv5rnpl9bglimgf1fm2.apps.googleusercontent.com"
+                	client-id="b79eaae3-062d-4466-a10f-ffdb935bf7a1"
+                	></li>
+			</ul>
           </li>
-          <li>
-              <oauth2
-                      authorization-url="http://localhost:8080/oidc/authorize"
-                      client-id="b79eaae3-062d-4466-a10f-ffdb935bf7a1"
-                      redirect-url="http://localhost:9000/#/"
-                      response-type="token"
-                      sign-out-url="http://localhost:8080/oidc/logout"
-                      sign-out-redirect-url="http://localhost:9000/#/"
-                      sign-out-append-token="true"
-                      scope="openid profile phone address email"
-                      >
-              </oauth2>
+          <li ng-if="!vm.getUser()">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" onclick="return false;"> Sign In<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+				<li oauth2
+                     authorization-url="http://localhost:8080/oidc/authorize"
+                     client-id="b79eaae3-062d-4466-a10f-ffdb935bf7a1"
+                     redirect-url="http://localhost:9000/#/"
+                     response-type="token"
+                     sign-out-url="http://localhost:8080/oidc/logout"
+                     sign-out-redirect-url="http://localhost:9000/#/"
+                     sign-out-append-token="true"
+                     scope="openid profile phone address email"
+                     >
+				</li>
+                <li google-sign-in-button 
+                	g-client-id="593775260311-5escj92rgjm3spv5rnpl9bglimgf1fm2.apps.googleusercontent.com"
+                	client-id="b79eaae3-062d-4466-a10f-ffdb935bf7a1"
+                	></li>
+              </ul>
           </li>
           <li ng-if="!vm.getUser()">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" onclick="return false;"> Sign Up Here<span class="caret"></span></a>

@@ -24,7 +24,7 @@
             vm.dataLoading = true;
             AuthenticationService.Login(vm.username, vm.password, function (response) {
                 if (response.data.returnCode>=0) {
-                    AuthenticationService.SetCredentials(vm.username, response.data.sessionToken);
+                    AuthenticationService.SetCredentials(vm.username, response.data.sessionToken, 'token');
                     $window.location.href='#/';
                 } else {
                     vm.dataLoading = false;

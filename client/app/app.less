@@ -340,11 +340,21 @@ Clipborad Copy Button
   	min-height:688px;
   }
   
+.article .paragraph-title {
+    margin: 34px 0 20px;
+    font-size: 24px;
+    letter-spacing: .2px;
+    counter-increment: arab_no_dot;
+}
+.article .paragraph-title:before {
+    content: counter(arab_no_dot)".";
+    margin: 0 8px 0 2px;
+}  
   // injector
   @import 'catalogs/catalogs.less';
   @import 'coming/coming.less';
-  @import 'developers/developers.less';
   @import 'faq/faq.less';
+  @import 'googleLogin/googleLogin.less';
   @import 'hiw/hiw.less';
   @import 'login/login.less';
   @import 'main/main.less';
@@ -354,6 +364,7 @@ Clipborad Copy Button
   @import 'register/register.less';
   @import 'repositories/repositories.less';
   @import 'searchCatalog/searchCatalog.less';
+  @import 'termsConditions/termsConditions.less';
   @import 'upload/upload.less';
   @import 'fileInput/fileInput.less';
   @import 'modal/modal.less';

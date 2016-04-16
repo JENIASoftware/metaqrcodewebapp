@@ -18,7 +18,81 @@
         'ngTable',
         'angular-md5'
     ])
-
+            .directive('googleSignInButton',function(){
+                return {
+                    scope:{
+                        gClientId:'@',
+                        clientId:'@'
+                    },
+                    template: '<a href="#" ng-click="onSignInButtonClick()" id="googleoauth2-signin"><i class="fa fa-google"></i> Google sign in</a>',
+        		    transclude: true,
+                    controller: ['$rootScope','$scope','$attrs','$window','$state','$location','UserService','dataservice','AccessToken','jwtHelper','logger',function($rootScope, $scope, $attrs, $window, $state, $location, UserService, dataservice, AccessToken, jwtHelper, logger){
+                        gapi.load('auth2', function() {//load in the auth2 api's, without it gapi.auth2 will be undefined
+                            gapi.auth2.init(
+                                    {
+                                        client_id: $attrs.gClientId
+                                    }
+                            );
+                            var GoogleAuth  = gapi.auth2.getAuthInstance();//get's a GoogleAuth instance with your client-id, needs to be called after gapi.auth2.init
+                            $scope.onSignInButtonClick=function(){//add a function to the controller so ng-click can bind to it
+                                GoogleAuth.signIn().then(function(response){//request to sign in
+                                    // chiamare la login basata su google
+                                    // passare : id token di google
+                                    // passare il client-id applicativo
+                                    var guser = GoogleAuth.currentUser.get();
+                                    if (guser.isSignedIn()) {
+	            	                	dataservice.googleLogin(guser.getAuthResponse().id_token,$attrs.gClientId,$attrs.clientId).then(function(response){
+	            	                		$location.hash('');
+            	                			AccessToken.setFromLogin(response.sessionToken);
+        	                	            var tokenPayload = jwtHelper.decodeToken(guser.getAuthResponse().id_token);
+            	            	            $rootScope.globals ={
+            	            	                currentUser:{username:tokenPayload.sub},
+            	            	                loginType: 'google'
+            	            	            };
+            	            	            UserService.GetUserProfile()
+            	            	            .then(function(response){
+            	            	            	$rootScope.globals.metaqrcodeUser=response;
+            	            	            },function (jqXHR, textStatus, errorThrown) {
+            	            	            	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
+            	            	            		logger.error("" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason);
+            	            	            	} else {
+            	            	                    logger.error(textStatus + " : " + errorThrown.toLocaleString());
+            	            	            	}
+            	            	            });
+            	            	            $window.sessionStorage.setItem('globals', $rootScope.globals);
+            	            	            $state.reload();
+	            	                	}, function (jqXHR, textStatus, errorThrown) {
+	            	                    	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
+	            	                    		logger.error("" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason);
+	            	                    	} else {
+	            	                            logger.error(textStatus + " : " + errorThrown.toLocaleString());
+	            	                    	}
+	            	                    });
+                                    }
+                                });
+                            };
+                        });
+                    }]
+                };
+            })
+            .directive('googleSignOutButton',function(){
+                return {
+                    scope:{
+                    },
+                    template: '<a href="#" ng-click="onSignOutButtonClick()" id="googleoauth2-signout"><i class="fa fa-google"></i> Google sign out</a>',
+        		    transclude: true,
+                    controller: ['$rootScope','$scope','$attrs','$window','AccessToken','AuthenticationService','logger',function($rootScope, $scope, $attrs, $window, AccessToken, AuthenticationService, logger){
+                            var GoogleAuth  = gapi.auth2.getAuthInstance();//get's a GoogleAuth instance with your client-id, needs to be called after gapi.auth2.init
+                            $scope.onSignOutButtonClick=function(){//add a function to the controller so ng-click can bind to it
+	                            GoogleAuth.signOut().then(function () {
+	                            	AccessToken.destroy();
+	                            	AuthenticationService.ClearCredentials();
+	                            	$window.location.reload();
+	                              });
+                            };
+                    }]
+                };
+            })
     .constant('app',{
         SERVER:'http://localhost:8080',
     	}).constant('toastr', toastr)
@@ -72,7 +146,8 @@
 	            $location.hash('');
 	            var tokenPayload = jwtHelper.decodeToken(AccessToken.get().id_token);
 	            $rootScope.globals ={
-	                currentUser:{username:tokenPayload.sub}
+	                currentUser:{username:tokenPayload.sub},
+	                loginType: 'bearer'
 	            };
 	            UserService.GetUserProfile()
 	            .then(function(response){

@@ -13,18 +13,10 @@
         service.SetCredentials = SetCredentials;
         service.ClearCredentials = ClearCredentials;
         service.ValidateRegistrationCode=ValidateRegistrationCode;
-        service.GetExternalUserProfile= GetExternalUserProfile;
 
         return service;
         ///////////////////////////////////////////////////////////////////////
 
-        function GetExternalUserProfile(){
-            var url="https://www.googleapis.com/plus/v1/people/me";
-            return $http.get(url).then(function(profile){
-                SetCredentials(profile.data.emails[0].value,null);
-                return profile;
-            })
-        }
         function ValidateRegistrationCode(email,code){
             return $.ajax({
                 type: "POST",
@@ -58,11 +50,12 @@
 
         }
 
-        function SetCredentials(username, sessionToken) {
+        function SetCredentials(username, sessionToken, loginType) {
             $rootScope.globals = {
                 currentUser: {
                     username: username,
-                    sessionToken: sessionToken
+                    sessionToken: sessionToken,
+                    loginType: loginType
                 }
             };
             UserService.GetUserProfile()
@@ -85,8 +78,11 @@
         }
         
         function checkBearer(xhr) {
-        	if (AccessToken.get()!=null && AccessToken.get().access_token!=null) {
+        	if (AccessToken.getType()=='Bearer' && AccessToken.get()!=null && AccessToken.get().access_token!=null) {
         		xhr.setRequestHeader('Authorization', 'Bearer ' + AccessToken.get().access_token)
+        	}
+        	if (AccessToken.getType()=='Token' && AccessToken.get()!=null) {
+        		xhr.setRequestHeader('Authorization', 'Token ' + AccessToken.get())
         	}
         }
         

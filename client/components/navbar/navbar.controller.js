@@ -16,6 +16,8 @@ angular.module('metaqrcodeApp')
         vm.setLanguage=setLanguage;
         vm.selectedLanguage=null;
         vm.getUser=getUser;
+        vm.isLoginGoogle=isLoginGoogle;
+        vm.isLoginBearer=isLoginBearer;
 
         activate();
 
@@ -40,6 +42,12 @@ angular.module('metaqrcodeApp')
         };
         function getUser(){
             return $rootScope.globals.metaqrcodeUser==null?"":$rootScope.globals.metaqrcodeUser;
+        }
+        function isLoginGoogle(){
+            return $rootScope.globals.loginType=='google';
+        }
+        function isLoginBearer(){
+            return $rootScope.globals.loginType=='bearer';
         }
         function getMenuItems(){
             var menu = [

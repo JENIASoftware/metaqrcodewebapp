@@ -161,8 +161,11 @@
         }
 
         function checkBearer(xhr) {
-        	if (AccessToken.get()!=null && AccessToken.get().access_token!=null) {
+        	if (AccessToken.getType()=='Bearer' && AccessToken.get()!=null && AccessToken.get().access_token!=null) {
         		xhr.setRequestHeader('Authorization', 'Bearer ' + AccessToken.get().access_token)
+        	}
+        	if (AccessToken.getType()=='Token' && AccessToken.get()!=null) {
+        		xhr.setRequestHeader('Authorization', 'Token ' + AccessToken.get())
         	}
         }
         

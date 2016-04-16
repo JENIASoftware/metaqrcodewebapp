@@ -39,8 +39,8 @@
                 },
                 {
                     question:'Which login method are supported?',
-                    answer:'There are two way to login into METAQRCODE : openid connect or REST API.<br/>'+
-                    		'Whether you use openid connect or use REST API, you allwayis need a userid and a password and, also, you need a clientid and a clientsecret.<br/>'+
+                    answer:'There are three way to login into METAQRCODE : openid connect, google login or REST API.<br/>'+
+                    		'Whether you use openid connect, google or REST API, you allwayis need a userid and a password and, also, you need a clientid and a clientsecret.<br/>'+
                     		'Preferred way to signin is openid connect but REST API are simplest.'
                 },
                 {
@@ -73,6 +73,14 @@
                 {
                     question:'METAQRCODE is available only as a service?',
                     answer:'No, if your organization need to use metaqrcode as an own service, we can provide you a server installation. Pleas <a href="mailto:info@jenia.it?subject=[METAQRCODE] More info needed">contact us</a> to have more info.'
+                },
+                {
+                    question:'Where can i find privacy policy?',
+                    answer:'You can find our privacy policy <a href="#/privacy">here</a>.'
+                },
+                {
+                    question:'Where can i find METAQRCODE terms of services?',
+                    answer:'You can find our terms of services <a href="#/termsConditions">here</a>.'
                 }
             ];
             return model;

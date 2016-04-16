@@ -1,16 +1,16 @@
 'use strict';
 
-describe('Controller: DevelopersCtrl', function () {
+describe('Controller: TermsConditionsCtrl', function () {
 
   // load the controller's module
   beforeEach(module('metaqrcodeApp'));
 
-  var DevelopersCtrl, scope;
+  var TermsConditionsCtrl, scope;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function ($controller, $rootScope) {
     scope = $rootScope.$new();
-    DevelopersCtrl = $controller('DevelopersCtrl', {
+    TermsConditionsCtrl = $controller('TermsConditionsCtrl', {
       $scope: scope
     });
   }));

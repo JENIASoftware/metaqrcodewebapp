@@ -21,7 +21,8 @@
             updateRepository:updateRepository,
             voteCatalog:voteCatalog,
             deleteCatalog:deleteCatalog,
-            deleteRepository:deleteRepository
+            deleteRepository:deleteRepository,
+            googleLogin:googleLogin
         };
 
         return service;
@@ -267,9 +268,33 @@
             });
         }
         
+        function googleLogin(idToken,googleClientId,clientId) {
+            var request={
+        		idToken:idToken,
+        		googleClientId:googleClientId,
+        		clientId:clientId
+            };
+            var googleLoginUrl=app.SERVER+"/api/rest/json/login/googleLogin";
+            return $.ajax({
+                type: "POST",
+                url: googleLoginUrl,
+                data: JSON.stringify(request),
+                cache: false,
+                dataType: "json",
+      		    contentType: "application/json; charset=utf-8",
+                async: false,
+                beforeSend:checkBearer,
+                error: handleError,
+                success: handleSuccess
+            });
+        }
+        
         function checkBearer(xhr) {
-        	if (AccessToken.get()!=null && AccessToken.get().access_token!=null) {
+        	if (AccessToken.getType()=='Bearer' && AccessToken.get()!=null && AccessToken.get().access_token!=null) {
         		xhr.setRequestHeader('Authorization', 'Bearer ' + AccessToken.get().access_token)
+        	}
+        	if (AccessToken.getType()=='Token' && AccessToken.get()!=null) {
+        		xhr.setRequestHeader('Authorization', 'Token ' + AccessToken.get())
         	}
         }
         
