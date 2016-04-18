@@ -96,6 +96,7 @@
         	userUpdated.nickName = user.nickName;
         	userUpdated.firstName = user.firstName;
         	userUpdated.lastName = user.lastName;
+        	userUpdated.companyName = user.companyName;
         	userUpdated.address = user.address;
         	userUpdated.city = user.city;
         	userUpdated.zipCode = user.zipCode;
