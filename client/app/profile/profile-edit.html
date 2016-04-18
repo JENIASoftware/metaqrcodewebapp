@@ -51,6 +51,15 @@
 				                        </div>
 				                        <span ng-show="form.lastName.$dirty && form.lastName.$error.required" class="help-block">Last Name is required</span>
 				                    </div>
+				                    <div class="form-group" ng-class="{ 'has-error': form.companyName.$dirty && form.companyName.$error.required }">
+				                        <div class="input-group">
+																<span class="input-group-addon">
+																	<i class="fa fa-thumb-tack"></i>
+																</span>
+				                            <input class="form-control" placeholder="company name (required)" name="companyName" ng-model="vm.user.companyName" type="text" required>
+				                        </div>
+				                        <span ng-show="form.companyName.$dirty && form.companyName.$error.required" class="help-block">Company Name is required</span>
+				                    </div>
 <!-- 				                    <div class="form-group" ng-class="{ 'has-error': form.preferredLanguage.$dirty && form.preferredLanguage.$error.required }">
 				                        <div class="input-group">
 																<span class="input-group-addon">
@@ -61,32 +70,32 @@
 				                        <span ng-show="form.preferredLanguage.$dirty && form.preferredLanguage.$error.required" class="help-block">preferred Language is required</span>
 				                    </div>
  -->
- 				                    <div class="form-group" ng-class="{ 'has-error': form.pre.$dirty && form.address.$error.required }">
+ 				                    <div class="form-group" ng-class="{ 'has-error': false }">
 				                        <div class="input-group">
 																<span class="input-group-addon">
 																	<i class="fa fa-thumb-tack"></i>
 																</span>
-				                            <input class="form-control" placeholder="address (required)" name="address" ng-model="vm.user.address" type="text" required>
+				                            <input class="form-control" placeholder="address" name="address" ng-model="vm.user.address" type="text" >
 				                        </div>
-				                        <span ng-show="form.address.$dirty && form.address.$error.required" class="help-block">address is required</span>
+				                        <span ng-show="form.address.$dirty" class="help-block">bad address</span>
 				                    </div>
-				                    <div class="form-group" ng-class="{ 'has-error': form.city.$dirty && form.city.$error.required }">
+				                    <div class="form-group" ng-class="{ 'has-error': false }">
 				                        <div class="input-group">
 																<span class="input-group-addon">
 																	<i class="fa fa-thumb-tack"></i>
 																</span>
-				                            <input class="form-control" placeholder="city (required)" name="city" ng-model="vm.user.city" type="text" required>
+				                            <input class="form-control" placeholder="city" name="city" ng-model="vm.user.city" type="text" >
 				                        </div>
-				                        <span ng-show="form.city.$dirty && form.city.$error.required" class="help-block">city is required</span>
+				                        <span ng-show="form.city.$dirty" class="help-block">bad city</span>
 				                    </div>
-				                    <div class="form-group" ng-class="{ 'has-error': form.zipCode.$dirty && form.zipCode.$error.required }">
+				                    <div class="form-group" ng-class="{ 'has-error': false }">
 				                        <div class="input-group">
 																<span class="input-group-addon">
 																	<i class="fa fa-thumb-tack"></i>
 																</span>
-				                            <input class="form-control" placeholder="zip code (required)" name="zipCode" ng-model="vm.user.zipCode" type="text" required>
+				                            <input class="form-control" placeholder="zip code" name="zipCode" ng-model="vm.user.zipCode" type="text" >
 				                        </div>
-				                        <span ng-show="form.zipCode.$dirty && form.zipCode.$error.required" class="help-block">Zip Code is required</span>
+				                        <span ng-show="form.zipCode.$dirty" class="help-block">bad Zip Code</span>
 				                    </div>
 				                    <div class="form-group">
 				                        <img ng-if="vm.dataLoading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />

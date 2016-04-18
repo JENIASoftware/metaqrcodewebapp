@@ -56,6 +56,15 @@
                                         </div>
                                         <span ng-show="form.lastName.$dirty && form.lastName.$error.required" class="help-block">Last Name is required</span>
                                     </div>
+                                    <div class="form-group" ng-class="{ 'has-error': form.companyName.$dirty && form.companyName.$error.required }">
+                                        <div class="input-group">
+												<span class="input-group-addon">
+													<i class="fa fa-thumb-tack"></i>
+												</span>
+                                            <input class="form-control" placeholder="company name (required)" name="companyName" ng-model="vm.user.companyName" type="text" required>
+                                        </div>
+                                        <span ng-show="form.companyName.$dirty && form.companyName.$error.required" class="help-block">Company Name is required</span>
+                                    </div>
 <!--                                     <div class="form-group" ng-class="{ 'has-error': form.preferredLanguage.$dirty && form.preferredLanguage.$error.required }">
                                         <div class="input-group">
 												<span class="input-group-addon">
@@ -114,7 +123,7 @@
                         </fieldset>
                     </form>
                 	<p>METAQRCODE respects your <a href="/#/privacy">privacy</a>.</p>
-                	<p>By clicking register you are accepting METAQRCODE <a href="/#/termsConditions">terms of services</a>.</p>
+                	<p>By clicking "Register" you are accepting METAQRCODE <a href="/#/termsConditions">terms of services</a>.</p>
                 </div>
                 <div class="panel-footer ">
                     <a href="#/" class="btn btn-link">Cancel</a>
