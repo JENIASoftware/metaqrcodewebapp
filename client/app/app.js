@@ -24,7 +24,8 @@
                         gClientId:'@',
                         clientId:'@'
                     },
-                    template: '<a href="#" ng-click="onSignInButtonClick()" id="googleoauth2-signin"><i class="fa fa-google"></i> Google sign in</a>',
+//                    template: '<a href="#" ng-click="onSignInButtonClick()" id="googleoauth2-signin"><i class="fa fa-google"></i> Google sign in</a>',
+                    template: '<a href="#" ng-click="onSignInButtonClick()" id="googleoauth2-signin"><img src="assets/images/GoogleIcon.png" alt="Google sign in" style="width:100px;margin-bottom:5px;"/></a>',
         		    transclude: true,
                     controller: ['$rootScope','$scope','$attrs','$window','$state','$location','UserService','dataservice','AccessToken','jwtHelper','logger',function($rootScope, $scope, $attrs, $window, $state, $location, UserService, dataservice, AccessToken, jwtHelper, logger){
                         gapi.load('auth2', function() {//load in the auth2 api's, without it gapi.auth2 will be undefined
