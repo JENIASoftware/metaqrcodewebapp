@@ -14,6 +14,7 @@
         $scope.repository.personal = false;
         $scope.repository.xml = null;
         $scope.repository.uploadFile = true;
+        $scope.catalogs = null;
         $scope.title = title;
         $scope.repository.file=null;
         $scope.upload=function(){
@@ -77,6 +78,34 @@
                 repository:$scope.repository
             }, 500); // close, but give 500ms for bootstrap to animate
         };
+
+        // default catalog autocomplete
+        $scope.searchCatalog = function(defaultCatalog) {
+            if(defaultCatalog) {
+                dataservice.getCatalogs(0,5,defaultCatalog).then(function (data) {
+                	$scope.catalogs = data.result;
+                },function (jqXHR, textStatus, errorThrown) {
+                	if (jqXHR.responseJSON!=null && jqXHR.responseJSON.returnCode!=null) {
+                		logger.error("" + jqXHR.responseJSON.returnCode + " : " + jqXHR.responseJSON.reason);
+                	} else {
+                        logger.error(textStatus + " : " + errorThrown.toLocaleString());
+                	}
+                });
+            }else{
+            	$scope.catalogs=null;
+            }
+        };
+
+        // default catalog autocomplete
+        $scope.selectCatalog = function(catalogGet) {
+            if(catalogGet) {
+            	$scope.repository.defaultCatalog=catalogGet;
+            }else{
+            	$scope.repository.defaultCatalog=null;
+            }
+            $scope.catalogs=null;
+        };
+        
         function success(response){
             if (response.returnCode >= 0) {
                 logger.success(response.reason);
