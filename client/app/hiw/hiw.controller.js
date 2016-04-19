@@ -50,7 +50,7 @@
                 {
                     title:'Do you already have a barcode?',
                     img:'assets/images/bind.jpg',
-                    text:'Once you created your own METAQRCODE, you can bind it to an existing unique barcode (by ie EAN-13).<br/>'+
+                    text:'Once you created your own METAQRCODE, you can bind it to an existing unique barcode (by ie EAN-13 or UPC).<br/>'+
                 		'So if your product is already delivered and you can not print a QRCode on it, you can still use your old unique barcode (or QRCode) and all METAQRCODE users can access metadata using an old barcode'
                 },
                 {
