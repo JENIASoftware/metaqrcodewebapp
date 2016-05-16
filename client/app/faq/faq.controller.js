@@ -29,8 +29,8 @@
                 {
                     question:'How can i read the qrcode?',
                     answer:'Generated qrcode is standard, you can use your preferred qrcode library or software to read it. <br/>'+
-                    		'For example you can use <a href="https://github.com/zxing/zxing">zxing</a>.<br/>' +
-                    		'You can find sample java code using zxing to read qrcode here : <a href="https://github.com/JENIASoftware/metaqrcode/tree/master/metaqrcode-client/metaqrcode-client-scanner">https://github.com/JENIASoftware/metaqrcode/tree/master/metaqrcode-client/metaqrcode-client-scanner</a>'
+                    		'For example you can use <a href="https://github.com/zxing/zxing" target="_blank">zxing</a>.<br/>' +
+                    		'You can find sample java code using zxing to read qrcode here : <a href="https://github.com/JENIASoftware/metaqrcode/tree/master/metaqrcode-client/metaqrcode-client-scanner" target="_blank">https://github.com/JENIASoftware/metaqrcode/tree/master/metaqrcode-client/metaqrcode-client-scanner</a>'
                 },
                 {
                     question:'Why i need to sign up?',
@@ -56,14 +56,14 @@
                     question:'There are limitation about XSD catalog i can upload?',
                     answer:'There are no limitation about XSD uploaded into METAQRCODE, the only thing to pay attention is to use allwayis URL references.<br/>' +
                     		'The best way to understand this point is to see some examples. You can fine that here : <br/>' +
-                    		'<a href="https://github.com/JENIASoftware/metaqrcode/tree/master/metaqrcode-client/metaqrcode-client-catalog/src/main/resources">https://github.com/JENIASoftware/metaqrcode/tree/master/metaqrcode-client/metaqrcode-client-catalog/src/main/resources</a>'
+                    		'<a href="https://github.com/JENIASoftware/metaqrcode/tree/master/metaqrcode-client/metaqrcode-client-catalog/src/main/resources" target="_blank">https://github.com/JENIASoftware/metaqrcode/tree/master/metaqrcode-client/metaqrcode-client-catalog/src/main/resources</a>'
                 },
                 {
                     question:'How can i upload XML metadata and generate qrcode?',
-                    answer:'All services are provided as REST service. You can find all provided url here : <br/><a href="https://github.com/JENIASoftware/metaqrcode#user-content-7-rest-api-descriptors">https://github.com/JENIASoftware/metaqrcode#user-content-7-rest-api-descriptors</a>.<br/>'+
-                    		'You can find html/javascript sample code here : <br/><a href="https://github.com/JENIASoftware/metaqrcode/tree/master/metaqrcode-client/metaqrcode-client-js/src/main/webapp">https://github.com/JENIASoftware/metaqrcode/tree/master/metaqrcode-client/metaqrcode-client-js/src/main/webapp</a>.<br/>'+
-                    		'You can find java sample code here : <br/><a href="https://github.com/JENIASoftware/metaqrcode/tree/master/metaqrcode-client/metaqrcode-client-java">https://github.com/JENIASoftware/metaqrcode/tree/master/metaqrcode-client/metaqrcode-client-java</a>.<br/>'+
-                    		'DTO used by REST services are described as java code in this project : <br/><a href="https://github.com/JENIASoftware/metaqrcode/tree/master/metaqrcode-dto">https://github.com/JENIASoftware/metaqrcode/tree/master/metaqrcode-dto</a>'
+                    answer:'All services are provided as REST service. You can find all provided url here : <br/><a href="https://github.com/JENIASoftware/metaqrcode#user-content-7-rest-api-descriptors" target="_blank">https://github.com/JENIASoftware/metaqrcode#user-content-7-rest-api-descriptors</a>.<br/>'+
+                    		'You can find html/javascript sample code here : <br/><a href="https://github.com/JENIASoftware/metaqrcode/tree/master/metaqrcode-client/metaqrcode-client-js/src/main/webapp" target="_blank">https://github.com/JENIASoftware/metaqrcode/tree/master/metaqrcode-client/metaqrcode-client-js/src/main/webapp</a>.<br/>'+
+                    		'You can find java sample code here : <br/><a href="https://github.com/JENIASoftware/metaqrcode/tree/master/metaqrcode-client/metaqrcode-client-java" target="_blank">https://github.com/JENIASoftware/metaqrcode/tree/master/metaqrcode-client/metaqrcode-client-java</a>.<br/>'+
+                    		'DTO used by REST services are described as java code in this project : <br/><a href="https://github.com/JENIASoftware/metaqrcode/tree/master/metaqrcode-dto" target="_blank">https://github.com/JENIASoftware/metaqrcode/tree/master/metaqrcode-dto</a>'
                     		
                 },
                 {
