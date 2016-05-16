@@ -21,7 +21,10 @@ angular.module('metaqrcodeApp')
         }
 
         function navigate(url){
-            if(url.startsWith('http') || url.startsWith('https') || url.startsWith('mailto')){
+            if(startsWith(url,'http') || startsWith(url,'https')){
+            	window.open(url,'_blank');
+            }
+            else if(startsWith(url,'mailto')){
             	window.location.href =url;
             }
             else{
@@ -31,6 +34,10 @@ angular.module('metaqrcodeApp')
 
         function scrollBottom(){
         	$('html, body').scrollTop( $(document).height() );
+        }
+        
+        function startsWith(str, prefix){
+        	return (str.indexOf(prefix) === 0);
         }
     }
 })();
