@@ -47,7 +47,7 @@
         function ExistUser(email) {
             return $.ajax({
                 type: "POST",
-                url: app.SERVER+ '/api/rest/json/registration/exists',
+                url: app.SERVER+ '/api/rest/json/registration/enterprise/exists',
                 data: JSON.stringify({ email:email}),
                 cache: false,
                 dataType: "json",
@@ -63,7 +63,7 @@
             var request={email:email,registrationConfirmationCode:code};
             return $.ajax({
                 type: "POST",
-                url: app.SERVER+ '/api/rest/json/registration/confirm',
+                url: app.SERVER+ '/api/rest/json/registration/enterprise/confirm',
                 data: JSON.stringify(request),
                 cache: false,
                 dataType: "json",
@@ -78,7 +78,7 @@
         function Create(user) {
             return $.ajax({
                 type: "POST",
-                url: app.SERVER+ '/api/rest/json/registration/prepare',
+                url: app.SERVER+ '/api/rest/json/registration/enterprise/prepare',
                 data: JSON.stringify(user),
                 cache: false,
                 dataType: "json",
@@ -103,7 +103,7 @@
         	userUpdated.preferredLanguage = user.preferredLanguage;
         	return $.ajax({
                 type: "POST",
-                url: app.SERVER+ '/api/rest/json/registration/update',
+                url: app.SERVER+ '/api/rest/json/registration/enterprise/update',
                 data:  JSON.stringify(userUpdated),
                 cache: false,
                 dataType: "json",
@@ -121,7 +121,7 @@
             };
             return $.ajax({
                 type: "POST",
-                url: app.SERVER+ '/api/rest/json/registration/remove',
+                url: app.SERVER+ '/api/rest/json/registration/enterprise/remove',
                 data:  JSON.stringify(request),
                 cache: false,
                 dataType: "json",
@@ -136,7 +136,7 @@
         function GetUserProfile() {
             return $.ajax({
                 type: "POST",
-                url: app.SERVER+ '/api/rest/json/registration/read',
+                url: app.SERVER+ '/api/rest/json/registration/enterprise/read',
                 data: JSON.stringify(new Object),
                 cache: false,
                 dataType: "json",
