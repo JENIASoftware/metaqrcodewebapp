@@ -76,7 +76,7 @@
         }
         
         function voteCatalog(request) {
-            var voteUrl=app.SERVER+"/api/rest/json/catalog/vote";
+            var voteUrl=app.SERVER+"/api/rest/json/catalog/enterprise/vote";
             return $.ajax({
                 type: "POST",
                 url: voteUrl,
@@ -274,7 +274,7 @@
         		googleClientId:googleClientId,
         		clientId:clientId
             };
-            var googleLoginUrl=app.SERVER+"/api/rest/json/login/googleLogin";
+            var googleLoginUrl=app.SERVER+"/api/rest/json/login/enterprise/googleLogin";
             return $.ajax({
                 type: "POST",
                 url: googleLoginUrl,
