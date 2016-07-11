@@ -20,7 +20,7 @@
         function ValidateRegistrationCode(email,code){
             return $.ajax({
                 type: "POST",
-                url: app.SERVER+ '/api/rest/json/registration/confirm',
+                url: app.SERVER+ '/api/rest/json/registration/enterprise/confirm',
                 data:  JSON.stringify({ email: email, registrationConfirmationCode: code }),
                 cache: false,
                 dataType: "json",
@@ -37,7 +37,7 @@
 
             return $.ajax({
                 type: "POST",
-                url: app.SERVER+ '/api/rest/json/login/login',
+                url: app.SERVER+ '/api/rest/json/login/enterprise/login',
                 data:  JSON.stringify({ email: username, password: password }),
                 cache: false,
                 dataType: "json",
